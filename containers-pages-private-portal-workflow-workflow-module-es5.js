@@ -7111,997 +7111,6 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
   },
 
   /***/
-  "./node_modules/@angular/cdk/__ivy_ngcc__/fesm2015/text-field.js":
-  /*!***********************************************************************!*\
-    !*** ./node_modules/@angular/cdk/__ivy_ngcc__/fesm2015/text-field.js ***!
-    \***********************************************************************/
-
-  /*! exports provided: AutofillMonitor, CdkAutofill, CdkTextareaAutosize, TextFieldModule */
-
-  /***/
-  function node_modulesAngularCdk__ivy_ngcc__Fesm2015TextFieldJs(module, __webpack_exports__, __webpack_require__) {
-    "use strict";
-
-    __webpack_require__.r(__webpack_exports__);
-    /* harmony export (binding) */
-
-
-    __webpack_require__.d(__webpack_exports__, "AutofillMonitor", function () {
-      return AutofillMonitor;
-    });
-    /* harmony export (binding) */
-
-
-    __webpack_require__.d(__webpack_exports__, "CdkAutofill", function () {
-      return CdkAutofill;
-    });
-    /* harmony export (binding) */
-
-
-    __webpack_require__.d(__webpack_exports__, "CdkTextareaAutosize", function () {
-      return CdkTextareaAutosize;
-    });
-    /* harmony export (binding) */
-
-
-    __webpack_require__.d(__webpack_exports__, "TextFieldModule", function () {
-      return TextFieldModule;
-    });
-    /* harmony import */
-
-
-    var _angular_cdk_platform__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
-    /*! @angular/cdk/platform */
-    "./node_modules/@angular/cdk/__ivy_ngcc__/fesm2015/platform.js");
-    /* harmony import */
-
-
-    var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
-    /*! @angular/core */
-    "./node_modules/@angular/core/__ivy_ngcc__/fesm2015/core.js");
-    /* harmony import */
-
-
-    var _angular_cdk_coercion__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
-    /*! @angular/cdk/coercion */
-    "./node_modules/@angular/cdk/fesm2015/coercion.js");
-    /* harmony import */
-
-
-    var rxjs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
-    /*! rxjs */
-    "./node_modules/rxjs/_esm2015/index.js");
-    /* harmony import */
-
-
-    var rxjs_operators__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
-    /*! rxjs/operators */
-    "./node_modules/rxjs/_esm2015/operators/index.js");
-    /* harmony import */
-
-
-    var _angular_common__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
-    /*! @angular/common */
-    "./node_modules/@angular/common/__ivy_ngcc__/fesm2015/common.js");
-    /**
-     * @fileoverview added by tsickle
-     * Generated from: src/cdk/text-field/autofill.ts
-     * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
-     */
-
-    /**
-     * Options to pass to the animationstart listener.
-     * @type {?}
-     */
-
-
-    var listenerOptions = Object(_angular_cdk_platform__WEBPACK_IMPORTED_MODULE_0__["normalizePassiveListenerOptions"])({
-      passive: true
-    });
-    /**
-     * An injectable service that can be used to monitor the autofill state of an input.
-     * Based on the following blog post:
-     * https://medium.com/\@brunn/detecting-autofilled-fields-in-javascript-aed598d25da7
-     */
-
-    var AutofillMonitor =
-    /*#__PURE__*/
-    function () {
-      /**
-       * @param {?} _platform
-       * @param {?} _ngZone
-       */
-      function AutofillMonitor(_platform, _ngZone) {
-        _classCallCheck(this, AutofillMonitor);
-
-        this._platform = _platform;
-        this._ngZone = _ngZone;
-        this._monitoredElements = new Map();
-      }
-      /**
-       * @param {?} elementOrRef
-       * @return {?}
-       */
-
-
-      _createClass(AutofillMonitor, [{
-        key: "monitor",
-        value: function monitor(elementOrRef) {
-          var _this29 = this;
-
-          if (!this._platform.isBrowser) {
-            return rxjs__WEBPACK_IMPORTED_MODULE_3__["EMPTY"];
-          }
-          /** @type {?} */
-
-
-          var element = Object(_angular_cdk_coercion__WEBPACK_IMPORTED_MODULE_2__["coerceElement"])(elementOrRef);
-          /** @type {?} */
-
-          var info = this._monitoredElements.get(element);
-
-          if (info) {
-            return info.subject.asObservable();
-          }
-          /** @type {?} */
-
-
-          var result = new rxjs__WEBPACK_IMPORTED_MODULE_3__["Subject"]();
-          /** @type {?} */
-
-          var cssClass = 'cdk-text-field-autofilled';
-          /** @type {?} */
-
-          var listener =
-          /** @type {?} */
-
-          /**
-          * @param {?} event
-          * @return {?}
-          */
-          function listener(event) {
-            // Animation events fire on initial element render, we check for the presence of the autofill
-            // CSS class to make sure this is a real change in state, not just the initial render before
-            // we fire off events.
-            if (event.animationName === 'cdk-text-field-autofill-start' && !element.classList.contains(cssClass)) {
-              element.classList.add(cssClass);
-
-              _this29._ngZone.run(
-              /**
-              * @return {?}
-              */
-              function () {
-                return result.next({
-                  target:
-                  /** @type {?} */
-                  event.target,
-                  isAutofilled: true
-                });
-              });
-            } else if (event.animationName === 'cdk-text-field-autofill-end' && element.classList.contains(cssClass)) {
-              element.classList.remove(cssClass);
-
-              _this29._ngZone.run(
-              /**
-              * @return {?}
-              */
-              function () {
-                return result.next({
-                  target:
-                  /** @type {?} */
-                  event.target,
-                  isAutofilled: false
-                });
-              });
-            }
-          };
-
-          this._ngZone.runOutsideAngular(
-          /**
-          * @return {?}
-          */
-          function () {
-            element.addEventListener('animationstart', listener, listenerOptions);
-            element.classList.add('cdk-text-field-autofill-monitored');
-          });
-
-          this._monitoredElements.set(element, {
-            subject: result,
-            unlisten:
-            /**
-            * @return {?}
-            */
-            function unlisten() {
-              element.removeEventListener('animationstart', listener, listenerOptions);
-            }
-          });
-
-          return result.asObservable();
-        }
-        /**
-         * @param {?} elementOrRef
-         * @return {?}
-         */
-
-      }, {
-        key: "stopMonitoring",
-        value: function stopMonitoring(elementOrRef) {
-          /** @type {?} */
-          var element = Object(_angular_cdk_coercion__WEBPACK_IMPORTED_MODULE_2__["coerceElement"])(elementOrRef);
-          /** @type {?} */
-
-          var info = this._monitoredElements.get(element);
-
-          if (info) {
-            info.unlisten();
-            info.subject.complete();
-            element.classList.remove('cdk-text-field-autofill-monitored');
-            element.classList.remove('cdk-text-field-autofilled');
-
-            this._monitoredElements["delete"](element);
-          }
-        }
-        /**
-         * @return {?}
-         */
-
-      }, {
-        key: "ngOnDestroy",
-        value: function ngOnDestroy() {
-          var _this30 = this;
-
-          this._monitoredElements.forEach(
-          /**
-          * @param {?} _info
-          * @param {?} element
-          * @return {?}
-          */
-          function (_info, element) {
-            return _this30.stopMonitoring(element);
-          });
-        }
-      }]);
-
-      return AutofillMonitor;
-    }();
-
-    AutofillMonitor.ɵfac = function AutofillMonitor_Factory(t) {
-      return new (t || AutofillMonitor)(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵinject"](_angular_cdk_platform__WEBPACK_IMPORTED_MODULE_0__["Platform"]), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵinject"](_angular_core__WEBPACK_IMPORTED_MODULE_1__["NgZone"]));
-    };
-    /** @nocollapse */
-
-
-    AutofillMonitor.ctorParameters = function () {
-      return [{
-        type: _angular_cdk_platform__WEBPACK_IMPORTED_MODULE_0__["Platform"]
-      }, {
-        type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["NgZone"]
-      }];
-    };
-    /** @nocollapse */
-
-
-    AutofillMonitor.ɵprov = Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdefineInjectable"])({
-      factory: function AutofillMonitor_Factory() {
-        return new AutofillMonitor(Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵinject"])(_angular_cdk_platform__WEBPACK_IMPORTED_MODULE_0__["Platform"]), Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵinject"])(_angular_core__WEBPACK_IMPORTED_MODULE_1__["NgZone"]));
-      },
-      token: AutofillMonitor,
-      providedIn: "root"
-    });
-    /*@__PURE__*/
-
-    (function () {
-      _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵsetClassMetadata"](AutofillMonitor, [{
-        type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"],
-        args: [{
-          providedIn: 'root'
-        }]
-      }], function () {
-        return [{
-          type: _angular_cdk_platform__WEBPACK_IMPORTED_MODULE_0__["Platform"]
-        }, {
-          type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["NgZone"]
-        }];
-      }, null);
-    })();
-
-    if (false) {}
-    /**
-     * A directive that can be used to monitor the autofill state of an input.
-     */
-
-
-    var CdkAutofill =
-    /*#__PURE__*/
-    function () {
-      /**
-       * @param {?} _elementRef
-       * @param {?} _autofillMonitor
-       */
-      function CdkAutofill(_elementRef, _autofillMonitor) {
-        _classCallCheck(this, CdkAutofill);
-
-        this._elementRef = _elementRef;
-        this._autofillMonitor = _autofillMonitor;
-        /**
-         * Emits when the autofill state of the element changes.
-         */
-
-        this.cdkAutofill = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["EventEmitter"]();
-      }
-      /**
-       * @return {?}
-       */
-
-
-      _createClass(CdkAutofill, [{
-        key: "ngOnInit",
-        value: function ngOnInit() {
-          var _this31 = this;
-
-          this._autofillMonitor.monitor(this._elementRef).subscribe(
-          /**
-          * @param {?} event
-          * @return {?}
-          */
-          function (event) {
-            return _this31.cdkAutofill.emit(event);
-          });
-        }
-        /**
-         * @return {?}
-         */
-
-      }, {
-        key: "ngOnDestroy",
-        value: function ngOnDestroy() {
-          this._autofillMonitor.stopMonitoring(this._elementRef);
-        }
-      }]);
-
-      return CdkAutofill;
-    }();
-
-    CdkAutofill.ɵfac = function CdkAutofill_Factory(t) {
-      return new (t || CdkAutofill)(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdirectiveInject"](_angular_core__WEBPACK_IMPORTED_MODULE_1__["ElementRef"]), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdirectiveInject"](AutofillMonitor));
-    };
-
-    CdkAutofill.ɵdir = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdefineDirective"]({
-      type: CdkAutofill,
-      selectors: [["", "cdkAutofill", ""]],
-      outputs: {
-        cdkAutofill: "cdkAutofill"
-      }
-    });
-    /** @nocollapse */
-
-    CdkAutofill.ctorParameters = function () {
-      return [{
-        type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ElementRef"]
-      }, {
-        type: AutofillMonitor
-      }];
-    };
-
-    CdkAutofill.propDecorators = {
-      cdkAutofill: [{
-        type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Output"]
-      }]
-    };
-    /*@__PURE__*/
-
-    (function () {
-      _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵsetClassMetadata"](CdkAutofill, [{
-        type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Directive"],
-        args: [{
-          selector: '[cdkAutofill]'
-        }]
-      }], function () {
-        return [{
-          type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ElementRef"]
-        }, {
-          type: AutofillMonitor
-        }];
-      }, {
-        cdkAutofill: [{
-          type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Output"]
-        }]
-      });
-    })();
-
-    if (false) {}
-    /**
-     * @fileoverview added by tsickle
-     * Generated from: src/cdk/text-field/autosize.ts
-     * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
-     */
-
-    /**
-     * Directive to automatically resize a textarea to fit its content.
-     */
-
-
-    var CdkTextareaAutosize =
-    /*#__PURE__*/
-    function () {
-      /**
-       * @param {?} _elementRef
-       * @param {?} _platform
-       * @param {?} _ngZone
-       * @param {?=} document
-       */
-      function CdkTextareaAutosize(_elementRef, _platform, _ngZone,
-      /** @breaking-change 11.0.0 make document required */
-      document) {
-        _classCallCheck(this, CdkTextareaAutosize);
-
-        this._elementRef = _elementRef;
-        this._platform = _platform;
-        this._ngZone = _ngZone;
-        this._destroyed = new rxjs__WEBPACK_IMPORTED_MODULE_3__["Subject"]();
-        this._enabled = true;
-        /**
-         * Value of minRows as of last resize. If the minRows has decreased, the
-         * height of the textarea needs to be recomputed to reflect the new minimum. The maxHeight
-         * does not have the same problem because it does not affect the textarea's scrollHeight.
-         */
-
-        this._previousMinRows = -1;
-        this._document = document;
-        this._textareaElement =
-        /** @type {?} */
-        this._elementRef.nativeElement;
-        this._measuringClass = _platform.FIREFOX ? 'cdk-textarea-autosize-measuring-firefox' : 'cdk-textarea-autosize-measuring';
-      }
-      /**
-       * Minimum amount of rows in the textarea.
-       * @return {?}
-       */
-
-
-      _createClass(CdkTextareaAutosize, [{
-        key: "_setMinHeight",
-
-        /**
-         * Sets the minimum height of the textarea as determined by minRows.
-         * @return {?}
-         */
-        value: function _setMinHeight() {
-          /** @type {?} */
-          var minHeight = this.minRows && this._cachedLineHeight ? "".concat(this.minRows * this._cachedLineHeight, "px") : null;
-
-          if (minHeight) {
-            this._textareaElement.style.minHeight = minHeight;
-          }
-        }
-        /**
-         * Sets the maximum height of the textarea as determined by maxRows.
-         * @return {?}
-         */
-
-      }, {
-        key: "_setMaxHeight",
-        value: function _setMaxHeight() {
-          /** @type {?} */
-          var maxHeight = this.maxRows && this._cachedLineHeight ? "".concat(this.maxRows * this._cachedLineHeight, "px") : null;
-
-          if (maxHeight) {
-            this._textareaElement.style.maxHeight = maxHeight;
-          }
-        }
-        /**
-         * @return {?}
-         */
-
-      }, {
-        key: "ngAfterViewInit",
-        value: function ngAfterViewInit() {
-          var _this32 = this;
-
-          if (this._platform.isBrowser) {
-            // Remember the height which we started with in case autosizing is disabled
-            this._initialHeight = this._textareaElement.style.height;
-            this.resizeToFitContent();
-
-            this._ngZone.runOutsideAngular(
-            /**
-            * @return {?}
-            */
-            function () {
-              /** @type {?} */
-              var window = _this32._getWindow();
-
-              Object(rxjs__WEBPACK_IMPORTED_MODULE_3__["fromEvent"])(window, 'resize').pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["auditTime"])(16), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["takeUntil"])(_this32._destroyed)).subscribe(
-              /**
-              * @return {?}
-              */
-              function () {
-                return _this32.resizeToFitContent(true);
-              });
-            });
-          }
-        }
-        /**
-         * @return {?}
-         */
-
-      }, {
-        key: "ngOnDestroy",
-        value: function ngOnDestroy() {
-          this._destroyed.next();
-
-          this._destroyed.complete();
-        }
-        /**
-         * Cache the height of a single-row textarea if it has not already been cached.
-         *
-         * We need to know how large a single "row" of a textarea is in order to apply minRows and
-         * maxRows. For the initial version, we will assume that the height of a single line in the
-         * textarea does not ever change.
-         * @private
-         * @return {?}
-         */
-
-      }, {
-        key: "_cacheTextareaLineHeight",
-        value: function _cacheTextareaLineHeight() {
-          if (this._cachedLineHeight) {
-            return;
-          } // Use a clone element because we have to override some styles.
-
-          /** @type {?} */
-
-
-          var textareaClone =
-          /** @type {?} */
-          this._textareaElement.cloneNode(false);
-
-          textareaClone.rows = 1; // Use `position: absolute` so that this doesn't cause a browser layout and use
-          // `visibility: hidden` so that nothing is rendered. Clear any other styles that
-          // would affect the height.
-
-          textareaClone.style.position = 'absolute';
-          textareaClone.style.visibility = 'hidden';
-          textareaClone.style.border = 'none';
-          textareaClone.style.padding = '0';
-          textareaClone.style.height = '';
-          textareaClone.style.minHeight = '';
-          textareaClone.style.maxHeight = ''; // In Firefox it happens that textarea elements are always bigger than the specified amount
-          // of rows. This is because Firefox tries to add extra space for the horizontal scrollbar.
-          // As a workaround that removes the extra space for the scrollbar, we can just set overflow
-          // to hidden. This ensures that there is no invalid calculation of the line height.
-          // See Firefox bug report: https://bugzilla.mozilla.org/show_bug.cgi?id=33654
-
-          textareaClone.style.overflow = 'hidden';
-
-          /** @type {?} */
-          this._textareaElement.parentNode.appendChild(textareaClone);
-
-          this._cachedLineHeight = textareaClone.clientHeight;
-
-          /** @type {?} */
-          this._textareaElement.parentNode.removeChild(textareaClone); // Min and max heights have to be re-calculated if the cached line height changes
-
-
-          this._setMinHeight();
-
-          this._setMaxHeight();
-        }
-        /**
-         * @return {?}
-         */
-
-      }, {
-        key: "ngDoCheck",
-        value: function ngDoCheck() {
-          if (this._platform.isBrowser) {
-            this.resizeToFitContent();
-          }
-        }
-        /**
-         * Resize the textarea to fit its content.
-         * @param {?=} force Whether to force a height recalculation. By default the height will be
-         *    recalculated only if the value changed since the last call.
-         * @return {?}
-         */
-
-      }, {
-        key: "resizeToFitContent",
-        value: function resizeToFitContent() {
-          var _this33 = this;
-
-          var force = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
-
-          // If autosizing is disabled, just skip everything else
-          if (!this._enabled) {
-            return;
-          }
-
-          this._cacheTextareaLineHeight(); // If we haven't determined the line-height yet, we know we're still hidden and there's no point
-          // in checking the height of the textarea.
-
-
-          if (!this._cachedLineHeight) {
-            return;
-          }
-          /** @type {?} */
-
-
-          var textarea =
-          /** @type {?} */
-          this._elementRef.nativeElement;
-          /** @type {?} */
-
-          var value = textarea.value; // Only resize if the value or minRows have changed since these calculations can be expensive.
-
-          if (!force && this._minRows === this._previousMinRows && value === this._previousValue) {
-            return;
-          }
-          /** @type {?} */
-
-
-          var placeholderText = textarea.placeholder; // Reset the textarea height to auto in order to shrink back to its default size.
-          // Also temporarily force overflow:hidden, so scroll bars do not interfere with calculations.
-          // Long placeholders that are wider than the textarea width may lead to a bigger scrollHeight
-          // value. To ensure that the scrollHeight is not bigger than the content, the placeholders
-          // need to be removed temporarily.
-
-          textarea.classList.add(this._measuringClass);
-          textarea.placeholder = ''; // The measuring class includes a 2px padding to workaround an issue with Chrome,
-          // so we account for that extra space here by subtracting 4 (2px top + 2px bottom).
-
-          /** @type {?} */
-
-          var height = textarea.scrollHeight - 4; // Use the scrollHeight to know how large the textarea *would* be if fit its entire value.
-
-          textarea.style.height = "".concat(height, "px");
-          textarea.classList.remove(this._measuringClass);
-          textarea.placeholder = placeholderText;
-
-          this._ngZone.runOutsideAngular(
-          /**
-          * @return {?}
-          */
-          function () {
-            if (typeof requestAnimationFrame !== 'undefined') {
-              requestAnimationFrame(
-              /**
-              * @return {?}
-              */
-              function () {
-                return _this33._scrollToCaretPosition(textarea);
-              });
-            } else {
-              setTimeout(
-              /**
-              * @return {?}
-              */
-              function () {
-                return _this33._scrollToCaretPosition(textarea);
-              });
-            }
-          });
-
-          this._previousValue = value;
-          this._previousMinRows = this._minRows;
-        }
-        /**
-         * Resets the textarea to its original size
-         * @return {?}
-         */
-
-      }, {
-        key: "reset",
-        value: function reset() {
-          // Do not try to change the textarea, if the initialHeight has not been determined yet
-          // This might potentially remove styles when reset() is called before ngAfterViewInit
-          if (this._initialHeight !== undefined) {
-            this._textareaElement.style.height = this._initialHeight;
-          }
-        } // In Ivy the `host` metadata will be merged, whereas in ViewEngine it is overridden. In order
-        // to avoid double event listeners, we need to use `HostListener`. Once Ivy is the default, we
-        // can move this back into `host`.
-        // tslint:disable:no-host-decorator-in-concrete
-
-        /**
-         * @return {?}
-         */
-
-      }, {
-        key: "_noopInputHandler",
-        value: function _noopInputHandler() {} // no-op handler that ensures we're running change detection on input events.
-
-        /**
-         * Access injected document if available or fallback to global document reference
-         * @private
-         * @return {?}
-         */
-
-      }, {
-        key: "_getDocument",
-        value: function _getDocument() {
-          return this._document || document;
-        }
-        /**
-         * Use defaultView of injected document if available or fallback to global window reference
-         * @private
-         * @return {?}
-         */
-
-      }, {
-        key: "_getWindow",
-        value: function _getWindow() {
-          /** @type {?} */
-          var doc = this._getDocument();
-
-          return doc.defaultView || window;
-        }
-        /**
-         * Scrolls a textarea to the caret position. On Firefox resizing the textarea will
-         * prevent it from scrolling to the caret position. We need to re-set the selection
-         * in order for it to scroll to the proper position.
-         * @private
-         * @param {?} textarea
-         * @return {?}
-         */
-
-      }, {
-        key: "_scrollToCaretPosition",
-        value: function _scrollToCaretPosition(textarea) {
-          var selectionStart = textarea.selectionStart,
-              selectionEnd = textarea.selectionEnd;
-          /** @type {?} */
-
-          var document = this._getDocument(); // IE will throw an "Unspecified error" if we try to set the selection range after the
-          // element has been removed from the DOM. Assert that the directive hasn't been destroyed
-          // between the time we requested the animation frame and when it was executed.
-          // Also note that we have to assert that the textarea is focused before we set the
-          // selection range. Setting the selection range on a non-focused textarea will cause
-          // it to receive focus on IE and Edge.
-
-
-          if (!this._destroyed.isStopped && document.activeElement === textarea) {
-            textarea.setSelectionRange(selectionStart, selectionEnd);
-          }
-        }
-      }, {
-        key: "minRows",
-        get: function get() {
-          return this._minRows;
-        }
-        /**
-         * @param {?} value
-         * @return {?}
-         */
-        ,
-        set: function set(value) {
-          this._minRows = Object(_angular_cdk_coercion__WEBPACK_IMPORTED_MODULE_2__["coerceNumberProperty"])(value);
-
-          this._setMinHeight();
-        }
-        /**
-         * Maximum amount of rows in the textarea.
-         * @return {?}
-         */
-
-      }, {
-        key: "maxRows",
-        get: function get() {
-          return this._maxRows;
-        }
-        /**
-         * @param {?} value
-         * @return {?}
-         */
-        ,
-        set: function set(value) {
-          this._maxRows = Object(_angular_cdk_coercion__WEBPACK_IMPORTED_MODULE_2__["coerceNumberProperty"])(value);
-
-          this._setMaxHeight();
-        }
-        /**
-         * Whether autosizing is enabled or not
-         * @return {?}
-         */
-
-      }, {
-        key: "enabled",
-        get: function get() {
-          return this._enabled;
-        }
-        /**
-         * @param {?} value
-         * @return {?}
-         */
-        ,
-        set: function set(value) {
-          value = Object(_angular_cdk_coercion__WEBPACK_IMPORTED_MODULE_2__["coerceBooleanProperty"])(value); // Only act if the actual value changed. This specifically helps to not run
-          // resizeToFitContent too early (i.e. before ngAfterViewInit)
-
-          if (this._enabled !== value) {
-            (this._enabled = value) ? this.resizeToFitContent(true) : this.reset();
-          }
-        }
-      }]);
-
-      return CdkTextareaAutosize;
-    }();
-
-    CdkTextareaAutosize.ɵfac = function CdkTextareaAutosize_Factory(t) {
-      return new (t || CdkTextareaAutosize)(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdirectiveInject"](_angular_core__WEBPACK_IMPORTED_MODULE_1__["ElementRef"]), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdirectiveInject"](_angular_cdk_platform__WEBPACK_IMPORTED_MODULE_0__["Platform"]), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdirectiveInject"](_angular_core__WEBPACK_IMPORTED_MODULE_1__["NgZone"]), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdirectiveInject"](_angular_common__WEBPACK_IMPORTED_MODULE_5__["DOCUMENT"], 8));
-    };
-
-    CdkTextareaAutosize.ɵdir = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdefineDirective"]({
-      type: CdkTextareaAutosize,
-      selectors: [["textarea", "cdkTextareaAutosize", ""]],
-      hostAttrs: ["rows", "1", 1, "cdk-textarea-autosize"],
-      hostBindings: function CdkTextareaAutosize_HostBindings(rf, ctx) {
-        if (rf & 1) {
-          _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("input", function CdkTextareaAutosize_input_HostBindingHandler() {
-            return ctx._noopInputHandler();
-          });
-        }
-      },
-      inputs: {
-        minRows: ["cdkAutosizeMinRows", "minRows"],
-        maxRows: ["cdkAutosizeMaxRows", "maxRows"],
-        enabled: ["cdkTextareaAutosize", "enabled"]
-      },
-      exportAs: ["cdkTextareaAutosize"]
-    });
-    /** @nocollapse */
-
-    CdkTextareaAutosize.ctorParameters = function () {
-      return [{
-        type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ElementRef"]
-      }, {
-        type: _angular_cdk_platform__WEBPACK_IMPORTED_MODULE_0__["Platform"]
-      }, {
-        type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["NgZone"]
-      }, {
-        type: undefined,
-        decorators: [{
-          type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Optional"]
-        }, {
-          type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Inject"],
-          args: [_angular_common__WEBPACK_IMPORTED_MODULE_5__["DOCUMENT"]]
-        }]
-      }];
-    };
-
-    CdkTextareaAutosize.propDecorators = {
-      minRows: [{
-        type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"],
-        args: ['cdkAutosizeMinRows']
-      }],
-      maxRows: [{
-        type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"],
-        args: ['cdkAutosizeMaxRows']
-      }],
-      enabled: [{
-        type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"],
-        args: ['cdkTextareaAutosize']
-      }],
-      _noopInputHandler: [{
-        type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["HostListener"],
-        args: ['input']
-      }]
-    };
-    /*@__PURE__*/
-
-    (function () {
-      _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵsetClassMetadata"](CdkTextareaAutosize, [{
-        type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Directive"],
-        args: [{
-          selector: 'textarea[cdkTextareaAutosize]',
-          exportAs: 'cdkTextareaAutosize',
-          host: {
-            'class': 'cdk-textarea-autosize',
-            // Textarea elements that have the directive applied should have a single row by default.
-            // Browsers normally show two rows by default and therefore this limits the minRows binding.
-            'rows': '1'
-          }
-        }]
-      }], function () {
-        return [{
-          type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ElementRef"]
-        }, {
-          type: _angular_cdk_platform__WEBPACK_IMPORTED_MODULE_0__["Platform"]
-        }, {
-          type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["NgZone"]
-        }, {
-          type: undefined,
-          decorators: [{
-            type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Optional"]
-          }, {
-            type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Inject"],
-            args: [_angular_common__WEBPACK_IMPORTED_MODULE_5__["DOCUMENT"]]
-          }]
-        }];
-      }, {
-        minRows: [{
-          type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"],
-          args: ['cdkAutosizeMinRows']
-        }],
-        maxRows: [{
-          type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"],
-          args: ['cdkAutosizeMaxRows']
-        }],
-        enabled: [{
-          type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"],
-          args: ['cdkTextareaAutosize']
-        }],
-        _noopInputHandler: [{
-          type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["HostListener"],
-          args: ['input']
-        }]
-      });
-    })();
-
-    if (false) {}
-    /**
-     * @fileoverview added by tsickle
-     * Generated from: src/cdk/text-field/text-field-module.ts
-     * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
-     */
-
-
-    var TextFieldModule = function TextFieldModule() {
-      _classCallCheck(this, TextFieldModule);
-    };
-
-    TextFieldModule.ɵmod = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdefineNgModule"]({
-      type: TextFieldModule
-    });
-    TextFieldModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdefineInjector"]({
-      factory: function TextFieldModule_Factory(t) {
-        return new (t || TextFieldModule)();
-      },
-      imports: [[_angular_cdk_platform__WEBPACK_IMPORTED_MODULE_0__["PlatformModule"]]]
-    });
-
-    (function () {
-      (typeof ngJitMode === "undefined" || ngJitMode) && _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵsetNgModuleScope"](TextFieldModule, {
-        declarations: function declarations() {
-          return [CdkAutofill, CdkTextareaAutosize];
-        },
-        imports: function imports() {
-          return [_angular_cdk_platform__WEBPACK_IMPORTED_MODULE_0__["PlatformModule"]];
-        },
-        exports: function exports() {
-          return [CdkAutofill, CdkTextareaAutosize];
-        }
-      });
-    })();
-    /*@__PURE__*/
-
-
-    (function () {
-      _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵsetClassMetadata"](TextFieldModule, [{
-        type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"],
-        args: [{
-          declarations: [CdkAutofill, CdkTextareaAutosize],
-          imports: [_angular_cdk_platform__WEBPACK_IMPORTED_MODULE_0__["PlatformModule"]],
-          exports: [CdkAutofill, CdkTextareaAutosize]
-        }]
-      }], null, null);
-    })();
-    /**
-     * @fileoverview added by tsickle
-     * Generated from: src/cdk/text-field/public-api.ts
-     * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
-     */
-
-    /**
-     * Generated bundle index. Do not edit.
-     */
-    //# sourceMappingURL=text-field.js.map
-
-    /***/
-
-  },
-
-  /***/
   "./node_modules/@angular/material/__ivy_ngcc__/fesm2015/dialog.js":
   /*!************************************************************************!*\
     !*** ./node_modules/@angular/material/__ivy_ngcc__/fesm2015/dialog.js ***!
@@ -8466,30 +7475,30 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
        * @param {?} _config
        */
       function MatDialogContainer(_elementRef, _focusTrapFactory, _changeDetectorRef, _document, _config) {
-        var _this34;
+        var _this29;
 
         _classCallCheck(this, MatDialogContainer);
 
-        _this34 = _super.call(this);
-        _this34._elementRef = _elementRef;
-        _this34._focusTrapFactory = _focusTrapFactory;
-        _this34._changeDetectorRef = _changeDetectorRef;
-        _this34._config = _config;
+        _this29 = _super.call(this);
+        _this29._elementRef = _elementRef;
+        _this29._focusTrapFactory = _focusTrapFactory;
+        _this29._changeDetectorRef = _changeDetectorRef;
+        _this29._config = _config;
         /**
          * Element that was focused before the dialog was opened. Save this to restore upon close.
          */
 
-        _this34._elementFocusedBeforeDialogWasOpened = null;
+        _this29._elementFocusedBeforeDialogWasOpened = null;
         /**
          * State of the dialog animation.
          */
 
-        _this34._state = 'enter';
+        _this29._state = 'enter';
         /**
          * Emits when an animation state changes.
          */
 
-        _this34._animationStateChanged = new _angular_core__WEBPACK_IMPORTED_MODULE_2__["EventEmitter"]();
+        _this29._animationStateChanged = new _angular_core__WEBPACK_IMPORTED_MODULE_2__["EventEmitter"]();
         /**
          * Attaches a DOM portal to the dialog container.
          * @param portal Portal to be attached.
@@ -8497,24 +7506,24 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
          * \@breaking-change 10.0.0
          */
 
-        _this34.attachDomPortal =
+        _this29.attachDomPortal =
         /**
         * @param {?} portal
         * @return {?}
         */
         function (portal) {
-          if (_this34._portalOutlet.hasAttached()) {
+          if (_this29._portalOutlet.hasAttached()) {
             throwMatDialogContentAlreadyAttachedError();
           }
 
-          _this34._setupFocusTrap();
+          _this29._setupFocusTrap();
 
-          return _this34._portalOutlet.attachDomPortal(portal);
+          return _this29._portalOutlet.attachDomPortal(portal);
         };
 
-        _this34._ariaLabelledBy = _config.ariaLabelledBy || null;
-        _this34._document = _document;
-        return _this34;
+        _this29._ariaLabelledBy = _config.ariaLabelledBy || null;
+        _this29._document = _document;
+        return _this29;
       }
       /**
        * Attach a ComponentPortal as content to this dialog container.
@@ -8634,7 +7643,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "_setupFocusTrap",
         value: function _setupFocusTrap() {
-          var _this35 = this;
+          var _this30 = this;
 
           if (!this._focusTrap) {
             this._focusTrap = this._focusTrapFactory.create(this._elementRef.nativeElement);
@@ -8654,7 +7663,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
               * @return {?}
               */
               function () {
-                return _this35._elementRef.nativeElement.focus();
+                return _this30._elementRef.nativeElement.focus();
               });
             }
           }
@@ -8892,7 +7901,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
        * @param {?=} id
        */
       function MatDialogRef(_overlayRef, _containerInstance) {
-        var _this36 = this;
+        var _this31 = this;
 
         var id = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "mat-dialog-".concat(uniqueId++);
 
@@ -8943,9 +7952,9 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
         * @return {?}
         */
         function () {
-          _this36._afterOpened.next();
+          _this31._afterOpened.next();
 
-          _this36._afterOpened.complete();
+          _this31._afterOpened.complete();
         }); // Dispose overlay when closing animation is complete
 
 
@@ -8961,9 +7970,9 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
         * @return {?}
         */
         function () {
-          clearTimeout(_this36._closeFallbackTimeout);
+          clearTimeout(_this31._closeFallbackTimeout);
 
-          _this36._finishDialogClose();
+          _this31._finishDialogClose();
         });
 
         _overlayRef.detachments().subscribe(
@@ -8971,19 +7980,19 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
         * @return {?}
         */
         function () {
-          _this36._beforeClosed.next(_this36._result);
+          _this31._beforeClosed.next(_this31._result);
 
-          _this36._beforeClosed.complete();
+          _this31._beforeClosed.complete();
 
-          _this36._afterClosed.next(_this36._result);
+          _this31._afterClosed.next(_this31._result);
 
-          _this36._afterClosed.complete();
+          _this31._afterClosed.complete();
 
-          _this36.componentInstance =
+          _this31.componentInstance =
           /** @type {?} */
           null;
 
-          _this36._overlayRef.dispose();
+          _this31._overlayRef.dispose();
         });
 
         _overlayRef.keydownEvents().pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_7__["filter"])(
@@ -8992,7 +8001,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
         * @return {?}
         */
         function (event) {
-          return event.keyCode === _angular_cdk_keycodes__WEBPACK_IMPORTED_MODULE_10__["ESCAPE"] && !_this36.disableClose && !Object(_angular_cdk_keycodes__WEBPACK_IMPORTED_MODULE_10__["hasModifierKey"])(event);
+          return event.keyCode === _angular_cdk_keycodes__WEBPACK_IMPORTED_MODULE_10__["ESCAPE"] && !_this31.disableClose && !Object(_angular_cdk_keycodes__WEBPACK_IMPORTED_MODULE_10__["hasModifierKey"])(event);
         })).subscribe(
         /**
         * @param {?} event
@@ -9001,7 +8010,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
         function (event) {
           event.preventDefault();
 
-          _this36.close();
+          _this31.close();
         });
 
         _overlayRef.backdropClick().subscribe(
@@ -9009,10 +8018,10 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
         * @return {?}
         */
         function () {
-          if (_this36.disableClose) {
-            _this36._containerInstance._recaptureFocus();
+          if (_this31.disableClose) {
+            _this31._containerInstance._recaptureFocus();
           } else {
-            _this36.close();
+            _this31.close();
           }
         });
       }
@@ -9026,7 +8035,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       _createClass(MatDialogRef, [{
         key: "close",
         value: function close(dialogResult) {
-          var _this37 = this;
+          var _this32 = this;
 
           this._result = dialogResult; // Transition the backdrop in parallel to the dialog.
 
@@ -9043,23 +8052,23 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           * @return {?}
           */
           function (event) {
-            _this37._beforeClosed.next(dialogResult);
+            _this32._beforeClosed.next(dialogResult);
 
-            _this37._beforeClosed.complete();
+            _this32._beforeClosed.complete();
 
-            _this37._overlayRef.detachBackdrop(); // The logic that disposes of the overlay depends on the exit animation completing, however
+            _this32._overlayRef.detachBackdrop(); // The logic that disposes of the overlay depends on the exit animation completing, however
             // it isn't guaranteed if the parent view is destroyed while it's running. Add a fallback
             // timeout which will clean everything up if the animation hasn't fired within the specified
             // amount of time plus 100ms. We don't need to run this outside the NgZone, because for the
             // vast majority of cases the timeout will have been cleared before it has the chance to fire.
 
 
-            _this37._closeFallbackTimeout = setTimeout(
+            _this32._closeFallbackTimeout = setTimeout(
             /**
             * @return {?}
             */
             function () {
-              return _this37._finishDialogClose();
+              return _this32._finishDialogClose();
             }, event.totalTime + 100);
           });
 
@@ -9356,7 +8365,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
        * @breaking-change 10.0.0
        */
       _location, _defaultOptions, scrollStrategy, _parentDialog, _overlayContainer) {
-        var _this38 = this;
+        var _this33 = this;
 
         _classCallCheck(this, MatDialog);
 
@@ -9382,7 +8391,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
         * @return {?}
         */
         function () {
-          return _this38.openDialogs.length ? _this38._afterAllClosed : _this38._afterAllClosed.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_7__["startWith"])(undefined));
+          return _this33.openDialogs.length ? _this33._afterAllClosed : _this33._afterAllClosed.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_7__["startWith"])(undefined));
         });
         this._scrollStrategy = scrollStrategy;
       }
@@ -9404,7 +8413,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
          * @return {?} Reference to the newly-opened dialog.
          */
         value: function open(componentOrTemplateRef, config) {
-          var _this39 = this;
+          var _this34 = this;
 
           config = _applyConfigDefaults(config, this._defaultOptions || new MatDialogConfig());
 
@@ -9435,7 +8444,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           * @return {?}
           */
           function () {
-            return _this39._removeOpenDialog(dialogRef);
+            return _this34._removeOpenDialog(dialogRef);
           });
           this.afterOpened.next(dialogRef);
           return dialogRef;
@@ -10079,7 +9088,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       _createClass(MatDialogTitle, [{
         key: "ngOnInit",
         value: function ngOnInit() {
-          var _this40 = this;
+          var _this35 = this;
 
           if (!this._dialogRef) {
             this._dialogRef =
@@ -10094,10 +9103,10 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
             */
             function () {
               /** @type {?} */
-              var container = _this40._dialogRef._containerInstance;
+              var container = _this35._dialogRef._containerInstance;
 
               if (container && !container._ariaLabelledBy) {
-                container._ariaLabelledBy = _this40.id;
+                container._ariaLabelledBy = _this35.id;
               }
             });
           }
@@ -10334,1147 +9343,291 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
   },
 
   /***/
-  "./node_modules/@angular/material/__ivy_ngcc__/fesm2015/input.js":
-  /*!***********************************************************************!*\
-    !*** ./node_modules/@angular/material/__ivy_ngcc__/fesm2015/input.js ***!
-    \***********************************************************************/
+  "./src/app/components/select/select.component.ts":
+  /*!*******************************************************!*\
+    !*** ./src/app/components/select/select.component.ts ***!
+    \*******************************************************/
 
-  /*! exports provided: MAT_INPUT_VALUE_ACCESSOR, MatInput, MatInputModule, MatTextareaAutosize, getMatInputUnsupportedTypeError */
+  /*! exports provided: SelectComponent */
 
   /***/
-  function node_modulesAngularMaterial__ivy_ngcc__Fesm2015InputJs(module, __webpack_exports__, __webpack_require__) {
+  function srcAppComponentsSelectSelectComponentTs(module, __webpack_exports__, __webpack_require__) {
     "use strict";
 
     __webpack_require__.r(__webpack_exports__);
     /* harmony export (binding) */
 
 
-    __webpack_require__.d(__webpack_exports__, "MAT_INPUT_VALUE_ACCESSOR", function () {
-      return MAT_INPUT_VALUE_ACCESSOR;
-    });
-    /* harmony export (binding) */
-
-
-    __webpack_require__.d(__webpack_exports__, "MatInput", function () {
-      return MatInput;
-    });
-    /* harmony export (binding) */
-
-
-    __webpack_require__.d(__webpack_exports__, "MatInputModule", function () {
-      return MatInputModule;
-    });
-    /* harmony export (binding) */
-
-
-    __webpack_require__.d(__webpack_exports__, "MatTextareaAutosize", function () {
-      return MatTextareaAutosize;
-    });
-    /* harmony export (binding) */
-
-
-    __webpack_require__.d(__webpack_exports__, "getMatInputUnsupportedTypeError", function () {
-      return getMatInputUnsupportedTypeError;
+    __webpack_require__.d(__webpack_exports__, "SelectComponent", function () {
+      return SelectComponent;
     });
     /* harmony import */
 
 
-    var _angular_cdk_text_field__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
-    /*! @angular/cdk/text-field */
-    "./node_modules/@angular/cdk/__ivy_ngcc__/fesm2015/text-field.js");
-    /* harmony import */
-
-
-    var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+    var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
     /*! @angular/core */
     "./node_modules/@angular/core/__ivy_ngcc__/fesm2015/core.js");
     /* harmony import */
 
 
-    var _angular_cdk_coercion__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
-    /*! @angular/cdk/coercion */
-    "./node_modules/@angular/cdk/fesm2015/coercion.js");
+    var _angular_common__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+    /*! @angular/common */
+    "./node_modules/@angular/common/__ivy_ngcc__/fesm2015/common.js");
     /* harmony import */
 
 
-    var _angular_cdk_platform__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
-    /*! @angular/cdk/platform */
-    "./node_modules/@angular/cdk/__ivy_ngcc__/fesm2015/platform.js");
-    /* harmony import */
-
-
-    var _angular_forms__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
-    /*! @angular/forms */
-    "./node_modules/@angular/forms/__ivy_ngcc__/fesm2015/forms.js");
-    /* harmony import */
-
-
-    var _angular_material_core__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
-    /*! @angular/material/core */
-    "./node_modules/@angular/material/__ivy_ngcc__/fesm2015/core.js");
-    /* harmony import */
-
-
-    var _angular_material_form_field__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
+    var _angular_material_form_field__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
     /*! @angular/material/form-field */
     "./node_modules/@angular/material/__ivy_ngcc__/fesm2015/form-field.js");
     /* harmony import */
 
 
-    var rxjs__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
-    /*! rxjs */
-    "./node_modules/rxjs/_esm2015/index.js");
-    /**
-     * @fileoverview added by tsickle
-     * Generated from: src/material/input/autosize.ts
-     * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
-     */
-
-    /**
-     * Directive to automatically resize a textarea to fit its content.
-     * @deprecated Use `cdkTextareaAutosize` from `\@angular/cdk/text-field` instead.
-     * \@breaking-change 8.0.0
-     */
+    var _angular_material_select__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+    /*! @angular/material/select */
+    "./node_modules/@angular/material/__ivy_ngcc__/fesm2015/select.js");
+    /* harmony import */
 
 
-    var MatTextareaAutosize =
-    /*#__PURE__*/
-    function (_angular_cdk_text_fie) {
-      _inherits(MatTextareaAutosize, _angular_cdk_text_fie);
+    var _angular_material_core__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
+    /*! @angular/material/core */
+    "./node_modules/@angular/material/__ivy_ngcc__/fesm2015/core.js");
 
-      var _super2 = _createSuper(MatTextareaAutosize);
+    function SelectComponent_mat_form_field_0_mat_option_4_Template(rf, ctx) {
+      if (rf & 1) {
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "mat-option", 4);
 
-      function MatTextareaAutosize() {
-        _classCallCheck(this, MatTextareaAutosize);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](1);
 
-        return _super2.apply(this, arguments);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
       }
 
-      _createClass(MatTextareaAutosize, [{
-        key: "matAutosizeMinRows",
+      if (rf & 2) {
+        var item_r7 = ctx.$implicit;
 
-        /**
-         * @return {?}
-         */
-        get: function get() {
-          return this.minRows;
-        }
-        /**
-         * @param {?} value
-         * @return {?}
-         */
-        ,
-        set: function set(value) {
-          this.minRows = value;
-        }
-        /**
-         * @return {?}
-         */
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("value", item_r7.value);
 
-      }, {
-        key: "matAutosizeMaxRows",
-        get: function get() {
-          return this.maxRows;
-        }
-        /**
-         * @param {?} value
-         * @return {?}
-         */
-        ,
-        set: function set(value) {
-          this.maxRows = value;
-        }
-        /**
-         * @return {?}
-         */
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
 
-      }, {
-        key: "matAutosize",
-        get: function get() {
-          return this.enabled;
-        }
-        /**
-         * @param {?} value
-         * @return {?}
-         */
-        ,
-        set: function set(value) {
-          this.enabled = value;
-        }
-        /**
-         * @return {?}
-         */
-
-      }, {
-        key: "matTextareaAutosize",
-        get: function get() {
-          return this.enabled;
-        }
-        /**
-         * @param {?} value
-         * @return {?}
-         */
-        ,
-        set: function set(value) {
-          this.enabled = value;
-        }
-      }]);
-
-      return MatTextareaAutosize;
-    }(_angular_cdk_text_field__WEBPACK_IMPORTED_MODULE_0__["CdkTextareaAutosize"]);
-
-    MatTextareaAutosize.ɵfac = function MatTextareaAutosize_Factory(t) {
-      return ɵMatTextareaAutosize_BaseFactory(t || MatTextareaAutosize);
-    };
-
-    MatTextareaAutosize.ɵdir = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdefineDirective"]({
-      type: MatTextareaAutosize,
-      selectors: [["textarea", "mat-autosize", ""], ["textarea", "matTextareaAutosize", ""]],
-      hostAttrs: ["rows", "1", 1, "cdk-textarea-autosize", "mat-autosize"],
-      inputs: {
-        cdkAutosizeMinRows: "cdkAutosizeMinRows",
-        cdkAutosizeMaxRows: "cdkAutosizeMaxRows",
-        matAutosizeMinRows: "matAutosizeMinRows",
-        matAutosizeMaxRows: "matAutosizeMaxRows",
-        matAutosize: ["mat-autosize", "matAutosize"],
-        matTextareaAutosize: "matTextareaAutosize"
-      },
-      exportAs: ["matTextareaAutosize"],
-      features: [_angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵInheritDefinitionFeature"]]
-    });
-    MatTextareaAutosize.propDecorators = {
-      matAutosizeMinRows: [{
-        type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"]
-      }],
-      matAutosizeMaxRows: [{
-        type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"]
-      }],
-      matAutosize: [{
-        type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"],
-        args: ['mat-autosize']
-      }],
-      matTextareaAutosize: [{
-        type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"]
-      }]
-    };
-
-    var ɵMatTextareaAutosize_BaseFactory = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵgetInheritedFactory"](MatTextareaAutosize);
-    /*@__PURE__*/
-
-
-    (function () {
-      _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵsetClassMetadata"](MatTextareaAutosize, [{
-        type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Directive"],
-        args: [{
-          selector: 'textarea[mat-autosize], textarea[matTextareaAutosize]',
-          exportAs: 'matTextareaAutosize',
-          inputs: ['cdkAutosizeMinRows', 'cdkAutosizeMaxRows'],
-          host: {
-            'class': 'cdk-textarea-autosize mat-autosize',
-            // Textarea elements that have the directive applied should have a single row by default.
-            // Browsers normally show two rows by default and therefore this limits the minRows binding.
-            'rows': '1'
-          }
-        }]
-      }], null, {
-        matAutosizeMinRows: [{
-          type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"]
-        }],
-        matAutosizeMaxRows: [{
-          type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"]
-        }],
-        matAutosize: [{
-          type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"],
-          args: ['mat-autosize']
-        }],
-        matTextareaAutosize: [{
-          type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"]
-        }]
-      });
-    })();
-    /**
-     * @fileoverview added by tsickle
-     * Generated from: src/material/input/input-errors.ts
-     * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
-     */
-
-    /**
-     * @license
-     * Copyright Google LLC All Rights Reserved.
-     *
-     * Use of this source code is governed by an MIT-style license that can be
-     * found in the LICENSE file at https://angular.io/license
-     */
-
-    /**
-     * \@docs-private
-     * @param {?} type
-     * @return {?}
-     */
-
-
-    function getMatInputUnsupportedTypeError(type) {
-      return Error("Input type \"".concat(type, "\" isn't supported by matInput."));
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate1"](" ", item_r7.viewValue, " ");
+      }
     }
-    /**
-     * @fileoverview added by tsickle
-     * Generated from: src/material/input/input-value-accessor.ts
-     * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
-     */
 
-    /**
-     * This token is used to inject the object whose value should be set into `MatInput`. If none is
-     * provided, the native `HTMLInputElement` is used. Directives like `MatDatepickerInput` can provide
-     * themselves for this token, in order to make `MatInput` delegate the getting and setting of the
-     * value to them.
-     * @type {?}
-     */
+    function SelectComponent_mat_form_field_0_Template(rf, ctx) {
+      if (rf & 1) {
+        var _r9 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵgetCurrentView"]();
 
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "mat-form-field", 1);
 
-    var MAT_INPUT_VALUE_ACCESSOR = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["InjectionToken"]('MAT_INPUT_VALUE_ACCESSOR');
-    /**
-     * @fileoverview added by tsickle
-     * Generated from: src/material/input/input.ts
-     * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
-     */
-    // Invalid input type. Using one of these will throw an MatInputUnsupportedTypeError.
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "mat-label");
 
-    /** @type {?} */
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](2);
 
-    var MAT_INPUT_INVALID_TYPES = ['button', 'checkbox', 'file', 'hidden', 'image', 'radio', 'range', 'reset', 'submit'];
-    /** @type {?} */
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 
-    var nextUniqueId = 0; // Boilerplate for applying mixins to MatInput.
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](3, "mat-select", 2);
 
-    /**
-     * \@docs-private
-     */
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("valueChange", function SelectComponent_mat_form_field_0_Template_mat_select_valueChange_3_listener($event) {
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](_r9);
 
-    var MatInputBase =
-    /**
-     * @param {?} _defaultErrorStateMatcher
-     * @param {?} _parentForm
-     * @param {?} _parentFormGroup
-     * @param {?} ngControl
-     */
-    function MatInputBase(_defaultErrorStateMatcher, _parentForm, _parentFormGroup, ngControl) {
-      _classCallCheck(this, MatInputBase);
+          var ctx_r8 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"]();
 
-      this._defaultErrorStateMatcher = _defaultErrorStateMatcher;
-      this._parentForm = _parentForm;
-      this._parentFormGroup = _parentFormGroup;
-      this.ngControl = ngControl;
-    };
-
-    if (false) {}
-    /** @type {?} */
-
-
-    var _MatInputMixinBase = Object(_angular_material_core__WEBPACK_IMPORTED_MODULE_5__["mixinErrorState"])(MatInputBase);
-    /**
-     * Directive that allows a native input to work inside a `MatFormField`.
-     */
-
-
-    var MatInput =
-    /*#__PURE__*/
-    function (_MatInputMixinBase2) {
-      _inherits(MatInput, _MatInputMixinBase2);
-
-      var _super3 = _createSuper(MatInput);
-
-      /**
-       * @param {?} _elementRef
-       * @param {?} _platform
-       * @param {?} ngControl
-       * @param {?} _parentForm
-       * @param {?} _parentFormGroup
-       * @param {?} _defaultErrorStateMatcher
-       * @param {?} inputValueAccessor
-       * @param {?} _autofillMonitor
-       * @param {?} ngZone
-       */
-      function MatInput(_elementRef, _platform, ngControl, _parentForm, _parentFormGroup, _defaultErrorStateMatcher, inputValueAccessor, _autofillMonitor, ngZone) {
-        var _this41;
-
-        _classCallCheck(this, MatInput);
-
-        _this41 = _super3.call(this, _defaultErrorStateMatcher, _parentForm, _parentFormGroup, ngControl);
-        _this41._elementRef = _elementRef;
-        _this41._platform = _platform;
-        _this41.ngControl = ngControl;
-        _this41._autofillMonitor = _autofillMonitor;
-        _this41._uid = "mat-input-".concat(nextUniqueId++);
-        /**
-         * Implemented as part of MatFormFieldControl.
-         * \@docs-private
-         */
-
-        _this41.focused = false;
-        /**
-         * Implemented as part of MatFormFieldControl.
-         * \@docs-private
-         */
-
-        _this41.stateChanges = new rxjs__WEBPACK_IMPORTED_MODULE_7__["Subject"]();
-        /**
-         * Implemented as part of MatFormFieldControl.
-         * \@docs-private
-         */
-
-        _this41.controlType = 'mat-input';
-        /**
-         * Implemented as part of MatFormFieldControl.
-         * \@docs-private
-         */
-
-        _this41.autofilled = false;
-        _this41._disabled = false;
-        _this41._required = false;
-        _this41._type = 'text';
-        _this41._readonly = false;
-        _this41._neverEmptyInputTypes = ['date', 'datetime', 'datetime-local', 'month', 'time', 'week'].filter(
-        /**
-        * @param {?} t
-        * @return {?}
-        */
-        function (t) {
-          return Object(_angular_cdk_platform__WEBPACK_IMPORTED_MODULE_3__["getSupportedInputTypes"])().has(t);
+          return ctx_r8.selectedChange.emit($event);
         });
-        /** @type {?} */
 
-        var element = _this41._elementRef.nativeElement;
-        /** @type {?} */
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](4, SelectComponent_mat_form_field_0_mat_option_4_Template, 2, 2, "mat-option", 3);
 
-        var nodeName = element.nodeName.toLowerCase(); // If no input value accessor was explicitly specified, use the element as the input value
-        // accessor.
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 
-        _this41._inputValueAccessor = inputValueAccessor || element;
-        _this41._previousNativeValue = _this41.value; // Force setter to be called in case id was not specified.
-
-        _this41.id = _this41.id; // On some versions of iOS the caret gets stuck in the wrong place when holding down the delete
-        // key. In order to get around this we need to "jiggle" the caret loose. Since this bug only
-        // exists on iOS, we only bother to install the listener on iOS.
-
-        if (_platform.IOS) {
-          ngZone.runOutsideAngular(
-          /**
-          * @return {?}
-          */
-          function () {
-            _elementRef.nativeElement.addEventListener('keyup',
-            /**
-            * @param {?} event
-            * @return {?}
-            */
-            function (event) {
-              /** @type {?} */
-              var el =
-              /** @type {?} */
-              event.target;
-
-              if (!el.value && !el.selectionStart && !el.selectionEnd) {
-                // Note: Just setting `0, 0` doesn't fix the issue. Setting
-                // `1, 1` fixes it for the first time that you type text and
-                // then hold delete. Toggling to `1, 1` and then back to
-                // `0, 0` seems to completely fix it.
-                el.setSelectionRange(1, 1);
-                el.setSelectionRange(0, 0);
-              }
-            });
-          });
-        }
-
-        _this41._isServer = !_this41._platform.isBrowser;
-        _this41._isNativeSelect = nodeName === 'select';
-        _this41._isTextarea = nodeName === 'textarea';
-
-        if (_this41._isNativeSelect) {
-          _this41.controlType =
-          /** @type {?} */
-          element.multiple ? 'mat-native-select-multiple' : 'mat-native-select';
-        }
-
-        return _this41;
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
       }
-      /**
-       * Implemented as part of MatFormFieldControl.
-       * \@docs-private
-       * @return {?}
-       */
 
+      if (rf & 2) {
+        var ctx_r5 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"]();
 
-      _createClass(MatInput, [{
-        key: "ngOnInit",
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](2);
 
-        /**
-         * @return {?}
-         */
-        value: function ngOnInit() {
-          var _this42 = this;
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate"](ctx_r5.label);
 
-          if (this._platform.isBrowser) {
-            this._autofillMonitor.monitor(this._elementRef.nativeElement).subscribe(
-            /**
-            * @param {?} event
-            * @return {?}
-            */
-            function (event) {
-              _this42.autofilled = event.isAutofilled;
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
 
-              _this42.stateChanges.next();
-            });
-          }
-        }
-        /**
-         * @return {?}
-         */
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("value", ctx_r5.selectedValue);
 
-      }, {
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
+
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngForOf", ctx_r5.items);
+      }
+    }
+
+    var SelectComponent =
+    /*#__PURE__*/
+    function () {
+      function SelectComponent() {
+        _classCallCheck(this, SelectComponent);
+
+        this.selectedChange = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["EventEmitter"]();
+      }
+
+      _createClass(SelectComponent, [{
         key: "ngOnChanges",
         value: function ngOnChanges() {
-          this.stateChanges.next();
-        }
-        /**
-         * @return {?}
-         */
+          var _this36 = this;
 
-      }, {
-        key: "ngOnDestroy",
-        value: function ngOnDestroy() {
-          this.stateChanges.complete();
-
-          if (this._platform.isBrowser) {
-            this._autofillMonitor.stopMonitoring(this._elementRef.nativeElement);
-          }
-        }
-        /**
-         * @return {?}
-         */
-
-      }, {
-        key: "ngDoCheck",
-        value: function ngDoCheck() {
-          if (this.ngControl) {
-            // We need to re-evaluate this on every change detection cycle, because there are some
-            // error triggers that we can't subscribe to (e.g. parent form submissions). This means
-            // that whatever logic is in here has to be super lean or we risk destroying the performance.
-            this.updateErrorState();
-          } // We need to dirty-check the native element's value, because there are some cases where
-          // we won't be notified when it changes (e.g. the consumer isn't using forms or they're
-          // updating the value using `emitEvent: false`).
-
-
-          this._dirtyCheckNativeValue();
-        }
-        /**
-         * Focuses the input.
-         * @param {?=} options
-         * @return {?}
-         */
-
-      }, {
-        key: "focus",
-        value: function focus(options) {
-          this._elementRef.nativeElement.focus(options);
-        } // We have to use a `HostListener` here in order to support both Ivy and ViewEngine.
-        // In Ivy the `host` bindings will be merged when this class is extended, whereas in
-        // ViewEngine they're overwritten.
-        // TODO(crisbeto): we move this back into `host` once Ivy is turned on by default.
-
-        /**
-         * Callback for the cases where the focused state of the input changes.
-         * @param {?} isFocused
-         * @return {?}
-         */
-        // tslint:disable:no-host-decorator-in-concrete
-        // tslint:enable:no-host-decorator-in-concrete
-
-      }, {
-        key: "_focusChanged",
-        value: function _focusChanged(isFocused) {
-          if (isFocused !== this.focused && (!this.readonly || !isFocused)) {
-            this.focused = isFocused;
-            this.stateChanges.next();
-          }
-        } // We have to use a `HostListener` here in order to support both Ivy and ViewEngine.
-        // In Ivy the `host` bindings will be merged when this class is extended, whereas in
-        // ViewEngine they're overwritten.
-        // TODO(crisbeto): we move this back into `host` once Ivy is turned on by default.
-        // tslint:disable-next-line:no-host-decorator-in-concrete
-
-        /**
-         * @return {?}
-         */
-
-      }, {
-        key: "_onInput",
-        value: function _onInput() {} // This is a noop function and is used to let Angular know whenever the value changes.
-        // Angular will run a new change detection each time the `input` event has been dispatched.
-        // It's necessary that Angular recognizes the value change, because when floatingLabel
-        // is set to false and Angular forms aren't used, the placeholder won't recognize the
-        // value changes and will not disappear.
-        // Listening to the input event wouldn't be necessary when the input is using the
-        // FormsModule or ReactiveFormsModule, because Angular forms also listens to input events.
-
-        /**
-         * Does some manual dirty checking on the native input `value` property.
-         * @protected
-         * @return {?}
-         */
-
-      }, {
-        key: "_dirtyCheckNativeValue",
-        value: function _dirtyCheckNativeValue() {
-          /** @type {?} */
-          var newValue = this._elementRef.nativeElement.value;
-
-          if (this._previousNativeValue !== newValue) {
-            this._previousNativeValue = newValue;
-            this.stateChanges.next();
-          }
-        }
-        /**
-         * Make sure the input is a supported type.
-         * @protected
-         * @return {?}
-         */
-
-      }, {
-        key: "_validateType",
-        value: function _validateType() {
-          if (MAT_INPUT_INVALID_TYPES.indexOf(this._type) > -1) {
-            throw getMatInputUnsupportedTypeError(this._type);
-          }
-        }
-        /**
-         * Checks whether the input type is one of the types that are never empty.
-         * @protected
-         * @return {?}
-         */
-
-      }, {
-        key: "_isNeverEmpty",
-        value: function _isNeverEmpty() {
-          return this._neverEmptyInputTypes.indexOf(this._type) > -1;
-        }
-        /**
-         * Checks whether the input is invalid based on the native validation.
-         * @protected
-         * @return {?}
-         */
-
-      }, {
-        key: "_isBadInput",
-        value: function _isBadInput() {
-          // The `validity` property won't be present on platform-server.
-
-          /** @type {?} */
-          var validity =
-          /** @type {?} */
-          this._elementRef.nativeElement.validity;
-          return validity && validity.badInput;
-        }
-        /**
-         * Implemented as part of MatFormFieldControl.
-         * \@docs-private
-         * @return {?}
-         */
-
-      }, {
-        key: "setDescribedByIds",
-
-        /**
-         * Implemented as part of MatFormFieldControl.
-         * \@docs-private
-         * @param {?} ids
-         * @return {?}
-         */
-        value: function setDescribedByIds(ids) {
-          this._ariaDescribedby = ids.join(' ');
-        }
-        /**
-         * Implemented as part of MatFormFieldControl.
-         * \@docs-private
-         * @return {?}
-         */
-
-      }, {
-        key: "onContainerClick",
-        value: function onContainerClick() {
-          // Do not re-focus the input element if the element is already focused. Otherwise it can happen
-          // that someone clicks on a time input and the cursor resets to the "hours" field while the
-          // "minutes" field was actually clicked. See: https://github.com/angular/components/issues/12849
-          if (!this.focused) {
-            this.focus();
-          }
-        }
-      }, {
-        key: "disabled",
-        get: function get() {
-          if (this.ngControl && this.ngControl.disabled !== null) {
-            return this.ngControl.disabled;
-          }
-
-          return this._disabled;
-        }
-        /**
-         * @param {?} value
-         * @return {?}
-         */
-        ,
-        set: function set(value) {
-          this._disabled = Object(_angular_cdk_coercion__WEBPACK_IMPORTED_MODULE_2__["coerceBooleanProperty"])(value); // Browsers may not fire the blur event if the input is disabled too quickly.
-          // Reset from here to ensure that the element doesn't become stuck.
-
-          if (this.focused) {
-            this.focused = false;
-            this.stateChanges.next();
-          }
-        }
-        /**
-         * Implemented as part of MatFormFieldControl.
-         * \@docs-private
-         * @return {?}
-         */
-
-      }, {
-        key: "id",
-        get: function get() {
-          return this._id;
-        }
-        /**
-         * @param {?} value
-         * @return {?}
-         */
-        ,
-        set: function set(value) {
-          this._id = value || this._uid;
-        }
-        /**
-         * Implemented as part of MatFormFieldControl.
-         * \@docs-private
-         * @return {?}
-         */
-
-      }, {
-        key: "required",
-        get: function get() {
-          return this._required;
-        }
-        /**
-         * @param {?} value
-         * @return {?}
-         */
-        ,
-        set: function set(value) {
-          this._required = Object(_angular_cdk_coercion__WEBPACK_IMPORTED_MODULE_2__["coerceBooleanProperty"])(value);
-        }
-        /**
-         * Input type of the element.
-         * @return {?}
-         */
-
-      }, {
-        key: "type",
-        get: function get() {
-          return this._type;
-        }
-        /**
-         * @param {?} value
-         * @return {?}
-         */
-        ,
-        set: function set(value) {
-          this._type = value || 'text';
-
-          this._validateType(); // When using Angular inputs, developers are no longer able to set the properties on the native
-          // input element. To ensure that bindings for `type` work, we need to sync the setter
-          // with the native property. Textarea elements don't support the type property or attribute.
-
-
-          if (!this._isTextarea && Object(_angular_cdk_platform__WEBPACK_IMPORTED_MODULE_3__["getSupportedInputTypes"])().has(this._type)) {
-            /** @type {?} */
-            this._elementRef.nativeElement.type = this._type;
-          }
-        }
-        /**
-         * Implemented as part of MatFormFieldControl.
-         * \@docs-private
-         * @return {?}
-         */
-
-      }, {
-        key: "value",
-        get: function get() {
-          return this._inputValueAccessor.value;
-        }
-        /**
-         * @param {?} value
-         * @return {?}
-         */
-        ,
-        set: function set(value) {
-          if (value !== this.value) {
-            this._inputValueAccessor.value = value;
-            this.stateChanges.next();
-          }
-        }
-        /**
-         * Whether the element is readonly.
-         * @return {?}
-         */
-
-      }, {
-        key: "readonly",
-        get: function get() {
-          return this._readonly;
-        }
-        /**
-         * @param {?} value
-         * @return {?}
-         */
-        ,
-        set: function set(value) {
-          this._readonly = Object(_angular_cdk_coercion__WEBPACK_IMPORTED_MODULE_2__["coerceBooleanProperty"])(value);
-        }
-      }, {
-        key: "empty",
-        get: function get() {
-          return !this._isNeverEmpty() && !this._elementRef.nativeElement.value && !this._isBadInput() && !this.autofilled;
-        }
-        /**
-         * Implemented as part of MatFormFieldControl.
-         * \@docs-private
-         * @return {?}
-         */
-
-      }, {
-        key: "shouldLabelFloat",
-        get: function get() {
-          if (this._isNativeSelect) {
-            // For a single-selection `<select>`, the label should float when the selected option has
-            // a non-empty display value. For a `<select multiple>`, the label *always* floats to avoid
-            // overlapping the label with the options.
-
-            /** @type {?} */
-            var selectElement =
-            /** @type {?} */
-            this._elementRef.nativeElement;
-            /** @type {?} */
-
-            var firstOption = selectElement.options[0]; // On most browsers the `selectedIndex` will always be 0, however on IE and Edge it'll be
-            // -1 if the `value` is set to something, that isn't in the list of options, at a later point.
-
-            return this.focused || selectElement.multiple || !this.empty || !!(selectElement.selectedIndex > -1 && firstOption && firstOption.label);
-          } else {
-            return this.focused || !this.empty;
+          if (this.selectedItem) {
+            this.selectedValue = this.items.find(function (item) {
+              return item.value === _this36.selectedItem;
+            }).value;
+            this.selectedChange.emit(this.selectedValue);
           }
         }
       }]);
 
-      return MatInput;
-    }(_MatInputMixinBase);
+      return SelectComponent;
+    }();
 
-    MatInput.ɵfac = function MatInput_Factory(t) {
-      return new (t || MatInput)(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdirectiveInject"](_angular_core__WEBPACK_IMPORTED_MODULE_1__["ElementRef"]), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdirectiveInject"](_angular_cdk_platform__WEBPACK_IMPORTED_MODULE_3__["Platform"]), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdirectiveInject"](_angular_forms__WEBPACK_IMPORTED_MODULE_4__["NgControl"], 10), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdirectiveInject"](_angular_forms__WEBPACK_IMPORTED_MODULE_4__["NgForm"], 8), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdirectiveInject"](_angular_forms__WEBPACK_IMPORTED_MODULE_4__["FormGroupDirective"], 8), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdirectiveInject"](_angular_material_core__WEBPACK_IMPORTED_MODULE_5__["ErrorStateMatcher"]), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdirectiveInject"](MAT_INPUT_VALUE_ACCESSOR, 10), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdirectiveInject"](_angular_cdk_text_field__WEBPACK_IMPORTED_MODULE_0__["AutofillMonitor"]), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdirectiveInject"](_angular_core__WEBPACK_IMPORTED_MODULE_1__["NgZone"]));
+    SelectComponent.ɵfac = function SelectComponent_Factory(t) {
+      return new (t || SelectComponent)();
     };
 
-    MatInput.ɵdir = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdefineDirective"]({
-      type: MatInput,
-      selectors: [["input", "matInput", ""], ["textarea", "matInput", ""], ["select", "matNativeControl", ""], ["input", "matNativeControl", ""], ["textarea", "matNativeControl", ""]],
-      hostAttrs: [1, "mat-input-element", "mat-form-field-autofill-control"],
-      hostVars: 10,
-      hostBindings: function MatInput_HostBindings(rf, ctx) {
+    SelectComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({
+      type: SelectComponent,
+      selectors: [["app-select"]],
+      inputs: {
+        label: "label",
+        items: "items",
+        selectedItem: "selectedItem"
+      },
+      outputs: {
+        selectedChange: "selectedChange"
+      },
+      features: [_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵNgOnChangesFeature"]],
+      decls: 1,
+      vars: 1,
+      consts: [["class", "select-wrapper", "appearance", "fill", "floatLabel", "never", 4, "ngIf"], ["appearance", "fill", "floatLabel", "never", 1, "select-wrapper"], [3, "value", "valueChange"], [3, "value", 4, "ngFor", "ngForOf"], [3, "value"]],
+      template: function SelectComponent_Template(rf, ctx) {
         if (rf & 1) {
-          _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("focus", function MatInput_focus_HostBindingHandler() {
-            return ctx._focusChanged(true);
-          })("blur", function MatInput_blur_HostBindingHandler() {
-            return ctx._focusChanged(false);
-          })("input", function MatInput_input_HostBindingHandler() {
-            return ctx._onInput();
-          });
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](0, SelectComponent_mat_form_field_0_Template, 5, 3, "mat-form-field", 0);
         }
 
         if (rf & 2) {
-          _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵhostProperty"]("disabled", ctx.disabled)("required", ctx.required);
-
-          _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵattribute"]("id", ctx.id)("placeholder", ctx.placeholder)("readonly", ctx.readonly && !ctx._isNativeSelect || null)("aria-describedby", ctx._ariaDescribedby || null)("aria-invalid", ctx.errorState)("aria-required", ctx.required.toString());
-
-          _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵclassProp"]("mat-input-server", ctx._isServer);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", ctx.items);
         }
       },
-      inputs: {
-        id: "id",
-        disabled: "disabled",
-        required: "required",
-        type: "type",
-        value: "value",
-        readonly: "readonly",
-        placeholder: "placeholder",
-        errorStateMatcher: "errorStateMatcher"
-      },
-      exportAs: ["matInput"],
-      features: [_angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵProvidersFeature"]([{
-        provide: _angular_material_form_field__WEBPACK_IMPORTED_MODULE_6__["MatFormFieldControl"],
-        useExisting: MatInput
-      }]), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵInheritDefinitionFeature"], _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵNgOnChangesFeature"]]
+      directives: [_angular_common__WEBPACK_IMPORTED_MODULE_1__["NgIf"], _angular_material_form_field__WEBPACK_IMPORTED_MODULE_2__["MatFormField"], _angular_material_form_field__WEBPACK_IMPORTED_MODULE_2__["MatLabel"], _angular_material_select__WEBPACK_IMPORTED_MODULE_3__["MatSelect"], _angular_common__WEBPACK_IMPORTED_MODULE_1__["NgForOf"], _angular_material_core__WEBPACK_IMPORTED_MODULE_4__["MatOption"]],
+      styles: ["[_nghost-%COMP%] {\n  width: 100%;\n  display: block;\n}\n\n.select-wrapper[_ngcontent-%COMP%] {\n  width: 100%;\n  margin-bottom: 20px;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29tcG9uZW50cy9zZWxlY3QvQzpcXFVzZXJzXFx3ZWJ0clxcRGVza3RvcFxcYW5ndWxhciBwcm9qZWN0c1xcTVZQX05cXG1lcmt1cnkvc3JjXFxhcHBcXGNvbXBvbmVudHNcXHNlbGVjdFxcc2VsZWN0LmNvbXBvbmVudC5zY3NzIiwic3JjL2FwcC9jb21wb25lbnRzL3NlbGVjdC9zZWxlY3QuY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDRSxXQUFBO0VBQ0EsY0FBQTtBQ0NGOztBREVBO0VBQ0UsV0FBQTtFQUNBLG1CQUFBO0FDQ0YiLCJmaWxlIjoic3JjL2FwcC9jb21wb25lbnRzL3NlbGVjdC9zZWxlY3QuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyI6aG9zdCB7XHJcbiAgd2lkdGg6IDEwMCU7XHJcbiAgZGlzcGxheTogYmxvY2s7XHJcbn1cclxuXHJcbi5zZWxlY3Qtd3JhcHBlciB7XHJcbiAgd2lkdGg6IDEwMCU7XHJcbiAgbWFyZ2luLWJvdHRvbTogMjBweDtcclxufVxyXG4iLCI6aG9zdCB7XG4gIHdpZHRoOiAxMDAlO1xuICBkaXNwbGF5OiBibG9jaztcbn1cblxuLnNlbGVjdC13cmFwcGVyIHtcbiAgd2lkdGg6IDEwMCU7XG4gIG1hcmdpbi1ib3R0b206IDIwcHg7XG59Il19 */"]
     });
-    /** @nocollapse */
-
-    MatInput.ctorParameters = function () {
-      return [{
-        type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ElementRef"]
-      }, {
-        type: _angular_cdk_platform__WEBPACK_IMPORTED_MODULE_3__["Platform"]
-      }, {
-        type: _angular_forms__WEBPACK_IMPORTED_MODULE_4__["NgControl"],
-        decorators: [{
-          type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Optional"]
-        }, {
-          type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Self"]
-        }]
-      }, {
-        type: _angular_forms__WEBPACK_IMPORTED_MODULE_4__["NgForm"],
-        decorators: [{
-          type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Optional"]
-        }]
-      }, {
-        type: _angular_forms__WEBPACK_IMPORTED_MODULE_4__["FormGroupDirective"],
-        decorators: [{
-          type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Optional"]
-        }]
-      }, {
-        type: _angular_material_core__WEBPACK_IMPORTED_MODULE_5__["ErrorStateMatcher"]
-      }, {
-        type: undefined,
-        decorators: [{
-          type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Optional"]
-        }, {
-          type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Self"]
-        }, {
-          type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Inject"],
-          args: [MAT_INPUT_VALUE_ACCESSOR]
-        }]
-      }, {
-        type: _angular_cdk_text_field__WEBPACK_IMPORTED_MODULE_0__["AutofillMonitor"]
-      }, {
-        type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["NgZone"]
-      }];
-    };
-
-    MatInput.propDecorators = {
-      disabled: [{
-        type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"]
-      }],
-      id: [{
-        type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"]
-      }],
-      placeholder: [{
-        type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"]
-      }],
-      required: [{
-        type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"]
-      }],
-      type: [{
-        type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"]
-      }],
-      errorStateMatcher: [{
-        type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"]
-      }],
-      value: [{
-        type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"]
-      }],
-      readonly: [{
-        type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"]
-      }],
-      _focusChanged: [{
-        type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["HostListener"],
-        args: ['focus', ['true']]
-      }, {
-        type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["HostListener"],
-        args: ['blur', ['false']]
-      }],
-      _onInput: [{
-        type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["HostListener"],
-        args: ['input']
-      }]
-    };
     /*@__PURE__*/
 
     (function () {
-      _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵsetClassMetadata"](MatInput, [{
-        type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Directive"],
+      _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](SelectComponent, [{
+        type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"],
         args: [{
-          selector: "input[matInput], textarea[matInput], select[matNativeControl],\n      input[matNativeControl], textarea[matNativeControl]",
-          exportAs: 'matInput',
-          host: {
-            /**
-             * \@breaking-change 8.0.0 remove .mat-form-field-autofill-control in favor of AutofillMonitor.
-             */
-            'class': 'mat-input-element mat-form-field-autofill-control',
-            '[class.mat-input-server]': '_isServer',
-            // Native input properties that are overwritten by Angular inputs need to be synced with
-            // the native input element. Otherwise property bindings for those don't work.
-            '[attr.id]': 'id',
-            '[attr.placeholder]': 'placeholder',
-            '[disabled]': 'disabled',
-            '[required]': 'required',
-            '[attr.readonly]': 'readonly && !_isNativeSelect || null',
-            '[attr.aria-describedby]': '_ariaDescribedby || null',
-            '[attr.aria-invalid]': 'errorState',
-            '[attr.aria-required]': 'required.toString()'
-          },
-          providers: [{
-            provide: _angular_material_form_field__WEBPACK_IMPORTED_MODULE_6__["MatFormFieldControl"],
-            useExisting: MatInput
-          }]
+          selector: 'app-select',
+          templateUrl: './select.component.html',
+          styleUrls: ['./select.component.scss']
         }]
-      }], function () {
-        return [{
-          type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ElementRef"]
-        }, {
-          type: _angular_cdk_platform__WEBPACK_IMPORTED_MODULE_3__["Platform"]
-        }, {
-          type: _angular_forms__WEBPACK_IMPORTED_MODULE_4__["NgControl"],
-          decorators: [{
-            type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Optional"]
-          }, {
-            type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Self"]
-          }]
-        }, {
-          type: _angular_forms__WEBPACK_IMPORTED_MODULE_4__["NgForm"],
-          decorators: [{
-            type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Optional"]
-          }]
-        }, {
-          type: _angular_forms__WEBPACK_IMPORTED_MODULE_4__["FormGroupDirective"],
-          decorators: [{
-            type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Optional"]
-          }]
-        }, {
-          type: _angular_material_core__WEBPACK_IMPORTED_MODULE_5__["ErrorStateMatcher"]
-        }, {
-          type: undefined,
-          decorators: [{
-            type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Optional"]
-          }, {
-            type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Self"]
-          }, {
-            type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Inject"],
-            args: [MAT_INPUT_VALUE_ACCESSOR]
-          }]
-        }, {
-          type: _angular_cdk_text_field__WEBPACK_IMPORTED_MODULE_0__["AutofillMonitor"]
-        }, {
-          type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["NgZone"]
-        }];
-      }, {
-        id: [{
-          type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"]
+      }], null, {
+        selectedChange: [{
+          type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Output"]
         }],
-        disabled: [{
-          type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"]
+        label: [{
+          type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"]
         }],
-        required: [{
-          type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"]
+        items: [{
+          type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"]
         }],
-        type: [{
-          type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"]
-        }],
-        value: [{
-          type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"]
-        }],
-        readonly: [{
-          type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"]
-        }],
-        _focusChanged: [{
-          type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["HostListener"],
-          args: ['focus', ['true']]
-        }, {
-          type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["HostListener"],
-          args: ['blur', ['false']]
-        }],
-        _onInput: [{
-          type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["HostListener"],
-          args: ['input']
-        }],
-        placeholder: [{
-          type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"]
-        }],
-        errorStateMatcher: [{
-          type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"]
+        selectedItem: [{
+          type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"]
         }]
       });
     })();
+    /***/
 
-    if (false) {}
-    /**
-     * @fileoverview added by tsickle
-     * Generated from: src/material/input/input-module.ts
-     * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
-     */
+  },
+
+  /***/
+  "./src/app/components/select/select.module.ts":
+  /*!****************************************************!*\
+    !*** ./src/app/components/select/select.module.ts ***!
+    \****************************************************/
+
+  /*! exports provided: SelectModule */
+
+  /***/
+  function srcAppComponentsSelectSelectModuleTs(module, __webpack_exports__, __webpack_require__) {
+    "use strict";
+
+    __webpack_require__.r(__webpack_exports__);
+    /* harmony export (binding) */
 
 
-    var MatInputModule = function MatInputModule() {
-      _classCallCheck(this, MatInputModule);
+    __webpack_require__.d(__webpack_exports__, "SelectModule", function () {
+      return SelectModule;
+    });
+    /* harmony import */
+
+
+    var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
+    /*! @angular/core */
+    "./node_modules/@angular/core/__ivy_ngcc__/fesm2015/core.js");
+    /* harmony import */
+
+
+    var _angular_common__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+    /*! @angular/common */
+    "./node_modules/@angular/common/__ivy_ngcc__/fesm2015/common.js");
+    /* harmony import */
+
+
+    var _angular_material_select__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+    /*! @angular/material/select */
+    "./node_modules/@angular/material/__ivy_ngcc__/fesm2015/select.js");
+    /* harmony import */
+
+
+    var _angular_material_form_field__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+    /*! @angular/material/form-field */
+    "./node_modules/@angular/material/__ivy_ngcc__/fesm2015/form-field.js");
+    /* harmony import */
+
+
+    var _components_select_select_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
+    /*! @components/select/select.component */
+    "./src/app/components/select/select.component.ts");
+
+    var SelectModule = function SelectModule() {
+      _classCallCheck(this, SelectModule);
     };
 
-    MatInputModule.ɵmod = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdefineNgModule"]({
-      type: MatInputModule
+    SelectModule.ɵmod = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineNgModule"]({
+      type: SelectModule
     });
-    MatInputModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdefineInjector"]({
-      factory: function MatInputModule_Factory(t) {
-        return new (t || MatInputModule)();
+    SelectModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjector"]({
+      factory: function SelectModule_Factory(t) {
+        return new (t || SelectModule)();
       },
-      providers: [_angular_material_core__WEBPACK_IMPORTED_MODULE_5__["ErrorStateMatcher"]],
-      imports: [[_angular_cdk_text_field__WEBPACK_IMPORTED_MODULE_0__["TextFieldModule"], _angular_material_form_field__WEBPACK_IMPORTED_MODULE_6__["MatFormFieldModule"]], _angular_cdk_text_field__WEBPACK_IMPORTED_MODULE_0__["TextFieldModule"], // We re-export the `MatFormFieldModule` since `MatInput` will almost always
-      // be used together with `MatFormField`.
-      _angular_material_form_field__WEBPACK_IMPORTED_MODULE_6__["MatFormFieldModule"]]
+      imports: [[_angular_common__WEBPACK_IMPORTED_MODULE_1__["CommonModule"], _angular_material_select__WEBPACK_IMPORTED_MODULE_2__["MatSelectModule"], _angular_material_form_field__WEBPACK_IMPORTED_MODULE_3__["MatFormFieldModule"]]]
     });
 
     (function () {
-      (typeof ngJitMode === "undefined" || ngJitMode) && _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵsetNgModuleScope"](MatInputModule, {
-        declarations: function declarations() {
-          return [MatInput, MatTextareaAutosize];
-        },
-        imports: function imports() {
-          return [_angular_cdk_text_field__WEBPACK_IMPORTED_MODULE_0__["TextFieldModule"], _angular_material_form_field__WEBPACK_IMPORTED_MODULE_6__["MatFormFieldModule"]];
-        },
-        exports: function exports() {
-          return [_angular_cdk_text_field__WEBPACK_IMPORTED_MODULE_0__["TextFieldModule"], // We re-export the `MatFormFieldModule` since `MatInput` will almost always
-          // be used together with `MatFormField`.
-          _angular_material_form_field__WEBPACK_IMPORTED_MODULE_6__["MatFormFieldModule"], MatInput, MatTextareaAutosize];
-        }
+      (typeof ngJitMode === "undefined" || ngJitMode) && _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵsetNgModuleScope"](SelectModule, {
+        declarations: [_components_select_select_component__WEBPACK_IMPORTED_MODULE_4__["SelectComponent"]],
+        imports: [_angular_common__WEBPACK_IMPORTED_MODULE_1__["CommonModule"], _angular_material_select__WEBPACK_IMPORTED_MODULE_2__["MatSelectModule"], _angular_material_form_field__WEBPACK_IMPORTED_MODULE_3__["MatFormFieldModule"]],
+        exports: [_components_select_select_component__WEBPACK_IMPORTED_MODULE_4__["SelectComponent"]]
       });
     })();
     /*@__PURE__*/
 
 
     (function () {
-      _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵsetClassMetadata"](MatInputModule, [{
-        type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"],
+      _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](SelectModule, [{
+        type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["NgModule"],
         args: [{
-          declarations: [MatInput, MatTextareaAutosize],
-          imports: [_angular_cdk_text_field__WEBPACK_IMPORTED_MODULE_0__["TextFieldModule"], _angular_material_form_field__WEBPACK_IMPORTED_MODULE_6__["MatFormFieldModule"]],
-          exports: [_angular_cdk_text_field__WEBPACK_IMPORTED_MODULE_0__["TextFieldModule"], // We re-export the `MatFormFieldModule` since `MatInput` will almost always
-          // be used together with `MatFormField`.
-          _angular_material_form_field__WEBPACK_IMPORTED_MODULE_6__["MatFormFieldModule"], MatInput, MatTextareaAutosize],
-          providers: [_angular_material_core__WEBPACK_IMPORTED_MODULE_5__["ErrorStateMatcher"]]
+          declarations: [_components_select_select_component__WEBPACK_IMPORTED_MODULE_4__["SelectComponent"]],
+          imports: [_angular_common__WEBPACK_IMPORTED_MODULE_1__["CommonModule"], _angular_material_select__WEBPACK_IMPORTED_MODULE_2__["MatSelectModule"], _angular_material_form_field__WEBPACK_IMPORTED_MODULE_3__["MatFormFieldModule"]],
+          exports: [_components_select_select_component__WEBPACK_IMPORTED_MODULE_4__["SelectComponent"]]
         }]
       }], null, null);
     })();
-    /**
-     * @fileoverview added by tsickle
-     * Generated from: src/material/input/public-api.ts
-     * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
-     */
-
-    /**
-     * Generated bundle index. Do not edit.
-     */
-    //# sourceMappingURL=input.js.map
-
     /***/
 
   },
@@ -11525,18 +9678,18 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
     function TaskStatusMenuComponent_ng_container_7_div_1_Template(rf, ctx) {
       if (rf & 1) {
-        var _r39 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵgetCurrentView"]();
+        var _r64 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵgetCurrentView"]();
 
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 8);
 
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("click", function TaskStatusMenuComponent_ng_container_7_div_1_Template_div_click_0_listener() {
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](_r39);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](_r64);
 
-          var item_r35 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"]().$implicit;
+          var item_r60 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"]().$implicit;
 
-          var ctx_r37 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"]();
+          var ctx_r62 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"]();
 
-          return ctx_r37.processTaskStatus(item_r35);
+          return ctx_r62.processTaskStatus(item_r60);
         });
 
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](1);
@@ -11547,15 +9700,15 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }
 
       if (rf & 2) {
-        var item_r35 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"]().$implicit;
+        var item_r60 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"]().$implicit;
 
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
 
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate1"](" ", item_r35.status, " ");
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate1"](" ", item_r60.status, " ");
 
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
 
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵclassMap"](item_r35.iconClass);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵclassMap"](item_r60.iconClass);
       }
     }
 
@@ -11569,13 +9722,13 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }
 
       if (rf & 2) {
-        var item_r35 = ctx.$implicit;
+        var item_r60 = ctx.$implicit;
 
-        var ctx_r34 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"]();
+        var ctx_r59 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"]();
 
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
 
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", item_r35.list !== ctx_r34.currentList);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", item_r60.list !== ctx_r59.currentList);
       }
     }
 
@@ -11713,9 +9866,9 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
         }
 
         if (rf & 2) {
-          var _r33 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵreference"](6);
+          var _r58 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵreference"](6);
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("matMenuTriggerFor", _r33);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("matMenuTriggerFor", _r58);
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](7);
 
@@ -11723,7 +9876,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
         }
       },
       directives: [_angular_material_menu__WEBPACK_IMPORTED_MODULE_2__["MatMenuTrigger"], _angular_material_menu__WEBPACK_IMPORTED_MODULE_2__["_MatMenu"], _angular_common__WEBPACK_IMPORTED_MODULE_3__["NgForOf"], _angular_common__WEBPACK_IMPORTED_MODULE_3__["NgIf"]],
-      styles: [".task-menu[_ngcontent-%COMP%] {\n  border: 0;\n  padding: 5px;\n  cursor: pointer;\n  background-color: transparent;\n}\n.task-menu__icon[_ngcontent-%COMP%] {\n  width: 30px;\n}\n.task-menu__item[_ngcontent-%COMP%] {\n  width: 160px;\n  padding: 10px;\n  cursor: pointer;\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n  -webkit-align-items: center;\n      -ms-flex-align: center;\n          align-items: center;\n  -webkit-transition: 0.3s;\n  transition: 0.3s;\n  -webkit-box-pack: justify;\n  -webkit-justify-content: space-between;\n      -ms-flex-pack: justify;\n          justify-content: space-between;\n}\n.task-menu__item[_ngcontent-%COMP%]:hover {\n  background-color: #3b56db;\n}\n.dropped-menu[_ngcontent-%COMP%] {\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n  -webkit-flex-direction: column;\n      -ms-flex-direction: column;\n          flex-direction: column;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29tcG9uZW50cy90YXNrLXN0YXR1cy1tZW51L0M6XFxVc2Vyc1xcd2VidHJcXERlc2t0b3BcXGFuZ3VsYXIgcHJvamVjdHNcXE1WUF9OXFxtZXJrdXJ5L3NyY1xcYXNzZXRzXFxzdHlsZXNcXF92YXJpYWJsZXMuc2NzcyIsInNyYy9hcHAvY29tcG9uZW50cy90YXNrLXN0YXR1cy1tZW51L0M6XFxVc2Vyc1xcd2VidHJcXERlc2t0b3BcXGFuZ3VsYXIgcHJvamVjdHNcXE1WUF9OXFxtZXJrdXJ5L3NyY1xcYXBwXFxjb21wb25lbnRzXFx0YXNrLXN0YXR1cy1tZW51XFx0YXNrLXN0YXR1cy1tZW51LmNvbXBvbmVudC5zY3NzIiwic3JjL2FwcC9jb21wb25lbnRzL3Rhc2stc3RhdHVzLW1lbnUvdGFzay1zdGF0dXMtbWVudS5jb21wb25lbnQuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQSxXQUFBO0FBNENBLGdCQUFBO0FBS0EsVUFBQTtBQy9DQTtFQUNFLFNBQUE7RUFDQSxZQUFBO0VBQ0EsZUFBQTtFQUNBLDZCQUFBO0FDRUY7QURBRTtFQUNFLFdBQUE7QUNFSjtBRENFO0VBQ0UsWUFBQTtFQUNBLGFBQUE7RUFDQSxlQUFBO0VBQ0Esb0JBQUE7RUFBQSxxQkFBQTtFQUFBLG9CQUFBO0VBQUEsYUFBQTtFQUNBLHlCQUFBO0VBQUEsMkJBQUE7TUFBQSxzQkFBQTtVQUFBLG1CQUFBO0VBQ0Esd0JENEJlO0VDNUJmLGdCRDRCZTtFQzNCZix5QkFBQTtFQUFBLHNDQUFBO01BQUEsc0JBQUE7VUFBQSw4QkFBQTtBQ0NKO0FEQ0k7RUFDRSx5QkRTYztBRVJwQjtBRElBO0VBQ0Usb0JBQUE7RUFBQSxxQkFBQTtFQUFBLG9CQUFBO0VBQUEsYUFBQTtFQUNBLDRCQUFBO0VBQUEsNkJBQUE7RUFBQSw4QkFBQTtNQUFBLDBCQUFBO1VBQUEsc0JBQUE7QUNERiIsImZpbGUiOiJzcmMvYXBwL2NvbXBvbmVudHMvdGFzay1zdGF0dXMtbWVudS90YXNrLXN0YXR1cy1tZW51LmNvbXBvbmVudC5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLyogY29sb3JzICovXHJcbiR3aGl0ZS1jb2xvcjogI2ZmZjtcclxuJGJsYWNrLWNvbG9yOiAjMDAwO1xyXG5cclxuJGVycm9yOiAjZmY3MzczO1xyXG4kY29tcGxldGU6ICM3OWVkNDk7XHJcblxyXG4kcGxhY2Vob2xkZXI6ICNiMGIwYjA7XHJcbiRmb3JtLWl0ZW0tY29sb3I6ICNiMGIwYjA7XHJcblxyXG4kaW5wdXQtdGV4dDogIzg0OTJhZjtcclxuJGlucHV0LWJvcmRlcjogI2Y2ZjZmNjtcclxuJGlucHV0LWJvcmRlci0taG92ZXI6ICNlZWViZWI7XHJcblxyXG4kYm9yZGVyOiAjZDRkOWUzO1xyXG4kYm9yZGVyLWxpZ2h0OiAjY2NjO1xyXG5cclxuJGJhY2tncm91bmQ6ICNmNmY3ZmE7XHJcblxyXG4kdGhlbWUtY29sb3I6ICMwZTFhMzU7XHJcblxyXG4kdGhlbWUtZGFyay1jb2xvcjogIzExMzU5MztcclxuJHRoZW1lLWRhcmstY29sb3ItaXRlbXM6ICM1NTg0ZmY7XHJcbiR0aGVtZS1kYXJrLWNvbG9yLWl0ZW1zLS1ob3ZlcjogIzU1ODRmZjtcclxuXHJcbiR0aGVtZS1saWdodC1jb2xvcjogIzRjNTBjNjtcclxuJHRoZW1lLWxpZ2h0LWNvbG9yLWl0ZW1zOiAjNGYzOWQ3O1xyXG4kdGhlbWUtbGlnaHQtY29sb3ItaXRlbXMtLWhvdmVyOiAjNTU4NGZmO1xyXG5cclxuJG5hdi1pdGVtLWNvbG9yOiAjMTIyMTQzO1xyXG5cclxuJGRlY29yLWl0ZW0tLWhvdmVyOiAjM2I1NmRiO1xyXG4kZGVjb3ItaXRlbS0tYWN0aXZlOiAjNTU4NGZmO1xyXG5cclxuJGJ0bjogIzc5OWVmYjtcclxuJGJ0bi1kZWNvcjogIzRjN2JmNjtcclxuJGJ0bi0tZGlzYWJsZWQ6ICNjY2M7XHJcblxyXG4kdGV4dC1zaGFkb3c6ICNiMWMwZTI7XHJcbiR0ZXh0LWNvbG9yOiAjNzY3YmIwO1xyXG4kc3ViLWhlYWRsaW5lLWNvbG9yOiAjODQ5MmFmO1xyXG5cclxuJGhlYWRsaW5lLWNvbG9yOiAjMmY1MGE4O1xyXG5cclxuLyogdHJhbnNpdGlvbnMgKi9cclxuJHRyYW5zaXRpb246IC40cztcclxuJHNob3J0LXRyYW5zaXRpb246IC4zcztcclxuJGxvbmctdHJhbnNpdGlvbjogLjZzO1xyXG5cclxuLyogZm9udHMgKi9cclxuJGJhc2UtZm9udHM6ICdSb2JvdG8nLCAnSGVsdmV0aWNhJywgJ09wZW4gU2FucycsICdzYW5zLXNlcmlmJywgJ0FyaWFsJztcclxuXHJcblxyXG4iLCJAaW1wb3J0ICd2YXJpYWJsZXMnO1xyXG5cclxuLnRhc2stbWVudSB7XHJcbiAgYm9yZGVyOiAwO1xyXG4gIHBhZGRpbmc6IDVweDtcclxuICBjdXJzb3I6IHBvaW50ZXI7XHJcbiAgYmFja2dyb3VuZC1jb2xvcjogdHJhbnNwYXJlbnQ7XHJcblxyXG4gICZfX2ljb24ge1xyXG4gICAgd2lkdGg6IDMwcHg7XHJcbiAgfVxyXG5cclxuICAmX19pdGVtIHtcclxuICAgIHdpZHRoOiAxNjBweDtcclxuICAgIHBhZGRpbmc6IDEwcHg7XHJcbiAgICBjdXJzb3I6IHBvaW50ZXI7XHJcbiAgICBkaXNwbGF5OiBmbGV4O1xyXG4gICAgYWxpZ24taXRlbXM6IGNlbnRlcjtcclxuICAgIHRyYW5zaXRpb246ICRzaG9ydC10cmFuc2l0aW9uO1xyXG4gICAganVzdGlmeS1jb250ZW50OiBzcGFjZS1iZXR3ZWVuO1xyXG5cclxuICAgICY6aG92ZXIge1xyXG4gICAgICBiYWNrZ3JvdW5kLWNvbG9yOiAkZGVjb3ItaXRlbS0taG92ZXI7XHJcbiAgICB9XHJcbiAgfVxyXG59XHJcblxyXG4uZHJvcHBlZC1tZW51IHtcclxuICBkaXNwbGF5OiBmbGV4O1xyXG4gIGZsZXgtZGlyZWN0aW9uOiBjb2x1bW47XHJcbn1cclxuIiwiLyogY29sb3JzICovXG4vKiB0cmFuc2l0aW9ucyAqL1xuLyogZm9udHMgKi9cbi50YXNrLW1lbnUge1xuICBib3JkZXI6IDA7XG4gIHBhZGRpbmc6IDVweDtcbiAgY3Vyc29yOiBwb2ludGVyO1xuICBiYWNrZ3JvdW5kLWNvbG9yOiB0cmFuc3BhcmVudDtcbn1cbi50YXNrLW1lbnVfX2ljb24ge1xuICB3aWR0aDogMzBweDtcbn1cbi50YXNrLW1lbnVfX2l0ZW0ge1xuICB3aWR0aDogMTYwcHg7XG4gIHBhZGRpbmc6IDEwcHg7XG4gIGN1cnNvcjogcG9pbnRlcjtcbiAgZGlzcGxheTogZmxleDtcbiAgYWxpZ24taXRlbXM6IGNlbnRlcjtcbiAgdHJhbnNpdGlvbjogMC4zcztcbiAganVzdGlmeS1jb250ZW50OiBzcGFjZS1iZXR3ZWVuO1xufVxuLnRhc2stbWVudV9faXRlbTpob3ZlciB7XG4gIGJhY2tncm91bmQtY29sb3I6ICMzYjU2ZGI7XG59XG5cbi5kcm9wcGVkLW1lbnUge1xuICBkaXNwbGF5OiBmbGV4O1xuICBmbGV4LWRpcmVjdGlvbjogY29sdW1uO1xufSJdfQ== */"]
+      styles: [".task-menu[_ngcontent-%COMP%] {\n  border: 0;\n  padding: 5px;\n  cursor: pointer;\n  background-color: transparent;\n}\n.task-menu__icon[_ngcontent-%COMP%] {\n  width: 30px;\n}\n.task-menu__item[_ngcontent-%COMP%] {\n  width: 160px;\n  padding: 10px;\n  cursor: pointer;\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n  -webkit-align-items: center;\n      -ms-flex-align: center;\n          align-items: center;\n  -webkit-transition: 0.3s;\n  transition: 0.3s;\n  -webkit-box-pack: justify;\n  -webkit-justify-content: space-between;\n      -ms-flex-pack: justify;\n          justify-content: space-between;\n}\n.task-menu__item[_ngcontent-%COMP%]:hover {\n  background-color: #3b56db;\n}\n.dropped-menu[_ngcontent-%COMP%] {\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n  -webkit-flex-direction: column;\n      -ms-flex-direction: column;\n          flex-direction: column;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29tcG9uZW50cy90YXNrLXN0YXR1cy1tZW51L0M6XFxVc2Vyc1xcd2VidHJcXERlc2t0b3BcXGFuZ3VsYXIgcHJvamVjdHNcXE1WUF9OXFxtZXJrdXJ5L3NyY1xcYXNzZXRzXFxzdHlsZXNcXF92YXJpYWJsZXMuc2NzcyIsInNyYy9hcHAvY29tcG9uZW50cy90YXNrLXN0YXR1cy1tZW51L0M6XFxVc2Vyc1xcd2VidHJcXERlc2t0b3BcXGFuZ3VsYXIgcHJvamVjdHNcXE1WUF9OXFxtZXJrdXJ5L3NyY1xcYXBwXFxjb21wb25lbnRzXFx0YXNrLXN0YXR1cy1tZW51XFx0YXNrLXN0YXR1cy1tZW51LmNvbXBvbmVudC5zY3NzIiwic3JjL2FwcC9jb21wb25lbnRzL3Rhc2stc3RhdHVzLW1lbnUvdGFzay1zdGF0dXMtbWVudS5jb21wb25lbnQuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQSxXQUFBO0FBNkNBLFlBQUE7QUFVQSxnQkFBQTtBQU1BLFVBQUE7QUMzREE7RUFDRSxTQUFBO0VBQ0EsWUFBQTtFQUNBLGVBQUE7RUFDQSw2QkFBQTtBQ0dGO0FEREU7RUFDRSxXQUFBO0FDR0o7QURBRTtFQUNFLFlBQUE7RUFDQSxhQUFBO0VBQ0EsZUFBQTtFQUNBLG9CQUFBO0VBQUEscUJBQUE7RUFBQSxvQkFBQTtFQUFBLGFBQUE7RUFDQSx5QkFBQTtFQUFBLDJCQUFBO01BQUEsc0JBQUE7VUFBQSxtQkFBQTtFQUNBLHdCRHVDZTtFQ3ZDZixnQkR1Q2U7RUN0Q2YseUJBQUE7RUFBQSxzQ0FBQTtNQUFBLHNCQUFBO1VBQUEsOEJBQUE7QUNFSjtBREFJO0VBQ0UseUJEU2M7QUVQcEI7QURHQTtFQUNFLG9CQUFBO0VBQUEscUJBQUE7RUFBQSxvQkFBQTtFQUFBLGFBQUE7RUFDQSw0QkFBQTtFQUFBLDZCQUFBO0VBQUEsOEJBQUE7TUFBQSwwQkFBQTtVQUFBLHNCQUFBO0FDQUYiLCJmaWxlIjoic3JjL2FwcC9jb21wb25lbnRzL3Rhc2stc3RhdHVzLW1lbnUvdGFzay1zdGF0dXMtbWVudS5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbIi8qIGNvbG9ycyAqL1xyXG4kd2hpdGUtY29sb3I6ICNmZmY7XHJcbiRibGFjay1jb2xvcjogIzAwMDtcclxuXHJcbiRlcnJvcjogI2ZmNzM3MztcclxuJGNvbXBsZXRlOiAjNzllZDQ5O1xyXG5cclxuJHBsYWNlaG9sZGVyOiAjYjBiMGIwO1xyXG4kZm9ybS1pdGVtLWNvbG9yOiAjYjBiMGIwO1xyXG5cclxuJGlucHV0LXRleHQ6ICM4NDkyYWY7XHJcbiRpbnB1dC1ib3JkZXI6ICNmNmY2ZjY7XHJcbiRpbnB1dC1ib3JkZXItLWhvdmVyOiAjZWVlYmViO1xyXG5cclxuJGJvcmRlcjogI2Q0ZDllMztcclxuJGJvcmRlci1saWdodDogI2NjYztcclxuXHJcbiRiYWNrZ3JvdW5kOiAjZjZmN2ZhO1xyXG5cclxuJHRoZW1lLWNvbG9yOiAjMGUxYTM1O1xyXG5cclxuJHRoZW1lLWRhcmstY29sb3I6ICMxMTM1OTM7XHJcbiR0aGVtZS1kYXJrLWNvbG9yLWl0ZW1zOiAjNTU4NGZmO1xyXG4kdGhlbWUtZGFyay1jb2xvci1pdGVtcy0taG92ZXI6ICM1NTg0ZmY7XHJcblxyXG4kdGhlbWUtbGlnaHQtY29sb3I6ICM0YzUwYzY7XHJcbiR0aGVtZS1saWdodC1jb2xvci1pdGVtczogIzRmMzlkNztcclxuJHRoZW1lLWxpZ2h0LWNvbG9yLWl0ZW1zLS1ob3ZlcjogIzU1ODRmZjtcclxuXHJcbiRuYXYtaXRlbS1jb2xvcjogIzEyMjE0MztcclxuXHJcbiRkZWNvci1pdGVtLS1ob3ZlcjogIzNiNTZkYjtcclxuJGRlY29yLWl0ZW0tLWFjdGl2ZTogIzU1ODRmZjtcclxuXHJcbiRidG46ICM3OTllZmI7XHJcbiRidG4tZGVjb3I6ICM0YzdiZjY7XHJcbiRidG4tLWRpc2FibGVkOiAjY2NjO1xyXG5cclxuJHRleHQtc2hhZG93OiAjYjFjMGUyO1xyXG4kdGV4dC1jb2xvcjogIzc2N2JiMDtcclxuJHN1Yi1oZWFkbGluZS1jb2xvcjogIzg0OTJhZjtcclxuXHJcbiRoZWFkbGluZS1jb2xvcjogIzJmNTBhODtcclxuXHJcblxyXG4vKiBzaWRlYmFyICovXHJcbiRzaWRlYmFyLXdpZHRoLXhzOiAxMDAlO1xyXG4kc2lkZWJhci13aWR0aC1tZDogMjYwcHg7XHJcbiRzaWRlYmFyLXdpZHRoLWxnOiAzMjBweDtcclxuXHJcbiR3cmFwcGVyLXdpZHRoLXhzOiAxMDAlO1xyXG4kd3JhcHBlci13aWR0aC1tZDogY2FsYygxMDAlIC0gMjYwcHgpO1xyXG4kd3JhcHBlci13aWR0aC1sZzogY2FsYygxMDAlIC0gMzIwcHgpO1xyXG5cclxuXHJcbi8qIHRyYW5zaXRpb25zICovXHJcbiR0cmFuc2l0aW9uOiAuNHM7XHJcbiRzaG9ydC10cmFuc2l0aW9uOiAuM3M7XHJcbiRsb25nLXRyYW5zaXRpb246IC42cztcclxuXHJcblxyXG4vKiBmb250cyAqL1xyXG4kYmFzZS1mb250czogJ1JvYm90bycsICdIZWx2ZXRpY2EnLCAnT3BlbiBTYW5zJywgJ3NhbnMtc2VyaWYnLCAnQXJpYWwnO1xyXG5cclxuXHJcbiIsIkBpbXBvcnQgJ3ZhcmlhYmxlcyc7XHJcblxyXG4udGFzay1tZW51IHtcclxuICBib3JkZXI6IDA7XHJcbiAgcGFkZGluZzogNXB4O1xyXG4gIGN1cnNvcjogcG9pbnRlcjtcclxuICBiYWNrZ3JvdW5kLWNvbG9yOiB0cmFuc3BhcmVudDtcclxuXHJcbiAgJl9faWNvbiB7XHJcbiAgICB3aWR0aDogMzBweDtcclxuICB9XHJcblxyXG4gICZfX2l0ZW0ge1xyXG4gICAgd2lkdGg6IDE2MHB4O1xyXG4gICAgcGFkZGluZzogMTBweDtcclxuICAgIGN1cnNvcjogcG9pbnRlcjtcclxuICAgIGRpc3BsYXk6IGZsZXg7XHJcbiAgICBhbGlnbi1pdGVtczogY2VudGVyO1xyXG4gICAgdHJhbnNpdGlvbjogJHNob3J0LXRyYW5zaXRpb247XHJcbiAgICBqdXN0aWZ5LWNvbnRlbnQ6IHNwYWNlLWJldHdlZW47XHJcblxyXG4gICAgJjpob3ZlciB7XHJcbiAgICAgIGJhY2tncm91bmQtY29sb3I6ICRkZWNvci1pdGVtLS1ob3ZlcjtcclxuICAgIH1cclxuICB9XHJcbn1cclxuXHJcbi5kcm9wcGVkLW1lbnUge1xyXG4gIGRpc3BsYXk6IGZsZXg7XHJcbiAgZmxleC1kaXJlY3Rpb246IGNvbHVtbjtcclxufVxyXG4iLCIvKiBjb2xvcnMgKi9cbi8qIHNpZGViYXIgKi9cbi8qIHRyYW5zaXRpb25zICovXG4vKiBmb250cyAqL1xuLnRhc2stbWVudSB7XG4gIGJvcmRlcjogMDtcbiAgcGFkZGluZzogNXB4O1xuICBjdXJzb3I6IHBvaW50ZXI7XG4gIGJhY2tncm91bmQtY29sb3I6IHRyYW5zcGFyZW50O1xufVxuLnRhc2stbWVudV9faWNvbiB7XG4gIHdpZHRoOiAzMHB4O1xufVxuLnRhc2stbWVudV9faXRlbSB7XG4gIHdpZHRoOiAxNjBweDtcbiAgcGFkZGluZzogMTBweDtcbiAgY3Vyc29yOiBwb2ludGVyO1xuICBkaXNwbGF5OiBmbGV4O1xuICBhbGlnbi1pdGVtczogY2VudGVyO1xuICB0cmFuc2l0aW9uOiAwLjNzO1xuICBqdXN0aWZ5LWNvbnRlbnQ6IHNwYWNlLWJldHdlZW47XG59XG4udGFzay1tZW51X19pdGVtOmhvdmVyIHtcbiAgYmFja2dyb3VuZC1jb2xvcjogIzNiNTZkYjtcbn1cblxuLmRyb3BwZWQtbWVudSB7XG4gIGRpc3BsYXk6IGZsZXg7XG4gIGZsZXgtZGlyZWN0aW9uOiBjb2x1bW47XG59Il19 */"]
     });
     /*@__PURE__*/
 
@@ -11959,7 +10112,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
         }
       },
       directives: [_angular_common__WEBPACK_IMPORTED_MODULE_1__["NgIf"], _angular_common__WEBPACK_IMPORTED_MODULE_1__["NgClass"]],
-      styles: ["@-webkit-keyframes width {\n  0% {\n    width: 0;\n  }\n  100% {\n    width: 100%;\n  }\n}\n@keyframes width {\n  0% {\n    width: 0;\n  }\n  100% {\n    width: 100%;\n  }\n}\n@-webkit-keyframes bubble {\n  0% {\n    opacity: 0.9;\n    width: 0;\n    height: 0;\n  }\n  100% {\n    opacity: 0;\n    width: 100px;\n    height: 100px;\n  }\n}\n@keyframes bubble {\n  0% {\n    opacity: 0.9;\n    width: 0;\n    height: 0;\n  }\n  100% {\n    opacity: 0;\n    width: 100px;\n    height: 100px;\n  }\n}\n@-webkit-keyframes rotate {\n  0% {\n    -webkit-transform: rotate(0);\n            transform: rotate(0);\n  }\n  100% {\n    -webkit-transform: rotate(360deg);\n            transform: rotate(360deg);\n  }\n}\n@keyframes rotate {\n  0% {\n    -webkit-transform: rotate(0);\n            transform: rotate(0);\n  }\n  100% {\n    -webkit-transform: rotate(360deg);\n            transform: rotate(360deg);\n  }\n}\n@-webkit-keyframes fadeIn {\n  0% {\n    opacity: 0;\n  }\n  100% {\n    opacity: 1;\n  }\n}\n@keyframes fadeIn {\n  0% {\n    opacity: 0;\n  }\n  100% {\n    opacity: 1;\n  }\n}\n\n\n\n.workflow-content[_ngcontent-%COMP%] {\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: -ms-flexbox;\n  display: flex;\n}\n.workflow-decoration[_ngcontent-%COMP%] {\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n  -webkit-align-items: center;\n      -ms-flex-align: center;\n          align-items: center;\n  -webkit-box-pack: center;\n  -webkit-justify-content: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n  width: 45px;\n  height: 45px;\n  -webkit-flex-shrink: 0;\n      -ms-flex-negative: 0;\n          flex-shrink: 0;\n  margin-right: 10px;\n  -webkit-border-radius: 50%;\n          border-radius: 50%;\n  font-size: 22px;\n  color: #fff;\n  background-color: #5584ff;\n}\n.workflow-title[_ngcontent-%COMP%] {\n  font-size: 18px;\n}\n.workflow-subscription[_ngcontent-%COMP%] {\n  font-size: 14px;\n  font-weight: 400;\n  color: #767bb0;\n}\n.workflow-subscription_completed[_ngcontent-%COMP%] {\n  color: #79ed49;\n}\n@media screen and (max-width: 1180px) {\n  .workflow-decoration[_ngcontent-%COMP%] {\n    display: none;\n  }\n}\n@media screen and (max-width: 1024px) {\n  .workflow-title[_ngcontent-%COMP%] {\n    font-size: 16px;\n  }\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29tcG9uZW50cy93b3JrZmxvdy1jb250ZW50L0M6XFxVc2Vyc1xcd2VidHJcXERlc2t0b3BcXGFuZ3VsYXIgcHJvamVjdHNcXE1WUF9OXFxtZXJrdXJ5L3NyY1xcYXNzZXRzXFxzdHlsZXNcXF92YXJpYWJsZXMuc2NzcyIsInNyYy9hcHAvY29tcG9uZW50cy93b3JrZmxvdy1jb250ZW50L0M6XFxVc2Vyc1xcd2VidHJcXERlc2t0b3BcXGFuZ3VsYXIgcHJvamVjdHNcXE1WUF9OXFxtZXJrdXJ5L3NyY1xcYXNzZXRzXFxzdHlsZXNcXF9rZXlmcmFtZXMuc2NzcyIsInNyYy9hcHAvY29tcG9uZW50cy93b3JrZmxvdy1jb250ZW50L3dvcmtmbG93LWNvbnRlbnQuY29tcG9uZW50LnNjc3MiLCJzcmMvYXBwL2NvbXBvbmVudHMvd29ya2Zsb3ctY29udGVudC9DOlxcVXNlcnNcXHdlYnRyXFxEZXNrdG9wXFxhbmd1bGFyIHByb2plY3RzXFxNVlBfTlxcbWVya3VyeS9zcmNcXGFwcFxcY29tcG9uZW50c1xcd29ya2Zsb3ctY29udGVudFxcd29ya2Zsb3ctY29udGVudC5jb21wb25lbnQuc2NzcyIsInNyYy9hcHAvY29tcG9uZW50cy93b3JrZmxvdy1jb250ZW50L0M6XFxVc2Vyc1xcd2VidHJcXERlc2t0b3BcXGFuZ3VsYXIgcHJvamVjdHNcXE1WUF9OXFxtZXJrdXJ5L3NyY1xcYXNzZXRzXFxzdHlsZXNcXF9taXhpbnMuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQSxXQUFBO0FBNENBLGdCQUFBO0FBS0EsVUFBQTtBQ2pEQTtFQUNFO0lBQ0UsUUFBQTtFQ0lGO0VERkE7SUFDRSxXQUFBO0VDSUY7QUFDRjtBRFZBO0VBQ0U7SUFDRSxRQUFBO0VDSUY7RURGQTtJQUNFLFdBQUE7RUNJRjtBQUNGO0FEREE7RUFDRTtJQUNFLFlBQUE7SUFDQSxRQUFBO0lBQ0EsU0FBQTtFQ0dGO0VEREE7SUFDRSxVQUFBO0lBQ0EsWUFBQTtJQUNBLGFBQUE7RUNHRjtBQUNGO0FEYkE7RUFDRTtJQUNFLFlBQUE7SUFDQSxRQUFBO0lBQ0EsU0FBQTtFQ0dGO0VEREE7SUFDRSxVQUFBO0lBQ0EsWUFBQTtJQUNBLGFBQUE7RUNHRjtBQUNGO0FEQUE7RUFDRTtJQUNFLDRCQUFBO1lBQUEsb0JBQUE7RUNFRjtFREFBO0lBQ0UsaUNBQUE7WUFBQSx5QkFBQTtFQ0VGO0FBQ0Y7QURSQTtFQUNFO0lBQ0UsNEJBQUE7WUFBQSxvQkFBQTtFQ0VGO0VEQUE7SUFDRSxpQ0FBQTtZQUFBLHlCQUFBO0VDRUY7QUFDRjtBRENBO0VBQ0U7SUFDRSxVQUFBO0VDQ0Y7RURDQTtJQUNFLFVBQUE7RUNDRjtBQUNGO0FEUEE7RUFDRTtJQUNFLFVBQUE7RUNDRjtFRENBO0lBQ0UsVUFBQTtFQ0NGO0FBQ0Y7QUZ0Q0EsV0FBQTtBQTRDQSxnQkFBQTtBQUtBLFVBQUE7QUc5Q0E7RUFDRSxvQkFBQTtFQUFBLHFCQUFBO0VBQUEsb0JBQUE7RUFBQSxhQUFBO0FEd0NGO0FDckNBO0VDSEUsb0JBQUE7RUFBQSxxQkFBQTtFQUFBLG9CQUFBO0VBQUEsYUFBQTtFQUNBLHlCQUFBO0VBQUEsMkJBQUE7TUFBQSxzQkFBQTtVQUFBLG1CQUFBO0VBQ0Esd0JBQUE7RUFBQSwrQkFBQTtNQUFBLHFCQUFBO1VBQUEsdUJBQUE7RUFDQSxXQUFBO0VBQ0EsWUFBQTtFQUNBLHNCQUFBO01BQUEsb0JBQUE7VUFBQSxjQUFBO0VBQ0Esa0JBQUE7RUFDQSwwQkFBQTtVQUFBLGtCQUFBO0VBQ0EsZUFBQTtFQUNBLFdKWlk7RUlhWix5QkpRdUI7QUVvQ3pCO0FDL0NBO0VBQ0UsZUFBQTtBRGtERjtBQy9DQTtFQUNFLGVBQUE7RUFDQSxnQkFBQTtFQUNBLGNIcUJXO0FFNkJiO0FDaERFO0VBQ0UsY0hoQk87QUVrRVg7QUM5Q0E7RUFFRTtJQUNFLGFBQUE7RURnREY7QUFDRjtBQzdDQTtFQUVFO0lBQ0UsZUFBQTtFRDhDRjtBQUNGIiwiZmlsZSI6InNyYy9hcHAvY29tcG9uZW50cy93b3JrZmxvdy1jb250ZW50L3dvcmtmbG93LWNvbnRlbnQuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyIvKiBjb2xvcnMgKi9cclxuJHdoaXRlLWNvbG9yOiAjZmZmO1xyXG4kYmxhY2stY29sb3I6ICMwMDA7XHJcblxyXG4kZXJyb3I6ICNmZjczNzM7XHJcbiRjb21wbGV0ZTogIzc5ZWQ0OTtcclxuXHJcbiRwbGFjZWhvbGRlcjogI2IwYjBiMDtcclxuJGZvcm0taXRlbS1jb2xvcjogI2IwYjBiMDtcclxuXHJcbiRpbnB1dC10ZXh0OiAjODQ5MmFmO1xyXG4kaW5wdXQtYm9yZGVyOiAjZjZmNmY2O1xyXG4kaW5wdXQtYm9yZGVyLS1ob3ZlcjogI2VlZWJlYjtcclxuXHJcbiRib3JkZXI6ICNkNGQ5ZTM7XHJcbiRib3JkZXItbGlnaHQ6ICNjY2M7XHJcblxyXG4kYmFja2dyb3VuZDogI2Y2ZjdmYTtcclxuXHJcbiR0aGVtZS1jb2xvcjogIzBlMWEzNTtcclxuXHJcbiR0aGVtZS1kYXJrLWNvbG9yOiAjMTEzNTkzO1xyXG4kdGhlbWUtZGFyay1jb2xvci1pdGVtczogIzU1ODRmZjtcclxuJHRoZW1lLWRhcmstY29sb3ItaXRlbXMtLWhvdmVyOiAjNTU4NGZmO1xyXG5cclxuJHRoZW1lLWxpZ2h0LWNvbG9yOiAjNGM1MGM2O1xyXG4kdGhlbWUtbGlnaHQtY29sb3ItaXRlbXM6ICM0ZjM5ZDc7XHJcbiR0aGVtZS1saWdodC1jb2xvci1pdGVtcy0taG92ZXI6ICM1NTg0ZmY7XHJcblxyXG4kbmF2LWl0ZW0tY29sb3I6ICMxMjIxNDM7XHJcblxyXG4kZGVjb3ItaXRlbS0taG92ZXI6ICMzYjU2ZGI7XHJcbiRkZWNvci1pdGVtLS1hY3RpdmU6ICM1NTg0ZmY7XHJcblxyXG4kYnRuOiAjNzk5ZWZiO1xyXG4kYnRuLWRlY29yOiAjNGM3YmY2O1xyXG4kYnRuLS1kaXNhYmxlZDogI2NjYztcclxuXHJcbiR0ZXh0LXNoYWRvdzogI2IxYzBlMjtcclxuJHRleHQtY29sb3I6ICM3NjdiYjA7XHJcbiRzdWItaGVhZGxpbmUtY29sb3I6ICM4NDkyYWY7XHJcblxyXG4kaGVhZGxpbmUtY29sb3I6ICMyZjUwYTg7XHJcblxyXG4vKiB0cmFuc2l0aW9ucyAqL1xyXG4kdHJhbnNpdGlvbjogLjRzO1xyXG4kc2hvcnQtdHJhbnNpdGlvbjogLjNzO1xyXG4kbG9uZy10cmFuc2l0aW9uOiAuNnM7XHJcblxyXG4vKiBmb250cyAqL1xyXG4kYmFzZS1mb250czogJ1JvYm90bycsICdIZWx2ZXRpY2EnLCAnT3BlbiBTYW5zJywgJ3NhbnMtc2VyaWYnLCAnQXJpYWwnO1xyXG5cclxuXHJcbiIsIkBrZXlmcmFtZXMgd2lkdGgge1xyXG4gIDAlIHtcclxuICAgIHdpZHRoOiAwO1xyXG4gIH1cclxuICAxMDAlIHtcclxuICAgIHdpZHRoOiAxMDAlO1xyXG4gIH1cclxufVxyXG5cclxuQGtleWZyYW1lcyBidWJibGUge1xyXG4gIDAlIHtcclxuICAgIG9wYWNpdHk6IC45O1xyXG4gICAgd2lkdGg6IDA7XHJcbiAgICBoZWlnaHQ6IDA7XHJcbiAgfVxyXG4gIDEwMCUge1xyXG4gICAgb3BhY2l0eTogMDtcclxuICAgIHdpZHRoOiAxMDBweDtcclxuICAgIGhlaWdodDogMTAwcHg7XHJcbiAgfVxyXG59XHJcblxyXG5Aa2V5ZnJhbWVzIHJvdGF0ZSB7XHJcbiAgMCUge1xyXG4gICAgdHJhbnNmb3JtOiByb3RhdGUoMCk7XHJcbiAgfVxyXG4gIDEwMCUge1xyXG4gICAgdHJhbnNmb3JtOiByb3RhdGUoMzYwZGVnKTtcclxuICB9XHJcbn1cclxuXHJcbkBrZXlmcmFtZXMgZmFkZUluIHtcclxuICAwJSB7XHJcbiAgICBvcGFjaXR5OiAwO1xyXG4gIH1cclxuICAxMDAlIHtcclxuICAgIG9wYWNpdHk6IDE7XHJcbiAgfVxyXG59XHJcbiIsIi8qIGNvbG9ycyAqL1xuLyogdHJhbnNpdGlvbnMgKi9cbi8qIGZvbnRzICovXG5Aa2V5ZnJhbWVzIHdpZHRoIHtcbiAgMCUge1xuICAgIHdpZHRoOiAwO1xuICB9XG4gIDEwMCUge1xuICAgIHdpZHRoOiAxMDAlO1xuICB9XG59XG5Aa2V5ZnJhbWVzIGJ1YmJsZSB7XG4gIDAlIHtcbiAgICBvcGFjaXR5OiAwLjk7XG4gICAgd2lkdGg6IDA7XG4gICAgaGVpZ2h0OiAwO1xuICB9XG4gIDEwMCUge1xuICAgIG9wYWNpdHk6IDA7XG4gICAgd2lkdGg6IDEwMHB4O1xuICAgIGhlaWdodDogMTAwcHg7XG4gIH1cbn1cbkBrZXlmcmFtZXMgcm90YXRlIHtcbiAgMCUge1xuICAgIHRyYW5zZm9ybTogcm90YXRlKDApO1xuICB9XG4gIDEwMCUge1xuICAgIHRyYW5zZm9ybTogcm90YXRlKDM2MGRlZyk7XG4gIH1cbn1cbkBrZXlmcmFtZXMgZmFkZUluIHtcbiAgMCUge1xuICAgIG9wYWNpdHk6IDA7XG4gIH1cbiAgMTAwJSB7XG4gICAgb3BhY2l0eTogMTtcbiAgfVxufVxuLyogY29sb3JzICovXG4vKiB0cmFuc2l0aW9ucyAqL1xuLyogZm9udHMgKi9cbi53b3JrZmxvdy1jb250ZW50IHtcbiAgZGlzcGxheTogZmxleDtcbn1cblxuLndvcmtmbG93LWRlY29yYXRpb24ge1xuICBkaXNwbGF5OiBmbGV4O1xuICBhbGlnbi1pdGVtczogY2VudGVyO1xuICBqdXN0aWZ5LWNvbnRlbnQ6IGNlbnRlcjtcbiAgd2lkdGg6IDQ1cHg7XG4gIGhlaWdodDogNDVweDtcbiAgZmxleC1zaHJpbms6IDA7XG4gIG1hcmdpbi1yaWdodDogMTBweDtcbiAgYm9yZGVyLXJhZGl1czogNTAlO1xuICBmb250LXNpemU6IDIycHg7XG4gIGNvbG9yOiAjZmZmO1xuICBiYWNrZ3JvdW5kLWNvbG9yOiAjNTU4NGZmO1xufVxuXG4ud29ya2Zsb3ctdGl0bGUge1xuICBmb250LXNpemU6IDE4cHg7XG59XG5cbi53b3JrZmxvdy1zdWJzY3JpcHRpb24ge1xuICBmb250LXNpemU6IDE0cHg7XG4gIGZvbnQtd2VpZ2h0OiA0MDA7XG4gIGNvbG9yOiAjNzY3YmIwO1xufVxuLndvcmtmbG93LXN1YnNjcmlwdGlvbl9jb21wbGV0ZWQge1xuICBjb2xvcjogIzc5ZWQ0OTtcbn1cblxuQG1lZGlhIHNjcmVlbiBhbmQgKG1heC13aWR0aDogMTE4MHB4KSB7XG4gIC53b3JrZmxvdy1kZWNvcmF0aW9uIHtcbiAgICBkaXNwbGF5OiBub25lO1xuICB9XG59XG5AbWVkaWEgc2NyZWVuIGFuZCAobWF4LXdpZHRoOiAxMDI0cHgpIHtcbiAgLndvcmtmbG93LXRpdGxlIHtcbiAgICBmb250LXNpemU6IDE2cHg7XG4gIH1cbn0iLCJAaW1wb3J0ICdtaXhpbnMnO1xyXG5AaW1wb3J0ICd2YXJpYWJsZXMnO1xyXG5cclxuLndvcmtmbG93LWNvbnRlbnQge1xyXG4gIGRpc3BsYXk6IGZsZXg7XHJcbn1cclxuXHJcbi53b3JrZmxvdy1kZWNvcmF0aW9uIHtcclxuICBAaW5jbHVkZSB0YXNrLWRlY29yYXRpb24oNDUpO1xyXG59XHJcblxyXG4ud29ya2Zsb3ctdGl0bGUge1xyXG4gIGZvbnQtc2l6ZTogMThweDtcclxufVxyXG5cclxuLndvcmtmbG93LXN1YnNjcmlwdGlvbiB7XHJcbiAgZm9udC1zaXplOiAxNHB4O1xyXG4gIGZvbnQtd2VpZ2h0OiA0MDA7XHJcbiAgY29sb3I6ICR0ZXh0LWNvbG9yO1xyXG5cclxuICAmX2NvbXBsZXRlZCB7XHJcbiAgICBjb2xvcjogJGNvbXBsZXRlO1xyXG4gIH1cclxufVxyXG5cclxuQG1lZGlhIHNjcmVlbiBhbmQgKG1heC13aWR0aDogMTE4MHB4KSB7XHJcblxyXG4gIC53b3JrZmxvdy1kZWNvcmF0aW9uIHtcclxuICAgIGRpc3BsYXk6IG5vbmU7XHJcbiAgfVxyXG59XHJcblxyXG5AbWVkaWEgc2NyZWVuIGFuZCAobWF4LXdpZHRoOiAxMDI0cHgpIHtcclxuXHJcbiAgLndvcmtmbG93LXRpdGxlIHtcclxuICAgIGZvbnQtc2l6ZTogMTZweDtcclxuICB9XHJcbn1cclxuIiwiQGltcG9ydCAndmFyaWFibGVzJztcclxuQGltcG9ydCAna2V5ZnJhbWVzJztcclxuXHJcbkBtaXhpbiB0YXNrLWRlY29yYXRpb24oJHNpemUpIHtcclxuICBkaXNwbGF5OiBmbGV4O1xyXG4gIGFsaWduLWl0ZW1zOiBjZW50ZXI7XHJcbiAganVzdGlmeS1jb250ZW50OiBjZW50ZXI7XHJcbiAgd2lkdGg6ICRzaXplICsgcHg7XHJcbiAgaGVpZ2h0OiAkc2l6ZSArIHB4O1xyXG4gIGZsZXgtc2hyaW5rOiAwO1xyXG4gIG1hcmdpbi1yaWdodDogMTBweDtcclxuICBib3JkZXItcmFkaXVzOiA1MCU7XHJcbiAgZm9udC1zaXplOiAyMnB4O1xyXG4gIGNvbG9yOiAkd2hpdGUtY29sb3I7XHJcbiAgYmFja2dyb3VuZC1jb2xvcjogJHRoZW1lLWRhcmstY29sb3ItaXRlbXM7XHJcbn1cclxuXHJcbkBtaXhpbiBib3gtc2hhZG93IHtcclxuICAtd2Via2l0LWJveC1zaGFkb3c6IDAgMCAxN3B4IC0xMnB4IHJnYmEoMzcsNTcsMTEwLDEpO1xyXG4gIC1tb3otYm94LXNoYWRvdzogMCAwIDE3cHggLTEycHggcmdiYSgzNyw1NywxMTAsMSk7XHJcbiAgYm94LXNoYWRvdzogMCAwIDE3cHggLTEycHggcmdiYSgzNyw1NywxMTAsMSk7XHJcbn1cclxuXHJcbkBtaXhpbiBkZWNvcmF0aW9uLWVsZW1lbnQge1xyXG4gIGNvbnRlbnQ6ICcnO1xyXG4gIHBvc2l0aW9uOiBhYnNvbHV0ZTtcclxuICBsZWZ0OiAwO1xyXG4gIHRvcDogMDtcclxuICBkaXNwbGF5OiBibG9jaztcclxufVxyXG5cclxuQG1peGluIHdpZHRoLWFuaW1hdGlvbiB7XHJcbiAgYW5pbWF0aW9uOiB3aWR0aCAkc2hvcnQtdHJhbnNpdGlvbiBsaW5lYXI7XHJcbn1cclxuXHJcbkBtaXhpbiBidWJibGUtYW5pbWF0aW9uIHtcclxuICBhbmltYXRpb246IGJ1YmJsZSAkdHJhbnNpdGlvbiBsaW5lYXI7XHJcbn1cclxuXHJcbkBtaXhpbiByb3RhdGUtYW5pbWF0aW9uIHtcclxuICBhbmltYXRpb246IHJvdGF0ZSAxMHMgaW5maW5pdGUgbGluZWFyO1xyXG59XHJcblxyXG5AbWl4aW4gZmFkZS1pbiB7XHJcbiAgYW5pbWF0aW9uOiBmYWRlSW4gJGxvbmctdHJhbnNpdGlvbiBsaW5lYXI7XHJcbn1cclxuIl19 */"]
+      styles: ["@-webkit-keyframes width {\n  0% {\n    width: 0;\n  }\n  100% {\n    width: 100%;\n  }\n}\n@keyframes width {\n  0% {\n    width: 0;\n  }\n  100% {\n    width: 100%;\n  }\n}\n@-webkit-keyframes bubble {\n  0% {\n    opacity: 0.9;\n    width: 0;\n    height: 0;\n  }\n  100% {\n    opacity: 0;\n    width: 100px;\n    height: 100px;\n  }\n}\n@keyframes bubble {\n  0% {\n    opacity: 0.9;\n    width: 0;\n    height: 0;\n  }\n  100% {\n    opacity: 0;\n    width: 100px;\n    height: 100px;\n  }\n}\n@-webkit-keyframes rotate {\n  0% {\n    -webkit-transform: rotate(0);\n            transform: rotate(0);\n  }\n  100% {\n    -webkit-transform: rotate(360deg);\n            transform: rotate(360deg);\n  }\n}\n@keyframes rotate {\n  0% {\n    -webkit-transform: rotate(0);\n            transform: rotate(0);\n  }\n  100% {\n    -webkit-transform: rotate(360deg);\n            transform: rotate(360deg);\n  }\n}\n@-webkit-keyframes fadeIn {\n  0% {\n    opacity: 0;\n  }\n  100% {\n    opacity: 1;\n  }\n}\n@keyframes fadeIn {\n  0% {\n    opacity: 0;\n  }\n  100% {\n    opacity: 1;\n  }\n}\n\n\n\n\n.workflow-content[_ngcontent-%COMP%] {\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: -ms-flexbox;\n  display: flex;\n}\n.workflow-decoration[_ngcontent-%COMP%] {\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n  -webkit-align-items: center;\n      -ms-flex-align: center;\n          align-items: center;\n  -webkit-box-pack: center;\n  -webkit-justify-content: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n  width: 45px;\n  height: 45px;\n  -webkit-flex-shrink: 0;\n      -ms-flex-negative: 0;\n          flex-shrink: 0;\n  margin-right: 10px;\n  -webkit-border-radius: 50%;\n          border-radius: 50%;\n  font-size: 22px;\n  color: #fff;\n  background-color: #5584ff;\n}\n.workflow-title[_ngcontent-%COMP%] {\n  font-size: 18px;\n}\n.workflow-subscription[_ngcontent-%COMP%] {\n  font-size: 14px;\n  font-weight: 400;\n  color: #767bb0;\n}\n.workflow-subscription_completed[_ngcontent-%COMP%] {\n  color: #79ed49;\n}\n@media screen and (max-width: 1180px) {\n  .workflow-decoration[_ngcontent-%COMP%] {\n    display: none;\n  }\n}\n@media screen and (max-width: 1024px) {\n  .workflow-title[_ngcontent-%COMP%] {\n    font-size: 16px;\n  }\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29tcG9uZW50cy93b3JrZmxvdy1jb250ZW50L0M6XFxVc2Vyc1xcd2VidHJcXERlc2t0b3BcXGFuZ3VsYXIgcHJvamVjdHNcXE1WUF9OXFxtZXJrdXJ5L3NyY1xcYXNzZXRzXFxzdHlsZXNcXF92YXJpYWJsZXMuc2NzcyIsInNyYy9hcHAvY29tcG9uZW50cy93b3JrZmxvdy1jb250ZW50L0M6XFxVc2Vyc1xcd2VidHJcXERlc2t0b3BcXGFuZ3VsYXIgcHJvamVjdHNcXE1WUF9OXFxtZXJrdXJ5L3NyY1xcYXNzZXRzXFxzdHlsZXNcXF9rZXlmcmFtZXMuc2NzcyIsInNyYy9hcHAvY29tcG9uZW50cy93b3JrZmxvdy1jb250ZW50L3dvcmtmbG93LWNvbnRlbnQuY29tcG9uZW50LnNjc3MiLCJzcmMvYXBwL2NvbXBvbmVudHMvd29ya2Zsb3ctY29udGVudC9DOlxcVXNlcnNcXHdlYnRyXFxEZXNrdG9wXFxhbmd1bGFyIHByb2plY3RzXFxNVlBfTlxcbWVya3VyeS9zcmNcXGFwcFxcY29tcG9uZW50c1xcd29ya2Zsb3ctY29udGVudFxcd29ya2Zsb3ctY29udGVudC5jb21wb25lbnQuc2NzcyIsInNyYy9hcHAvY29tcG9uZW50cy93b3JrZmxvdy1jb250ZW50L0M6XFxVc2Vyc1xcd2VidHJcXERlc2t0b3BcXGFuZ3VsYXIgcHJvamVjdHNcXE1WUF9OXFxtZXJrdXJ5L3NyY1xcYXNzZXRzXFxzdHlsZXNcXF9taXhpbnMuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQSxXQUFBO0FBNkNBLFlBQUE7QUFVQSxnQkFBQTtBQU1BLFVBQUE7QUM3REE7RUFDRTtJQUNFLFFBQUE7RUNLRjtFREhBO0lBQ0UsV0FBQTtFQ0tGO0FBQ0Y7QURYQTtFQUNFO0lBQ0UsUUFBQTtFQ0tGO0VESEE7SUFDRSxXQUFBO0VDS0Y7QUFDRjtBREZBO0VBQ0U7SUFDRSxZQUFBO0lBQ0EsUUFBQTtJQUNBLFNBQUE7RUNJRjtFREZBO0lBQ0UsVUFBQTtJQUNBLFlBQUE7SUFDQSxhQUFBO0VDSUY7QUFDRjtBRGRBO0VBQ0U7SUFDRSxZQUFBO0lBQ0EsUUFBQTtJQUNBLFNBQUE7RUNJRjtFREZBO0lBQ0UsVUFBQTtJQUNBLFlBQUE7SUFDQSxhQUFBO0VDSUY7QUFDRjtBRERBO0VBQ0U7SUFDRSw0QkFBQTtZQUFBLG9CQUFBO0VDR0Y7RUREQTtJQUNFLGlDQUFBO1lBQUEseUJBQUE7RUNHRjtBQUNGO0FEVEE7RUFDRTtJQUNFLDRCQUFBO1lBQUEsb0JBQUE7RUNHRjtFRERBO0lBQ0UsaUNBQUE7WUFBQSx5QkFBQTtFQ0dGO0FBQ0Y7QURBQTtFQUNFO0lBQ0UsVUFBQTtFQ0VGO0VEQUE7SUFDRSxVQUFBO0VDRUY7QUFDRjtBRFJBO0VBQ0U7SUFDRSxVQUFBO0VDRUY7RURBQTtJQUNFLFVBQUE7RUNFRjtBQUNGO0FGdkNBLFdBQUE7QUE2Q0EsWUFBQTtBQVVBLGdCQUFBO0FBTUEsVUFBQTtBRzFEQTtFQUNFLG9CQUFBO0VBQUEscUJBQUE7RUFBQSxvQkFBQTtFQUFBLGFBQUE7QUQwQ0Y7QUN2Q0E7RUNIRSxvQkFBQTtFQUFBLHFCQUFBO0VBQUEsb0JBQUE7RUFBQSxhQUFBO0VBQ0EseUJBQUE7RUFBQSwyQkFBQTtNQUFBLHNCQUFBO1VBQUEsbUJBQUE7RUFDQSx3QkFBQTtFQUFBLCtCQUFBO01BQUEscUJBQUE7VUFBQSx1QkFBQTtFQUNBLFdBQUE7RUFDQSxZQUFBO0VBQ0Esc0JBQUE7TUFBQSxvQkFBQTtVQUFBLGNBQUE7RUFDQSxrQkFBQTtFQUNBLDBCQUFBO1VBQUEsa0JBQUE7RUFDQSxlQUFBO0VBQ0EsV0paWTtFSWFaLHlCSlF1QjtBRXNDekI7QUNqREE7RUFDRSxlQUFBO0FEb0RGO0FDakRBO0VBQ0UsZUFBQTtFQUNBLGdCQUFBO0VBQ0EsY0hxQlc7QUUrQmI7QUNsREU7RUFDRSxjSGhCTztBRW9FWDtBQ2hEQTtFQUVFO0lBQ0UsYUFBQTtFRGtERjtBQUNGO0FDL0NBO0VBRUU7SUFDRSxlQUFBO0VEZ0RGO0FBQ0YiLCJmaWxlIjoic3JjL2FwcC9jb21wb25lbnRzL3dvcmtmbG93LWNvbnRlbnQvd29ya2Zsb3ctY29udGVudC5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbIi8qIGNvbG9ycyAqL1xyXG4kd2hpdGUtY29sb3I6ICNmZmY7XHJcbiRibGFjay1jb2xvcjogIzAwMDtcclxuXHJcbiRlcnJvcjogI2ZmNzM3MztcclxuJGNvbXBsZXRlOiAjNzllZDQ5O1xyXG5cclxuJHBsYWNlaG9sZGVyOiAjYjBiMGIwO1xyXG4kZm9ybS1pdGVtLWNvbG9yOiAjYjBiMGIwO1xyXG5cclxuJGlucHV0LXRleHQ6ICM4NDkyYWY7XHJcbiRpbnB1dC1ib3JkZXI6ICNmNmY2ZjY7XHJcbiRpbnB1dC1ib3JkZXItLWhvdmVyOiAjZWVlYmViO1xyXG5cclxuJGJvcmRlcjogI2Q0ZDllMztcclxuJGJvcmRlci1saWdodDogI2NjYztcclxuXHJcbiRiYWNrZ3JvdW5kOiAjZjZmN2ZhO1xyXG5cclxuJHRoZW1lLWNvbG9yOiAjMGUxYTM1O1xyXG5cclxuJHRoZW1lLWRhcmstY29sb3I6ICMxMTM1OTM7XHJcbiR0aGVtZS1kYXJrLWNvbG9yLWl0ZW1zOiAjNTU4NGZmO1xyXG4kdGhlbWUtZGFyay1jb2xvci1pdGVtcy0taG92ZXI6ICM1NTg0ZmY7XHJcblxyXG4kdGhlbWUtbGlnaHQtY29sb3I6ICM0YzUwYzY7XHJcbiR0aGVtZS1saWdodC1jb2xvci1pdGVtczogIzRmMzlkNztcclxuJHRoZW1lLWxpZ2h0LWNvbG9yLWl0ZW1zLS1ob3ZlcjogIzU1ODRmZjtcclxuXHJcbiRuYXYtaXRlbS1jb2xvcjogIzEyMjE0MztcclxuXHJcbiRkZWNvci1pdGVtLS1ob3ZlcjogIzNiNTZkYjtcclxuJGRlY29yLWl0ZW0tLWFjdGl2ZTogIzU1ODRmZjtcclxuXHJcbiRidG46ICM3OTllZmI7XHJcbiRidG4tZGVjb3I6ICM0YzdiZjY7XHJcbiRidG4tLWRpc2FibGVkOiAjY2NjO1xyXG5cclxuJHRleHQtc2hhZG93OiAjYjFjMGUyO1xyXG4kdGV4dC1jb2xvcjogIzc2N2JiMDtcclxuJHN1Yi1oZWFkbGluZS1jb2xvcjogIzg0OTJhZjtcclxuXHJcbiRoZWFkbGluZS1jb2xvcjogIzJmNTBhODtcclxuXHJcblxyXG4vKiBzaWRlYmFyICovXHJcbiRzaWRlYmFyLXdpZHRoLXhzOiAxMDAlO1xyXG4kc2lkZWJhci13aWR0aC1tZDogMjYwcHg7XHJcbiRzaWRlYmFyLXdpZHRoLWxnOiAzMjBweDtcclxuXHJcbiR3cmFwcGVyLXdpZHRoLXhzOiAxMDAlO1xyXG4kd3JhcHBlci13aWR0aC1tZDogY2FsYygxMDAlIC0gMjYwcHgpO1xyXG4kd3JhcHBlci13aWR0aC1sZzogY2FsYygxMDAlIC0gMzIwcHgpO1xyXG5cclxuXHJcbi8qIHRyYW5zaXRpb25zICovXHJcbiR0cmFuc2l0aW9uOiAuNHM7XHJcbiRzaG9ydC10cmFuc2l0aW9uOiAuM3M7XHJcbiRsb25nLXRyYW5zaXRpb246IC42cztcclxuXHJcblxyXG4vKiBmb250cyAqL1xyXG4kYmFzZS1mb250czogJ1JvYm90bycsICdIZWx2ZXRpY2EnLCAnT3BlbiBTYW5zJywgJ3NhbnMtc2VyaWYnLCAnQXJpYWwnO1xyXG5cclxuXHJcbiIsIkBrZXlmcmFtZXMgd2lkdGgge1xyXG4gIDAlIHtcclxuICAgIHdpZHRoOiAwO1xyXG4gIH1cclxuICAxMDAlIHtcclxuICAgIHdpZHRoOiAxMDAlO1xyXG4gIH1cclxufVxyXG5cclxuQGtleWZyYW1lcyBidWJibGUge1xyXG4gIDAlIHtcclxuICAgIG9wYWNpdHk6IC45O1xyXG4gICAgd2lkdGg6IDA7XHJcbiAgICBoZWlnaHQ6IDA7XHJcbiAgfVxyXG4gIDEwMCUge1xyXG4gICAgb3BhY2l0eTogMDtcclxuICAgIHdpZHRoOiAxMDBweDtcclxuICAgIGhlaWdodDogMTAwcHg7XHJcbiAgfVxyXG59XHJcblxyXG5Aa2V5ZnJhbWVzIHJvdGF0ZSB7XHJcbiAgMCUge1xyXG4gICAgdHJhbnNmb3JtOiByb3RhdGUoMCk7XHJcbiAgfVxyXG4gIDEwMCUge1xyXG4gICAgdHJhbnNmb3JtOiByb3RhdGUoMzYwZGVnKTtcclxuICB9XHJcbn1cclxuXHJcbkBrZXlmcmFtZXMgZmFkZUluIHtcclxuICAwJSB7XHJcbiAgICBvcGFjaXR5OiAwO1xyXG4gIH1cclxuICAxMDAlIHtcclxuICAgIG9wYWNpdHk6IDE7XHJcbiAgfVxyXG59XHJcbiIsIi8qIGNvbG9ycyAqL1xuLyogc2lkZWJhciAqL1xuLyogdHJhbnNpdGlvbnMgKi9cbi8qIGZvbnRzICovXG5Aa2V5ZnJhbWVzIHdpZHRoIHtcbiAgMCUge1xuICAgIHdpZHRoOiAwO1xuICB9XG4gIDEwMCUge1xuICAgIHdpZHRoOiAxMDAlO1xuICB9XG59XG5Aa2V5ZnJhbWVzIGJ1YmJsZSB7XG4gIDAlIHtcbiAgICBvcGFjaXR5OiAwLjk7XG4gICAgd2lkdGg6IDA7XG4gICAgaGVpZ2h0OiAwO1xuICB9XG4gIDEwMCUge1xuICAgIG9wYWNpdHk6IDA7XG4gICAgd2lkdGg6IDEwMHB4O1xuICAgIGhlaWdodDogMTAwcHg7XG4gIH1cbn1cbkBrZXlmcmFtZXMgcm90YXRlIHtcbiAgMCUge1xuICAgIHRyYW5zZm9ybTogcm90YXRlKDApO1xuICB9XG4gIDEwMCUge1xuICAgIHRyYW5zZm9ybTogcm90YXRlKDM2MGRlZyk7XG4gIH1cbn1cbkBrZXlmcmFtZXMgZmFkZUluIHtcbiAgMCUge1xuICAgIG9wYWNpdHk6IDA7XG4gIH1cbiAgMTAwJSB7XG4gICAgb3BhY2l0eTogMTtcbiAgfVxufVxuLyogY29sb3JzICovXG4vKiBzaWRlYmFyICovXG4vKiB0cmFuc2l0aW9ucyAqL1xuLyogZm9udHMgKi9cbi53b3JrZmxvdy1jb250ZW50IHtcbiAgZGlzcGxheTogZmxleDtcbn1cblxuLndvcmtmbG93LWRlY29yYXRpb24ge1xuICBkaXNwbGF5OiBmbGV4O1xuICBhbGlnbi1pdGVtczogY2VudGVyO1xuICBqdXN0aWZ5LWNvbnRlbnQ6IGNlbnRlcjtcbiAgd2lkdGg6IDQ1cHg7XG4gIGhlaWdodDogNDVweDtcbiAgZmxleC1zaHJpbms6IDA7XG4gIG1hcmdpbi1yaWdodDogMTBweDtcbiAgYm9yZGVyLXJhZGl1czogNTAlO1xuICBmb250LXNpemU6IDIycHg7XG4gIGNvbG9yOiAjZmZmO1xuICBiYWNrZ3JvdW5kLWNvbG9yOiAjNTU4NGZmO1xufVxuXG4ud29ya2Zsb3ctdGl0bGUge1xuICBmb250LXNpemU6IDE4cHg7XG59XG5cbi53b3JrZmxvdy1zdWJzY3JpcHRpb24ge1xuICBmb250LXNpemU6IDE0cHg7XG4gIGZvbnQtd2VpZ2h0OiA0MDA7XG4gIGNvbG9yOiAjNzY3YmIwO1xufVxuLndvcmtmbG93LXN1YnNjcmlwdGlvbl9jb21wbGV0ZWQge1xuICBjb2xvcjogIzc5ZWQ0OTtcbn1cblxuQG1lZGlhIHNjcmVlbiBhbmQgKG1heC13aWR0aDogMTE4MHB4KSB7XG4gIC53b3JrZmxvdy1kZWNvcmF0aW9uIHtcbiAgICBkaXNwbGF5OiBub25lO1xuICB9XG59XG5AbWVkaWEgc2NyZWVuIGFuZCAobWF4LXdpZHRoOiAxMDI0cHgpIHtcbiAgLndvcmtmbG93LXRpdGxlIHtcbiAgICBmb250LXNpemU6IDE2cHg7XG4gIH1cbn0iLCJAaW1wb3J0ICdtaXhpbnMnO1xyXG5AaW1wb3J0ICd2YXJpYWJsZXMnO1xyXG5cclxuLndvcmtmbG93LWNvbnRlbnQge1xyXG4gIGRpc3BsYXk6IGZsZXg7XHJcbn1cclxuXHJcbi53b3JrZmxvdy1kZWNvcmF0aW9uIHtcclxuICBAaW5jbHVkZSB0YXNrLWRlY29yYXRpb24oNDUpO1xyXG59XHJcblxyXG4ud29ya2Zsb3ctdGl0bGUge1xyXG4gIGZvbnQtc2l6ZTogMThweDtcclxufVxyXG5cclxuLndvcmtmbG93LXN1YnNjcmlwdGlvbiB7XHJcbiAgZm9udC1zaXplOiAxNHB4O1xyXG4gIGZvbnQtd2VpZ2h0OiA0MDA7XHJcbiAgY29sb3I6ICR0ZXh0LWNvbG9yO1xyXG5cclxuICAmX2NvbXBsZXRlZCB7XHJcbiAgICBjb2xvcjogJGNvbXBsZXRlO1xyXG4gIH1cclxufVxyXG5cclxuQG1lZGlhIHNjcmVlbiBhbmQgKG1heC13aWR0aDogMTE4MHB4KSB7XHJcblxyXG4gIC53b3JrZmxvdy1kZWNvcmF0aW9uIHtcclxuICAgIGRpc3BsYXk6IG5vbmU7XHJcbiAgfVxyXG59XHJcblxyXG5AbWVkaWEgc2NyZWVuIGFuZCAobWF4LXdpZHRoOiAxMDI0cHgpIHtcclxuXHJcbiAgLndvcmtmbG93LXRpdGxlIHtcclxuICAgIGZvbnQtc2l6ZTogMTZweDtcclxuICB9XHJcbn1cclxuIiwiQGltcG9ydCAndmFyaWFibGVzJztcclxuQGltcG9ydCAna2V5ZnJhbWVzJztcclxuXHJcbkBtaXhpbiB0YXNrLWRlY29yYXRpb24oJHNpemUpIHtcclxuICBkaXNwbGF5OiBmbGV4O1xyXG4gIGFsaWduLWl0ZW1zOiBjZW50ZXI7XHJcbiAganVzdGlmeS1jb250ZW50OiBjZW50ZXI7XHJcbiAgd2lkdGg6ICRzaXplICsgcHg7XHJcbiAgaGVpZ2h0OiAkc2l6ZSArIHB4O1xyXG4gIGZsZXgtc2hyaW5rOiAwO1xyXG4gIG1hcmdpbi1yaWdodDogMTBweDtcclxuICBib3JkZXItcmFkaXVzOiA1MCU7XHJcbiAgZm9udC1zaXplOiAyMnB4O1xyXG4gIGNvbG9yOiAkd2hpdGUtY29sb3I7XHJcbiAgYmFja2dyb3VuZC1jb2xvcjogJHRoZW1lLWRhcmstY29sb3ItaXRlbXM7XHJcbn1cclxuXHJcbkBtaXhpbiBib3gtc2hhZG93IHtcclxuICAtd2Via2l0LWJveC1zaGFkb3c6IDAgMCAxN3B4IC0xMnB4IHJnYmEoMzcsNTcsMTEwLDEpO1xyXG4gIC1tb3otYm94LXNoYWRvdzogMCAwIDE3cHggLTEycHggcmdiYSgzNyw1NywxMTAsMSk7XHJcbiAgYm94LXNoYWRvdzogMCAwIDE3cHggLTEycHggcmdiYSgzNyw1NywxMTAsMSk7XHJcbn1cclxuXHJcbkBtaXhpbiBkZWNvcmF0aW9uLWVsZW1lbnQge1xyXG4gIGNvbnRlbnQ6ICcnO1xyXG4gIHBvc2l0aW9uOiBhYnNvbHV0ZTtcclxuICBsZWZ0OiAwO1xyXG4gIHRvcDogMDtcclxuICBkaXNwbGF5OiBibG9jaztcclxufVxyXG5cclxuQG1peGluIHdpZHRoLWFuaW1hdGlvbiB7XHJcbiAgYW5pbWF0aW9uOiB3aWR0aCAkc2hvcnQtdHJhbnNpdGlvbiBsaW5lYXI7XHJcbn1cclxuXHJcbkBtaXhpbiBidWJibGUtYW5pbWF0aW9uIHtcclxuICBhbmltYXRpb246IGJ1YmJsZSAkdHJhbnNpdGlvbiBsaW5lYXI7XHJcbn1cclxuXHJcbkBtaXhpbiByb3RhdGUtYW5pbWF0aW9uIHtcclxuICBhbmltYXRpb246IHJvdGF0ZSAxMHMgaW5maW5pdGUgbGluZWFyO1xyXG59XHJcblxyXG5AbWl4aW4gZmFkZS1pbiB7XHJcbiAgYW5pbWF0aW9uOiBmYWRlSW4gJGxvbmctdHJhbnNpdGlvbiBsaW5lYXI7XHJcbn1cclxuIl19 */"]
     });
     /*@__PURE__*/
 
@@ -12692,7 +10845,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
     function WorkflowComponent_div_8_Template(rf, ctx) {
       if (rf & 1) {
-        var _r55 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵgetCurrentView"]();
+        var _r80 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵgetCurrentView"]();
 
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 12);
 
@@ -12707,29 +10860,29 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](4, "app-task-status-menu", 15);
 
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("addNewTask", function WorkflowComponent_div_8_Template_app_task_status_menu_addNewTask_4_listener() {
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](_r55);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](_r80);
 
-          var ctx_r54 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"]();
+          var ctx_r79 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"]();
 
-          return ctx_r54.createTask();
+          return ctx_r79.createTask();
         })("removeTaskItem", function WorkflowComponent_div_8_Template_app_task_status_menu_removeTaskItem_4_listener($event) {
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](_r55);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](_r80);
 
-          var ctx_r56 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"]();
+          var ctx_r81 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"]();
 
-          return ctx_r56.deleteTask($event);
+          return ctx_r81.deleteTask($event);
         })("updateTaskStatus", function WorkflowComponent_div_8_Template_app_task_status_menu_updateTaskStatus_4_listener($event) {
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](_r55);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](_r80);
 
-          var ctx_r57 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"]();
+          var ctx_r82 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"]();
 
-          return ctx_r57.changeTaskList($event);
+          return ctx_r82.changeTaskList($event);
         })("toggleTaskPriority", function WorkflowComponent_div_8_Template_app_task_status_menu_toggleTaskPriority_4_listener($event) {
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](_r55);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](_r80);
 
-          var ctx_r58 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"]();
+          var ctx_r83 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"]();
 
-          return ctx_r58.updateTask($event);
+          return ctx_r83.updateTask($event);
         });
 
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
@@ -12738,20 +10891,20 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }
 
       if (rf & 2) {
-        var item_r52 = ctx.$implicit;
-        var i_r53 = ctx.index;
+        var item_r77 = ctx.$implicit;
+        var i_r78 = ctx.index;
 
-        var ctx_r45 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"]();
+        var ctx_r70 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"]();
 
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("id", item_r52.id)("@moveFromBottom", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpureFunction2"](7, _c1, !ctx_r45.animationState ? "out" : "in", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpureFunction1"](5, _c0, i_r53 / 5 + "s")));
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("id", item_r77.id)("@moveFromBottom", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpureFunction2"](7, _c1, !ctx_r70.animationState ? "out" : "in", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpureFunction1"](5, _c0, i_r78 / 5 + "s")));
 
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
 
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("item", item_r52);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("item", item_r77);
 
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](3);
 
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("item", item_r52)("currentList", ctx_r45.categoryList.TO_DO);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("item", item_r77)("currentList", ctx_r70.categoryList.TO_DO);
       }
     }
 
@@ -12773,7 +10926,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
     function WorkflowComponent_div_16_Template(rf, ctx) {
       if (rf & 1) {
-        var _r62 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵgetCurrentView"]();
+        var _r87 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵgetCurrentView"]();
 
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 12);
 
@@ -12788,29 +10941,29 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](4, "app-task-status-menu", 15);
 
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("addNewTask", function WorkflowComponent_div_16_Template_app_task_status_menu_addNewTask_4_listener() {
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](_r62);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](_r87);
 
-          var ctx_r61 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"]();
+          var ctx_r86 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"]();
 
-          return ctx_r61.createTask();
+          return ctx_r86.createTask();
         })("removeTaskItem", function WorkflowComponent_div_16_Template_app_task_status_menu_removeTaskItem_4_listener($event) {
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](_r62);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](_r87);
 
-          var ctx_r63 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"]();
+          var ctx_r88 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"]();
 
-          return ctx_r63.deleteTask($event);
+          return ctx_r88.deleteTask($event);
         })("updateTaskStatus", function WorkflowComponent_div_16_Template_app_task_status_menu_updateTaskStatus_4_listener($event) {
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](_r62);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](_r87);
 
-          var ctx_r64 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"]();
+          var ctx_r89 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"]();
 
-          return ctx_r64.changeTaskList($event);
+          return ctx_r89.changeTaskList($event);
         })("toggleTaskPriority", function WorkflowComponent_div_16_Template_app_task_status_menu_toggleTaskPriority_4_listener($event) {
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](_r62);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](_r87);
 
-          var ctx_r65 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"]();
+          var ctx_r90 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"]();
 
-          return ctx_r65.updateTask($event);
+          return ctx_r90.updateTask($event);
         });
 
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
@@ -12819,26 +10972,26 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }
 
       if (rf & 2) {
-        var item_r59 = ctx.$implicit;
-        var i_r60 = ctx.index;
+        var item_r84 = ctx.$implicit;
+        var i_r85 = ctx.index;
 
-        var ctx_r49 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"]();
+        var ctx_r74 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"]();
 
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("id", item_r59.id)("@moveFromBottom", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpureFunction2"](7, _c1, !ctx_r49.animationState ? "out" : "in", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpureFunction1"](5, _c0, i_r60 / 5 + "s")));
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("id", item_r84.id)("@moveFromBottom", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpureFunction2"](7, _c1, !ctx_r74.animationState ? "out" : "in", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpureFunction1"](5, _c0, i_r85 / 5 + "s")));
 
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
 
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("item", item_r59);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("item", item_r84);
 
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](3);
 
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("item", item_r59)("currentList", ctx_r49.categoryList.IN_PROGRESS);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("item", item_r84)("currentList", ctx_r74.categoryList.IN_PROGRESS);
       }
     }
 
     function WorkflowComponent_div_22_Template(rf, ctx) {
       if (rf & 1) {
-        var _r69 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵgetCurrentView"]();
+        var _r94 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵgetCurrentView"]();
 
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 12);
 
@@ -12853,29 +11006,29 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](4, "app-task-status-menu", 15);
 
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("addNewTask", function WorkflowComponent_div_22_Template_app_task_status_menu_addNewTask_4_listener() {
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](_r69);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](_r94);
 
-          var ctx_r68 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"]();
+          var ctx_r93 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"]();
 
-          return ctx_r68.createTask();
+          return ctx_r93.createTask();
         })("removeTaskItem", function WorkflowComponent_div_22_Template_app_task_status_menu_removeTaskItem_4_listener($event) {
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](_r69);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](_r94);
 
-          var ctx_r70 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"]();
+          var ctx_r95 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"]();
 
-          return ctx_r70.deleteTask($event);
+          return ctx_r95.deleteTask($event);
         })("updateTaskStatus", function WorkflowComponent_div_22_Template_app_task_status_menu_updateTaskStatus_4_listener($event) {
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](_r69);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](_r94);
 
-          var ctx_r71 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"]();
+          var ctx_r96 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"]();
 
-          return ctx_r71.changeTaskList($event);
+          return ctx_r96.changeTaskList($event);
         })("toggleTaskPriority", function WorkflowComponent_div_22_Template_app_task_status_menu_toggleTaskPriority_4_listener($event) {
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](_r69);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](_r94);
 
-          var ctx_r72 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"]();
+          var ctx_r97 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"]();
 
-          return ctx_r72.updateTask($event);
+          return ctx_r97.updateTask($event);
         });
 
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
@@ -12884,20 +11037,20 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }
 
       if (rf & 2) {
-        var item_r66 = ctx.$implicit;
-        var i_r67 = ctx.index;
+        var item_r91 = ctx.$implicit;
+        var i_r92 = ctx.index;
 
-        var ctx_r51 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"]();
+        var ctx_r76 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"]();
 
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("id", item_r66.id)("@moveFromBottom", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpureFunction2"](8, _c1, !ctx_r51.animationState ? "out" : "in", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpureFunction1"](6, _c0, i_r67 / 5 + "s")));
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("id", item_r91.id)("@moveFromBottom", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpureFunction2"](8, _c1, !ctx_r76.animationState ? "out" : "in", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpureFunction1"](6, _c0, i_r92 / 5 + "s")));
 
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
 
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("className", "workflow-subscription_completed")("item", item_r66);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("className", "workflow-subscription_completed")("item", item_r91);
 
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](3);
 
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("item", item_r66)("currentList", ctx_r51.categoryList.COMPLETED);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("item", item_r91)("currentList", ctx_r76.categoryList.COMPLETED);
       }
     }
 
@@ -12933,14 +11086,14 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       _createClass(WorkflowComponent, [{
         key: "ngOnInit",
         value: function ngOnInit() {
-          var _this43 = this;
+          var _this37 = this;
 
           var tasksStream = this.taskService.getTasksByLists().subscribe(function (tasks) {
-            _this43.sortTasksByList(tasks);
+            _this37.sortTasksByList(tasks);
 
-            _this43.changeAnimationState();
+            _this37.changeAnimationState();
 
-            _this43.loading = false;
+            _this37.loading = false;
           });
           this.stream.add(tasksStream);
         }
@@ -12969,7 +11122,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "createTask",
         value: function createTask() {
-          var _this44 = this;
+          var _this38 = this;
 
           var dialogRef = this.dialog.open(_containers_common_layers_forms_task_modal_from_task_modal_form_component__WEBPACK_IMPORTED_MODULE_6__["TaskModalFormComponent"], {
             width: '300px',
@@ -12977,30 +11130,30 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           });
           var modalStream = dialogRef.afterClosed();
           var tasks = modalStream.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["switchMap"])(function (data) {
-            return data ? _this44.taskService.createTask(data) : [];
+            return data ? _this38.taskService.createTask(data) : [];
           }));
           var tasksStream = tasks.subscribe(function (tasks) {
-            return _this44.sortTasksByList(tasks);
+            return _this38.sortTasksByList(tasks);
           });
           this.stream.add(tasksStream);
         }
       }, {
         key: "deleteTask",
         value: function deleteTask(data) {
-          var _this45 = this;
+          var _this39 = this;
 
           var tasksStream = this.taskService.deleteTaskById(data.itemId).subscribe(function (tasks) {
-            return _this45.sortTasksByList(tasks);
+            return _this39.sortTasksByList(tasks);
           });
           this.stream.add(tasksStream);
         }
       }, {
         key: "updateTask",
         value: function updateTask(task) {
-          var _this46 = this;
+          var _this40 = this;
 
           var tasksStream = this.taskService.updateTaskById(task.id, task).subscribe(function (tasks) {
-            return _this46.sortTasksByList(tasks);
+            return _this40.sortTasksByList(tasks);
           });
           this.stream.add(tasksStream);
         }
@@ -13030,24 +11183,24 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "updateTasksLists",
         value: function updateTasksLists() {
-          var _this47 = this;
+          var _this41 = this;
 
           var tasksStream = this.taskService.updateTasksLists({
             toDoList: this.toDoList,
             inProgressList: this.inProgressList,
             completedList: this.completedList
           }).subscribe(function (tasks) {
-            return _this47.sortTasksByList(tasks);
+            return _this41.sortTasksByList(tasks);
           });
           this.stream.add(tasksStream);
         }
       }, {
         key: "changeAnimationState",
         value: function changeAnimationState() {
-          var _this48 = this;
+          var _this42 = this;
 
           setTimeout(function () {
-            return _this48.animationState = true;
+            return _this42.animationState = true;
           }, 0);
         }
       }, {
@@ -13148,11 +11301,11 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
         }
 
         if (rf & 2) {
-          var _r44 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵreference"](7);
+          var _r69 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵreference"](7);
 
-          var _r48 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵreference"](15);
+          var _r73 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵreference"](15);
 
-          var _r50 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵreference"](21);
+          var _r75 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵreference"](21);
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](4);
 
@@ -13164,7 +11317,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("id", ctx.categoryList.TO_DO)("cdkDropListData", ctx.toDoList)("cdkDropListConnectedTo", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpureFunction2"](19, _c2, _r48, _r50));
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("id", ctx.categoryList.TO_DO)("cdkDropListData", ctx.toDoList)("cdkDropListConnectedTo", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpureFunction2"](19, _c2, _r73, _r75));
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵattribute"]("data-status", ctx.statusType.TO_DO);
 
@@ -13182,7 +11335,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("id", ctx.categoryList.IN_PROGRESS)("cdkDropListData", ctx.inProgressList)("cdkDropListConnectedTo", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpureFunction2"](22, _c2, _r44, _r50));
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("id", ctx.categoryList.IN_PROGRESS)("cdkDropListData", ctx.inProgressList)("cdkDropListConnectedTo", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpureFunction2"](22, _c2, _r69, _r75));
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵattribute"]("data-status", ctx.statusType.IN_PROGRESS);
 
@@ -13192,7 +11345,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](4);
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("id", ctx.categoryList.COMPLETED)("cdkDropListData", ctx.completedList)("cdkDropListConnectedTo", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpureFunction2"](25, _c2, _r44, _r48));
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("id", ctx.categoryList.COMPLETED)("cdkDropListData", ctx.completedList)("cdkDropListConnectedTo", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpureFunction2"](25, _c2, _r69, _r73));
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵattribute"]("data-status", ctx.statusType.COMPLETED);
 
@@ -13202,7 +11355,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
         }
       },
       directives: [_angular_common__WEBPACK_IMPORTED_MODULE_10__["NgIf"], _angular_cdk_drag_drop__WEBPACK_IMPORTED_MODULE_1__["CdkDropList"], _angular_common__WEBPACK_IMPORTED_MODULE_10__["NgForOf"], _angular_material_progress_spinner__WEBPACK_IMPORTED_MODULE_11__["MatSpinner"], _angular_cdk_drag_drop__WEBPACK_IMPORTED_MODULE_1__["CdkDrag"], _components_workflow_content_workflow_content_component__WEBPACK_IMPORTED_MODULE_12__["WorkflowContentComponent"], _components_task_status_menu_task_status_menu_component__WEBPACK_IMPORTED_MODULE_13__["TaskStatusMenuComponent"]],
-      styles: ["@-webkit-keyframes width {\n  0% {\n    width: 0;\n  }\n  100% {\n    width: 100%;\n  }\n}\n@keyframes width {\n  0% {\n    width: 0;\n  }\n  100% {\n    width: 100%;\n  }\n}\n@-webkit-keyframes bubble {\n  0% {\n    opacity: 0.9;\n    width: 0;\n    height: 0;\n  }\n  100% {\n    opacity: 0;\n    width: 100px;\n    height: 100px;\n  }\n}\n@keyframes bubble {\n  0% {\n    opacity: 0.9;\n    width: 0;\n    height: 0;\n  }\n  100% {\n    opacity: 0;\n    width: 100px;\n    height: 100px;\n  }\n}\n@-webkit-keyframes rotate {\n  0% {\n    -webkit-transform: rotate(0);\n            transform: rotate(0);\n  }\n  100% {\n    -webkit-transform: rotate(360deg);\n            transform: rotate(360deg);\n  }\n}\n@keyframes rotate {\n  0% {\n    -webkit-transform: rotate(0);\n            transform: rotate(0);\n  }\n  100% {\n    -webkit-transform: rotate(360deg);\n            transform: rotate(360deg);\n  }\n}\n@-webkit-keyframes fadeIn {\n  0% {\n    opacity: 0;\n  }\n  100% {\n    opacity: 1;\n  }\n}\n@keyframes fadeIn {\n  0% {\n    opacity: 0;\n  }\n  100% {\n    opacity: 1;\n  }\n}\n\n\n\n.workflow[_ngcontent-%COMP%] {\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: justify;\n  -webkit-justify-content: space-between;\n      -ms-flex-pack: justify;\n          justify-content: space-between;\n}\n.workflow[_ngcontent-%COMP%]   .workflow-container[_ngcontent-%COMP%]:nth-child(2) {\n  margin-left: 25px;\n  margin-right: 25px;\n}\n.workflow-container[_ngcontent-%COMP%] {\n  width: 33.33333%;\n  max-width: 100%;\n  margin-bottom: 25px;\n  display: inline-block;\n  vertical-align: top;\n}\n.workflow-icon[_ngcontent-%COMP%] {\n  font-size: 32px;\n  font-weight: bold;\n  color: #2f50a8;\n}\n.workflow-list[_ngcontent-%COMP%] {\n  border: solid 1px #ccc;\n  min-height: 60px;\n  background: white;\n  -webkit-border-radius: 4px;\n          border-radius: 4px;\n  overflow: hidden;\n  display: block;\n}\n.workflow-list[_ngcontent-%COMP%]   .workflow-box[_ngcontent-%COMP%]:last-child {\n  border-bottom: 0;\n}\n.workflow-box[_ngcontent-%COMP%] {\n  font-weight: bold;\n  color: #2f50a8;\n  padding: 20px 10px;\n  border-bottom: solid 1px #ccc;\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-orient: horizontal;\n  -webkit-box-direction: normal;\n  -webkit-flex-direction: row;\n      -ms-flex-direction: row;\n          flex-direction: row;\n  -webkit-box-align: center;\n  -webkit-align-items: center;\n      -ms-flex-align: center;\n          align-items: center;\n  -webkit-box-pack: justify;\n  -webkit-justify-content: space-between;\n      -ms-flex-pack: justify;\n          justify-content: space-between;\n  -webkit-box-sizing: border-box;\n          box-sizing: border-box;\n  cursor: move;\n  background: white;\n  font-size: 14px;\n}\n.workflow-box[_ngcontent-%COMP%]:hover {\n  color: #113593;\n  background-color: #f6f7fa;\n}\n.cdk-drag-preview[_ngcontent-%COMP%] {\n  -webkit-box-sizing: border-box;\n          box-sizing: border-box;\n  -webkit-border-radius: 4px;\n          border-radius: 4px;\n  -webkit-box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2), 0 8px 10px 1px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12);\n          box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2), 0 8px 10px 1px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12);\n}\n.cdk-drag-placeholder[_ngcontent-%COMP%] {\n  opacity: 0;\n}\n.cdk-drag-animating[_ngcontent-%COMP%] {\n  -webkit-transition: -webkit-transform 250ms cubic-bezier(0, 0, 0.2, 1);\n  transition: -webkit-transform 250ms cubic-bezier(0, 0, 0.2, 1);\n  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);\n  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1), -webkit-transform 250ms cubic-bezier(0, 0, 0.2, 1);\n}\n.example-box[_ngcontent-%COMP%]:last-child {\n  border: none;\n}\n.example-list.cdk-drop-list-dragging[_ngcontent-%COMP%]   .example-box[_ngcontent-%COMP%]:not(.cdk-drag-placeholder) {\n  -webkit-transition: -webkit-transform 250ms cubic-bezier(0, 0, 0.2, 1);\n  transition: -webkit-transform 250ms cubic-bezier(0, 0, 0.2, 1);\n  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);\n  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1), -webkit-transform 250ms cubic-bezier(0, 0, 0.2, 1);\n}\n@media screen and (max-width: 920px) {\n  .workflow[_ngcontent-%COMP%] {\n    -webkit-box-orient: vertical;\n    -webkit-box-direction: normal;\n    -webkit-flex-direction: column;\n        -ms-flex-direction: column;\n            flex-direction: column;\n  }\n  .workflow[_ngcontent-%COMP%]   .workflow-container[_ngcontent-%COMP%], .workflow[_ngcontent-%COMP%]   .workflow-container[_ngcontent-%COMP%]:nth-child(2) {\n    width: 100%;\n    margin: 0 0 50px;\n  }\n  .workflow[_ngcontent-%COMP%]   .workflow-list[_ngcontent-%COMP%] {\n    max-height: 260px;\n    overflow-y: auto;\n    border-bottom: 5px solid #4c50c6;\n  }\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29udGFpbmVycy9wYWdlcy9wcml2YXRlL3BvcnRhbC93b3JrZmxvdy9DOlxcVXNlcnNcXHdlYnRyXFxEZXNrdG9wXFxhbmd1bGFyIHByb2plY3RzXFxNVlBfTlxcbWVya3VyeS9zcmNcXGFzc2V0c1xcc3R5bGVzXFxfdmFyaWFibGVzLnNjc3MiLCJzcmMvYXBwL2NvbnRhaW5lcnMvcGFnZXMvcHJpdmF0ZS9wb3J0YWwvd29ya2Zsb3cvQzpcXFVzZXJzXFx3ZWJ0clxcRGVza3RvcFxcYW5ndWxhciBwcm9qZWN0c1xcTVZQX05cXG1lcmt1cnkvc3JjXFxhc3NldHNcXHN0eWxlc1xcX2tleWZyYW1lcy5zY3NzIiwic3JjL2FwcC9jb250YWluZXJzL3BhZ2VzL3ByaXZhdGUvcG9ydGFsL3dvcmtmbG93L3dvcmtmbG93LmNvbXBvbmVudC5zY3NzIiwic3JjL2FwcC9jb250YWluZXJzL3BhZ2VzL3ByaXZhdGUvcG9ydGFsL3dvcmtmbG93L0M6XFxVc2Vyc1xcd2VidHJcXERlc2t0b3BcXGFuZ3VsYXIgcHJvamVjdHNcXE1WUF9OXFxtZXJrdXJ5L3NyY1xcYXBwXFxjb250YWluZXJzXFxwYWdlc1xccHJpdmF0ZVxccG9ydGFsXFx3b3JrZmxvd1xcd29ya2Zsb3cuY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUEsV0FBQTtBQTRDQSxnQkFBQTtBQUtBLFVBQUE7QUNqREE7RUFDRTtJQUNFLFFBQUE7RUNJRjtFREZBO0lBQ0UsV0FBQTtFQ0lGO0FBQ0Y7QURWQTtFQUNFO0lBQ0UsUUFBQTtFQ0lGO0VERkE7SUFDRSxXQUFBO0VDSUY7QUFDRjtBRERBO0VBQ0U7SUFDRSxZQUFBO0lBQ0EsUUFBQTtJQUNBLFNBQUE7RUNHRjtFRERBO0lBQ0UsVUFBQTtJQUNBLFlBQUE7SUFDQSxhQUFBO0VDR0Y7QUFDRjtBRGJBO0VBQ0U7SUFDRSxZQUFBO0lBQ0EsUUFBQTtJQUNBLFNBQUE7RUNHRjtFRERBO0lBQ0UsVUFBQTtJQUNBLFlBQUE7SUFDQSxhQUFBO0VDR0Y7QUFDRjtBREFBO0VBQ0U7SUFDRSw0QkFBQTtZQUFBLG9CQUFBO0VDRUY7RURBQTtJQUNFLGlDQUFBO1lBQUEseUJBQUE7RUNFRjtBQUNGO0FEUkE7RUFDRTtJQUNFLDRCQUFBO1lBQUEsb0JBQUE7RUNFRjtFREFBO0lBQ0UsaUNBQUE7WUFBQSx5QkFBQTtFQ0VGO0FBQ0Y7QURDQTtFQUNFO0lBQ0UsVUFBQTtFQ0NGO0VEQ0E7SUFDRSxVQUFBO0VDQ0Y7QUFDRjtBRFBBO0VBQ0U7SUFDRSxVQUFBO0VDQ0Y7RURDQTtJQUNFLFVBQUE7RUNDRjtBQUNGO0FGdENBLFdBQUE7QUE0Q0EsZ0JBQUE7QUFLQSxVQUFBO0FHOUNBO0VBQ0Usb0JBQUE7RUFBQSxxQkFBQTtFQUFBLG9CQUFBO0VBQUEsYUFBQTtFQUNBLHlCQUFBO0VBQUEsc0NBQUE7TUFBQSxzQkFBQTtVQUFBLDhCQUFBO0FEd0NGO0FDdENFO0VBQ0UsaUJBQUE7RUFDQSxrQkFBQTtBRHdDSjtBQ3BDQTtFQUNFLGdCQUFBO0VBQ0EsZUFBQTtFQUNBLG1CQUFBO0VBQ0EscUJBQUE7RUFDQSxtQkFBQTtBRHVDRjtBQ3BDQTtFQUNFLGVBQUE7RUFDQSxpQkFBQTtFQUNBLGNIa0JlO0FFcUJqQjtBQ3BDQTtFQUNFLHNCQUFBO0VBQ0EsZ0JBQUE7RUFDQSxpQkFBQTtFQUNBLDBCQUFBO1VBQUEsa0JBQUE7RUFDQSxnQkFBQTtFQUNBLGNBQUE7QUR1Q0Y7QUNyQ0U7RUFDRSxnQkFBQTtBRHVDSjtBQ25DQTtFQUNFLGlCQUFBO0VBQ0EsY0FBQTtFQUNBLGtCQUFBO0VBQ0EsNkJBQUE7RUFDQSxvQkFBQTtFQUFBLHFCQUFBO0VBQUEsb0JBQUE7RUFBQSxhQUFBO0VBQ0EsOEJBQUE7RUFBQSw2QkFBQTtFQUFBLDJCQUFBO01BQUEsdUJBQUE7VUFBQSxtQkFBQTtFQUNBLHlCQUFBO0VBQUEsMkJBQUE7TUFBQSxzQkFBQTtVQUFBLG1CQUFBO0VBQ0EseUJBQUE7RUFBQSxzQ0FBQTtNQUFBLHNCQUFBO1VBQUEsOEJBQUE7RUFDQSw4QkFBQTtVQUFBLHNCQUFBO0VBQ0EsWUFBQTtFQUNBLGlCQUFBO0VBQ0EsZUFBQTtBRHNDRjtBQ3BDRTtFQUNFLGNIbENlO0VHbUNmLHlCSHZDUztBRTZFYjtBQ2xDQTtFQUNFLDhCQUFBO1VBQUEsc0JBQUE7RUFDQSwwQkFBQTtVQUFBLGtCQUFBO0VBQ0EsNkhBQUE7VUFBQSxxSEFBQTtBRHFDRjtBQ2hDQTtFQUNFLFVBQUE7QURtQ0Y7QUNoQ0E7RUFDRSxzRUFBQTtFQUFBLDhEQUFBO0VBQUEsc0RBQUE7RUFBQSwwR0FBQTtBRG1DRjtBQ2hDQTtFQUNFLFlBQUE7QURtQ0Y7QUNoQ0E7RUFDRSxzRUFBQTtFQUFBLDhEQUFBO0VBQUEsc0RBQUE7RUFBQSwwR0FBQTtBRG1DRjtBQ2hDQTtFQUVFO0lBQ0UsNEJBQUE7SUFBQSw2QkFBQTtJQUFBLDhCQUFBO1FBQUEsMEJBQUE7WUFBQSxzQkFBQTtFRGtDRjtFQ2hDRTtJQUNFLFdBQUE7SUFDQSxnQkFBQTtFRGtDSjtFQy9CRTtJQUNFLGlCQUFBO0lBQ0EsZ0JBQUE7SUFDQSxnQ0FBQTtFRGlDSjtBQUNGIiwiZmlsZSI6InNyYy9hcHAvY29udGFpbmVycy9wYWdlcy9wcml2YXRlL3BvcnRhbC93b3JrZmxvdy93b3JrZmxvdy5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbIi8qIGNvbG9ycyAqL1xyXG4kd2hpdGUtY29sb3I6ICNmZmY7XHJcbiRibGFjay1jb2xvcjogIzAwMDtcclxuXHJcbiRlcnJvcjogI2ZmNzM3MztcclxuJGNvbXBsZXRlOiAjNzllZDQ5O1xyXG5cclxuJHBsYWNlaG9sZGVyOiAjYjBiMGIwO1xyXG4kZm9ybS1pdGVtLWNvbG9yOiAjYjBiMGIwO1xyXG5cclxuJGlucHV0LXRleHQ6ICM4NDkyYWY7XHJcbiRpbnB1dC1ib3JkZXI6ICNmNmY2ZjY7XHJcbiRpbnB1dC1ib3JkZXItLWhvdmVyOiAjZWVlYmViO1xyXG5cclxuJGJvcmRlcjogI2Q0ZDllMztcclxuJGJvcmRlci1saWdodDogI2NjYztcclxuXHJcbiRiYWNrZ3JvdW5kOiAjZjZmN2ZhO1xyXG5cclxuJHRoZW1lLWNvbG9yOiAjMGUxYTM1O1xyXG5cclxuJHRoZW1lLWRhcmstY29sb3I6ICMxMTM1OTM7XHJcbiR0aGVtZS1kYXJrLWNvbG9yLWl0ZW1zOiAjNTU4NGZmO1xyXG4kdGhlbWUtZGFyay1jb2xvci1pdGVtcy0taG92ZXI6ICM1NTg0ZmY7XHJcblxyXG4kdGhlbWUtbGlnaHQtY29sb3I6ICM0YzUwYzY7XHJcbiR0aGVtZS1saWdodC1jb2xvci1pdGVtczogIzRmMzlkNztcclxuJHRoZW1lLWxpZ2h0LWNvbG9yLWl0ZW1zLS1ob3ZlcjogIzU1ODRmZjtcclxuXHJcbiRuYXYtaXRlbS1jb2xvcjogIzEyMjE0MztcclxuXHJcbiRkZWNvci1pdGVtLS1ob3ZlcjogIzNiNTZkYjtcclxuJGRlY29yLWl0ZW0tLWFjdGl2ZTogIzU1ODRmZjtcclxuXHJcbiRidG46ICM3OTllZmI7XHJcbiRidG4tZGVjb3I6ICM0YzdiZjY7XHJcbiRidG4tLWRpc2FibGVkOiAjY2NjO1xyXG5cclxuJHRleHQtc2hhZG93OiAjYjFjMGUyO1xyXG4kdGV4dC1jb2xvcjogIzc2N2JiMDtcclxuJHN1Yi1oZWFkbGluZS1jb2xvcjogIzg0OTJhZjtcclxuXHJcbiRoZWFkbGluZS1jb2xvcjogIzJmNTBhODtcclxuXHJcbi8qIHRyYW5zaXRpb25zICovXHJcbiR0cmFuc2l0aW9uOiAuNHM7XHJcbiRzaG9ydC10cmFuc2l0aW9uOiAuM3M7XHJcbiRsb25nLXRyYW5zaXRpb246IC42cztcclxuXHJcbi8qIGZvbnRzICovXHJcbiRiYXNlLWZvbnRzOiAnUm9ib3RvJywgJ0hlbHZldGljYScsICdPcGVuIFNhbnMnLCAnc2Fucy1zZXJpZicsICdBcmlhbCc7XHJcblxyXG5cclxuIiwiQGtleWZyYW1lcyB3aWR0aCB7XHJcbiAgMCUge1xyXG4gICAgd2lkdGg6IDA7XHJcbiAgfVxyXG4gIDEwMCUge1xyXG4gICAgd2lkdGg6IDEwMCU7XHJcbiAgfVxyXG59XHJcblxyXG5Aa2V5ZnJhbWVzIGJ1YmJsZSB7XHJcbiAgMCUge1xyXG4gICAgb3BhY2l0eTogLjk7XHJcbiAgICB3aWR0aDogMDtcclxuICAgIGhlaWdodDogMDtcclxuICB9XHJcbiAgMTAwJSB7XHJcbiAgICBvcGFjaXR5OiAwO1xyXG4gICAgd2lkdGg6IDEwMHB4O1xyXG4gICAgaGVpZ2h0OiAxMDBweDtcclxuICB9XHJcbn1cclxuXHJcbkBrZXlmcmFtZXMgcm90YXRlIHtcclxuICAwJSB7XHJcbiAgICB0cmFuc2Zvcm06IHJvdGF0ZSgwKTtcclxuICB9XHJcbiAgMTAwJSB7XHJcbiAgICB0cmFuc2Zvcm06IHJvdGF0ZSgzNjBkZWcpO1xyXG4gIH1cclxufVxyXG5cclxuQGtleWZyYW1lcyBmYWRlSW4ge1xyXG4gIDAlIHtcclxuICAgIG9wYWNpdHk6IDA7XHJcbiAgfVxyXG4gIDEwMCUge1xyXG4gICAgb3BhY2l0eTogMTtcclxuICB9XHJcbn1cclxuIiwiLyogY29sb3JzICovXG4vKiB0cmFuc2l0aW9ucyAqL1xuLyogZm9udHMgKi9cbkBrZXlmcmFtZXMgd2lkdGgge1xuICAwJSB7XG4gICAgd2lkdGg6IDA7XG4gIH1cbiAgMTAwJSB7XG4gICAgd2lkdGg6IDEwMCU7XG4gIH1cbn1cbkBrZXlmcmFtZXMgYnViYmxlIHtcbiAgMCUge1xuICAgIG9wYWNpdHk6IDAuOTtcbiAgICB3aWR0aDogMDtcbiAgICBoZWlnaHQ6IDA7XG4gIH1cbiAgMTAwJSB7XG4gICAgb3BhY2l0eTogMDtcbiAgICB3aWR0aDogMTAwcHg7XG4gICAgaGVpZ2h0OiAxMDBweDtcbiAgfVxufVxuQGtleWZyYW1lcyByb3RhdGUge1xuICAwJSB7XG4gICAgdHJhbnNmb3JtOiByb3RhdGUoMCk7XG4gIH1cbiAgMTAwJSB7XG4gICAgdHJhbnNmb3JtOiByb3RhdGUoMzYwZGVnKTtcbiAgfVxufVxuQGtleWZyYW1lcyBmYWRlSW4ge1xuICAwJSB7XG4gICAgb3BhY2l0eTogMDtcbiAgfVxuICAxMDAlIHtcbiAgICBvcGFjaXR5OiAxO1xuICB9XG59XG4vKiBjb2xvcnMgKi9cbi8qIHRyYW5zaXRpb25zICovXG4vKiBmb250cyAqL1xuLndvcmtmbG93IHtcbiAgZGlzcGxheTogZmxleDtcbiAganVzdGlmeS1jb250ZW50OiBzcGFjZS1iZXR3ZWVuO1xufVxuLndvcmtmbG93IC53b3JrZmxvdy1jb250YWluZXI6bnRoLWNoaWxkKDIpIHtcbiAgbWFyZ2luLWxlZnQ6IDI1cHg7XG4gIG1hcmdpbi1yaWdodDogMjVweDtcbn1cblxuLndvcmtmbG93LWNvbnRhaW5lciB7XG4gIHdpZHRoOiAzMy4zMzMzMyU7XG4gIG1heC13aWR0aDogMTAwJTtcbiAgbWFyZ2luLWJvdHRvbTogMjVweDtcbiAgZGlzcGxheTogaW5saW5lLWJsb2NrO1xuICB2ZXJ0aWNhbC1hbGlnbjogdG9wO1xufVxuXG4ud29ya2Zsb3ctaWNvbiB7XG4gIGZvbnQtc2l6ZTogMzJweDtcbiAgZm9udC13ZWlnaHQ6IGJvbGQ7XG4gIGNvbG9yOiAjMmY1MGE4O1xufVxuXG4ud29ya2Zsb3ctbGlzdCB7XG4gIGJvcmRlcjogc29saWQgMXB4ICNjY2M7XG4gIG1pbi1oZWlnaHQ6IDYwcHg7XG4gIGJhY2tncm91bmQ6IHdoaXRlO1xuICBib3JkZXItcmFkaXVzOiA0cHg7XG4gIG92ZXJmbG93OiBoaWRkZW47XG4gIGRpc3BsYXk6IGJsb2NrO1xufVxuLndvcmtmbG93LWxpc3QgLndvcmtmbG93LWJveDpsYXN0LWNoaWxkIHtcbiAgYm9yZGVyLWJvdHRvbTogMDtcbn1cblxuLndvcmtmbG93LWJveCB7XG4gIGZvbnQtd2VpZ2h0OiBib2xkO1xuICBjb2xvcjogIzJmNTBhODtcbiAgcGFkZGluZzogMjBweCAxMHB4O1xuICBib3JkZXItYm90dG9tOiBzb2xpZCAxcHggI2NjYztcbiAgZGlzcGxheTogZmxleDtcbiAgZmxleC1kaXJlY3Rpb246IHJvdztcbiAgYWxpZ24taXRlbXM6IGNlbnRlcjtcbiAganVzdGlmeS1jb250ZW50OiBzcGFjZS1iZXR3ZWVuO1xuICBib3gtc2l6aW5nOiBib3JkZXItYm94O1xuICBjdXJzb3I6IG1vdmU7XG4gIGJhY2tncm91bmQ6IHdoaXRlO1xuICBmb250LXNpemU6IDE0cHg7XG59XG4ud29ya2Zsb3ctYm94OmhvdmVyIHtcbiAgY29sb3I6ICMxMTM1OTM7XG4gIGJhY2tncm91bmQtY29sb3I6ICNmNmY3ZmE7XG59XG5cbi5jZGstZHJhZy1wcmV2aWV3IHtcbiAgYm94LXNpemluZzogYm9yZGVyLWJveDtcbiAgYm9yZGVyLXJhZGl1czogNHB4O1xuICBib3gtc2hhZG93OiAwIDVweCA1cHggLTNweCByZ2JhKDAsIDAsIDAsIDAuMiksIDAgOHB4IDEwcHggMXB4IHJnYmEoMCwgMCwgMCwgMC4xNCksIDAgM3B4IDE0cHggMnB4IHJnYmEoMCwgMCwgMCwgMC4xMik7XG59XG5cbi5jZGstZHJhZy1wbGFjZWhvbGRlciB7XG4gIG9wYWNpdHk6IDA7XG59XG5cbi5jZGstZHJhZy1hbmltYXRpbmcge1xuICB0cmFuc2l0aW9uOiB0cmFuc2Zvcm0gMjUwbXMgY3ViaWMtYmV6aWVyKDAsIDAsIDAuMiwgMSk7XG59XG5cbi5leGFtcGxlLWJveDpsYXN0LWNoaWxkIHtcbiAgYm9yZGVyOiBub25lO1xufVxuXG4uZXhhbXBsZS1saXN0LmNkay1kcm9wLWxpc3QtZHJhZ2dpbmcgLmV4YW1wbGUtYm94Om5vdCguY2RrLWRyYWctcGxhY2Vob2xkZXIpIHtcbiAgdHJhbnNpdGlvbjogdHJhbnNmb3JtIDI1MG1zIGN1YmljLWJlemllcigwLCAwLCAwLjIsIDEpO1xufVxuXG5AbWVkaWEgc2NyZWVuIGFuZCAobWF4LXdpZHRoOiA5MjBweCkge1xuICAud29ya2Zsb3cge1xuICAgIGZsZXgtZGlyZWN0aW9uOiBjb2x1bW47XG4gIH1cbiAgLndvcmtmbG93IC53b3JrZmxvdy1jb250YWluZXIsIC53b3JrZmxvdyAud29ya2Zsb3ctY29udGFpbmVyOm50aC1jaGlsZCgyKSB7XG4gICAgd2lkdGg6IDEwMCU7XG4gICAgbWFyZ2luOiAwIDAgNTBweDtcbiAgfVxuICAud29ya2Zsb3cgLndvcmtmbG93LWxpc3Qge1xuICAgIG1heC1oZWlnaHQ6IDI2MHB4O1xuICAgIG92ZXJmbG93LXk6IGF1dG87XG4gICAgYm9yZGVyLWJvdHRvbTogNXB4IHNvbGlkICM0YzUwYzY7XG4gIH1cbn0iLCJAaW1wb3J0ICdtaXhpbnMnO1xyXG5AaW1wb3J0ICd2YXJpYWJsZXMnO1xyXG5cclxuLndvcmtmbG93IHtcclxuICBkaXNwbGF5OiBmbGV4O1xyXG4gIGp1c3RpZnktY29udGVudDogc3BhY2UtYmV0d2VlbjtcclxuXHJcbiAgLndvcmtmbG93LWNvbnRhaW5lcjpudGgtY2hpbGQoMikge1xyXG4gICAgbWFyZ2luLWxlZnQ6IDI1cHg7XHJcbiAgICBtYXJnaW4tcmlnaHQ6IDI1cHg7XHJcbiAgfVxyXG59XHJcblxyXG4ud29ya2Zsb3ctY29udGFpbmVyIHtcclxuICB3aWR0aDogMzMuMzMzMzMlO1xyXG4gIG1heC13aWR0aDogMTAwJTtcclxuICBtYXJnaW4tYm90dG9tOiAyNXB4O1xyXG4gIGRpc3BsYXk6IGlubGluZS1ibG9jaztcclxuICB2ZXJ0aWNhbC1hbGlnbjogdG9wO1xyXG59XHJcblxyXG4ud29ya2Zsb3ctaWNvbiB7XHJcbiAgZm9udC1zaXplOiAzMnB4O1xyXG4gIGZvbnQtd2VpZ2h0OiBib2xkO1xyXG4gIGNvbG9yOiAkaGVhZGxpbmUtY29sb3I7XHJcbn1cclxuXHJcbi53b3JrZmxvdy1saXN0IHtcclxuICBib3JkZXI6IHNvbGlkIDFweCAkYm9yZGVyLWxpZ2h0O1xyXG4gIG1pbi1oZWlnaHQ6IDYwcHg7XHJcbiAgYmFja2dyb3VuZDogd2hpdGU7XHJcbiAgYm9yZGVyLXJhZGl1czogNHB4O1xyXG4gIG92ZXJmbG93OiBoaWRkZW47XHJcbiAgZGlzcGxheTogYmxvY2s7XHJcblxyXG4gIC53b3JrZmxvdy1ib3g6bGFzdC1jaGlsZCB7XHJcbiAgICBib3JkZXItYm90dG9tOiAwO1xyXG4gIH1cclxufVxyXG5cclxuLndvcmtmbG93LWJveCB7XHJcbiAgZm9udC13ZWlnaHQ6IGJvbGQ7XHJcbiAgY29sb3I6ICRoZWFkbGluZS1jb2xvcjtcclxuICBwYWRkaW5nOiAyMHB4IDEwcHg7XHJcbiAgYm9yZGVyLWJvdHRvbTogc29saWQgMXB4ICRib3JkZXItbGlnaHQ7XHJcbiAgZGlzcGxheTogZmxleDtcclxuICBmbGV4LWRpcmVjdGlvbjogcm93O1xyXG4gIGFsaWduLWl0ZW1zOiBjZW50ZXI7XHJcbiAganVzdGlmeS1jb250ZW50OiBzcGFjZS1iZXR3ZWVuO1xyXG4gIGJveC1zaXppbmc6IGJvcmRlci1ib3g7XHJcbiAgY3Vyc29yOiBtb3ZlO1xyXG4gIGJhY2tncm91bmQ6IHdoaXRlO1xyXG4gIGZvbnQtc2l6ZTogMTRweDtcclxuXHJcbiAgJjpob3ZlciB7XHJcbiAgICBjb2xvcjogJHRoZW1lLWRhcmstY29sb3I7XHJcbiAgICBiYWNrZ3JvdW5kLWNvbG9yOiAkYmFja2dyb3VuZDtcclxuICB9XHJcbn1cclxuXHJcbi5jZGstZHJhZy1wcmV2aWV3IHtcclxuICBib3gtc2l6aW5nOiBib3JkZXItYm94O1xyXG4gIGJvcmRlci1yYWRpdXM6IDRweDtcclxuICBib3gtc2hhZG93OiAwIDVweCA1cHggLTNweCByZ2JhKDAsIDAsIDAsIDAuMiksXHJcbiAgMCA4cHggMTBweCAxcHggcmdiYSgwLCAwLCAwLCAwLjE0KSxcclxuICAwIDNweCAxNHB4IDJweCByZ2JhKDAsIDAsIDAsIDAuMTIpO1xyXG59XHJcblxyXG4uY2RrLWRyYWctcGxhY2Vob2xkZXIge1xyXG4gIG9wYWNpdHk6IDA7XHJcbn1cclxuXHJcbi5jZGstZHJhZy1hbmltYXRpbmcge1xyXG4gIHRyYW5zaXRpb246IHRyYW5zZm9ybSAyNTBtcyBjdWJpYy1iZXppZXIoMCwgMCwgMC4yLCAxKTtcclxufVxyXG5cclxuLmV4YW1wbGUtYm94Omxhc3QtY2hpbGQge1xyXG4gIGJvcmRlcjogbm9uZTtcclxufVxyXG5cclxuLmV4YW1wbGUtbGlzdC5jZGstZHJvcC1saXN0LWRyYWdnaW5nIC5leGFtcGxlLWJveDpub3QoLmNkay1kcmFnLXBsYWNlaG9sZGVyKSB7XHJcbiAgdHJhbnNpdGlvbjogdHJhbnNmb3JtIDI1MG1zIGN1YmljLWJlemllcigwLCAwLCAwLjIsIDEpO1xyXG59XHJcblxyXG5AbWVkaWEgc2NyZWVuIGFuZCAobWF4LXdpZHRoOiA5MjBweCkge1xyXG5cclxuICAud29ya2Zsb3cge1xyXG4gICAgZmxleC1kaXJlY3Rpb246IGNvbHVtbjtcclxuXHJcbiAgICAud29ya2Zsb3ctY29udGFpbmVyLCAud29ya2Zsb3ctY29udGFpbmVyOm50aC1jaGlsZCgyKSB7XHJcbiAgICAgIHdpZHRoOiAxMDAlO1xyXG4gICAgICBtYXJnaW46IDAgMCA1MHB4O1xyXG4gICAgfVxyXG5cclxuICAgIC53b3JrZmxvdy1saXN0IHtcclxuICAgICAgbWF4LWhlaWdodDogMjYwcHg7XHJcbiAgICAgIG92ZXJmbG93LXk6IGF1dG87XHJcbiAgICAgIGJvcmRlci1ib3R0b206IDVweCBzb2xpZCAkdGhlbWUtbGlnaHQtY29sb3I7XHJcbiAgICB9XHJcbiAgfVxyXG59XHJcbiJdfQ== */"],
+      styles: ["@-webkit-keyframes width {\n  0% {\n    width: 0;\n  }\n  100% {\n    width: 100%;\n  }\n}\n@keyframes width {\n  0% {\n    width: 0;\n  }\n  100% {\n    width: 100%;\n  }\n}\n@-webkit-keyframes bubble {\n  0% {\n    opacity: 0.9;\n    width: 0;\n    height: 0;\n  }\n  100% {\n    opacity: 0;\n    width: 100px;\n    height: 100px;\n  }\n}\n@keyframes bubble {\n  0% {\n    opacity: 0.9;\n    width: 0;\n    height: 0;\n  }\n  100% {\n    opacity: 0;\n    width: 100px;\n    height: 100px;\n  }\n}\n@-webkit-keyframes rotate {\n  0% {\n    -webkit-transform: rotate(0);\n            transform: rotate(0);\n  }\n  100% {\n    -webkit-transform: rotate(360deg);\n            transform: rotate(360deg);\n  }\n}\n@keyframes rotate {\n  0% {\n    -webkit-transform: rotate(0);\n            transform: rotate(0);\n  }\n  100% {\n    -webkit-transform: rotate(360deg);\n            transform: rotate(360deg);\n  }\n}\n@-webkit-keyframes fadeIn {\n  0% {\n    opacity: 0;\n  }\n  100% {\n    opacity: 1;\n  }\n}\n@keyframes fadeIn {\n  0% {\n    opacity: 0;\n  }\n  100% {\n    opacity: 1;\n  }\n}\n\n\n\n\n.workflow[_ngcontent-%COMP%] {\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: justify;\n  -webkit-justify-content: space-between;\n      -ms-flex-pack: justify;\n          justify-content: space-between;\n}\n.workflow[_ngcontent-%COMP%]   .workflow-container[_ngcontent-%COMP%]:nth-child(2) {\n  margin-left: 25px;\n  margin-right: 25px;\n}\n.workflow-container[_ngcontent-%COMP%] {\n  width: 33.33333%;\n  max-width: 100%;\n  margin-bottom: 25px;\n  display: inline-block;\n  vertical-align: top;\n}\n.workflow-icon[_ngcontent-%COMP%] {\n  font-size: 32px;\n  font-weight: bold;\n  color: #2f50a8;\n}\n.workflow-list[_ngcontent-%COMP%] {\n  border: solid 1px #ccc;\n  min-height: 60px;\n  background: white;\n  -webkit-border-radius: 4px;\n          border-radius: 4px;\n  overflow: hidden;\n  display: block;\n}\n.workflow-list[_ngcontent-%COMP%]   .workflow-box[_ngcontent-%COMP%]:last-child {\n  border-bottom: 0;\n}\n.workflow-box[_ngcontent-%COMP%] {\n  font-weight: bold;\n  color: #2f50a8;\n  padding: 20px 10px;\n  border-bottom: solid 1px #ccc;\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-orient: horizontal;\n  -webkit-box-direction: normal;\n  -webkit-flex-direction: row;\n      -ms-flex-direction: row;\n          flex-direction: row;\n  -webkit-box-align: center;\n  -webkit-align-items: center;\n      -ms-flex-align: center;\n          align-items: center;\n  -webkit-box-pack: justify;\n  -webkit-justify-content: space-between;\n      -ms-flex-pack: justify;\n          justify-content: space-between;\n  -webkit-box-sizing: border-box;\n          box-sizing: border-box;\n  cursor: move;\n  background: white;\n  font-size: 14px;\n}\n.workflow-box[_ngcontent-%COMP%]:hover {\n  color: #113593;\n  background-color: #f6f7fa;\n}\n.cdk-drag-preview[_ngcontent-%COMP%] {\n  -webkit-box-sizing: border-box;\n          box-sizing: border-box;\n  -webkit-border-radius: 4px;\n          border-radius: 4px;\n  -webkit-box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2), 0 8px 10px 1px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12);\n          box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2), 0 8px 10px 1px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12);\n}\n.cdk-drag-placeholder[_ngcontent-%COMP%] {\n  opacity: 0;\n}\n.cdk-drag-animating[_ngcontent-%COMP%] {\n  -webkit-transition: -webkit-transform 250ms cubic-bezier(0, 0, 0.2, 1);\n  transition: -webkit-transform 250ms cubic-bezier(0, 0, 0.2, 1);\n  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);\n  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1), -webkit-transform 250ms cubic-bezier(0, 0, 0.2, 1);\n}\n.example-box[_ngcontent-%COMP%]:last-child {\n  border: none;\n}\n.example-list.cdk-drop-list-dragging[_ngcontent-%COMP%]   .example-box[_ngcontent-%COMP%]:not(.cdk-drag-placeholder) {\n  -webkit-transition: -webkit-transform 250ms cubic-bezier(0, 0, 0.2, 1);\n  transition: -webkit-transform 250ms cubic-bezier(0, 0, 0.2, 1);\n  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);\n  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1), -webkit-transform 250ms cubic-bezier(0, 0, 0.2, 1);\n}\n@media screen and (max-width: 920px) {\n  .workflow[_ngcontent-%COMP%] {\n    -webkit-box-orient: vertical;\n    -webkit-box-direction: normal;\n    -webkit-flex-direction: column;\n        -ms-flex-direction: column;\n            flex-direction: column;\n  }\n  .workflow[_ngcontent-%COMP%]   .workflow-container[_ngcontent-%COMP%], .workflow[_ngcontent-%COMP%]   .workflow-container[_ngcontent-%COMP%]:nth-child(2) {\n    width: 100%;\n    margin: 0 0 50px;\n  }\n  .workflow[_ngcontent-%COMP%]   .workflow-list[_ngcontent-%COMP%] {\n    max-height: 260px;\n    overflow-y: auto;\n    border-bottom: 5px solid #4c50c6;\n  }\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29udGFpbmVycy9wYWdlcy9wcml2YXRlL3BvcnRhbC93b3JrZmxvdy9DOlxcVXNlcnNcXHdlYnRyXFxEZXNrdG9wXFxhbmd1bGFyIHByb2plY3RzXFxNVlBfTlxcbWVya3VyeS9zcmNcXGFzc2V0c1xcc3R5bGVzXFxfdmFyaWFibGVzLnNjc3MiLCJzcmMvYXBwL2NvbnRhaW5lcnMvcGFnZXMvcHJpdmF0ZS9wb3J0YWwvd29ya2Zsb3cvQzpcXFVzZXJzXFx3ZWJ0clxcRGVza3RvcFxcYW5ndWxhciBwcm9qZWN0c1xcTVZQX05cXG1lcmt1cnkvc3JjXFxhc3NldHNcXHN0eWxlc1xcX2tleWZyYW1lcy5zY3NzIiwic3JjL2FwcC9jb250YWluZXJzL3BhZ2VzL3ByaXZhdGUvcG9ydGFsL3dvcmtmbG93L3dvcmtmbG93LmNvbXBvbmVudC5zY3NzIiwic3JjL2FwcC9jb250YWluZXJzL3BhZ2VzL3ByaXZhdGUvcG9ydGFsL3dvcmtmbG93L0M6XFxVc2Vyc1xcd2VidHJcXERlc2t0b3BcXGFuZ3VsYXIgcHJvamVjdHNcXE1WUF9OXFxtZXJrdXJ5L3NyY1xcYXBwXFxjb250YWluZXJzXFxwYWdlc1xccHJpdmF0ZVxccG9ydGFsXFx3b3JrZmxvd1xcd29ya2Zsb3cuY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUEsV0FBQTtBQTZDQSxZQUFBO0FBVUEsZ0JBQUE7QUFNQSxVQUFBO0FDN0RBO0VBQ0U7SUFDRSxRQUFBO0VDS0Y7RURIQTtJQUNFLFdBQUE7RUNLRjtBQUNGO0FEWEE7RUFDRTtJQUNFLFFBQUE7RUNLRjtFREhBO0lBQ0UsV0FBQTtFQ0tGO0FBQ0Y7QURGQTtFQUNFO0lBQ0UsWUFBQTtJQUNBLFFBQUE7SUFDQSxTQUFBO0VDSUY7RURGQTtJQUNFLFVBQUE7SUFDQSxZQUFBO0lBQ0EsYUFBQTtFQ0lGO0FBQ0Y7QURkQTtFQUNFO0lBQ0UsWUFBQTtJQUNBLFFBQUE7SUFDQSxTQUFBO0VDSUY7RURGQTtJQUNFLFVBQUE7SUFDQSxZQUFBO0lBQ0EsYUFBQTtFQ0lGO0FBQ0Y7QUREQTtFQUNFO0lBQ0UsNEJBQUE7WUFBQSxvQkFBQTtFQ0dGO0VEREE7SUFDRSxpQ0FBQTtZQUFBLHlCQUFBO0VDR0Y7QUFDRjtBRFRBO0VBQ0U7SUFDRSw0QkFBQTtZQUFBLG9CQUFBO0VDR0Y7RUREQTtJQUNFLGlDQUFBO1lBQUEseUJBQUE7RUNHRjtBQUNGO0FEQUE7RUFDRTtJQUNFLFVBQUE7RUNFRjtFREFBO0lBQ0UsVUFBQTtFQ0VGO0FBQ0Y7QURSQTtFQUNFO0lBQ0UsVUFBQTtFQ0VGO0VEQUE7SUFDRSxVQUFBO0VDRUY7QUFDRjtBRnZDQSxXQUFBO0FBNkNBLFlBQUE7QUFVQSxnQkFBQTtBQU1BLFVBQUE7QUcxREE7RUFDRSxvQkFBQTtFQUFBLHFCQUFBO0VBQUEsb0JBQUE7RUFBQSxhQUFBO0VBQ0EseUJBQUE7RUFBQSxzQ0FBQTtNQUFBLHNCQUFBO1VBQUEsOEJBQUE7QUQwQ0Y7QUN4Q0U7RUFDRSxpQkFBQTtFQUNBLGtCQUFBO0FEMENKO0FDdENBO0VBQ0UsZ0JBQUE7RUFDQSxlQUFBO0VBQ0EsbUJBQUE7RUFDQSxxQkFBQTtFQUNBLG1CQUFBO0FEeUNGO0FDdENBO0VBQ0UsZUFBQTtFQUNBLGlCQUFBO0VBQ0EsY0hrQmU7QUV1QmpCO0FDdENBO0VBQ0Usc0JBQUE7RUFDQSxnQkFBQTtFQUNBLGlCQUFBO0VBQ0EsMEJBQUE7VUFBQSxrQkFBQTtFQUNBLGdCQUFBO0VBQ0EsY0FBQTtBRHlDRjtBQ3ZDRTtFQUNFLGdCQUFBO0FEeUNKO0FDckNBO0VBQ0UsaUJBQUE7RUFDQSxjQUFBO0VBQ0Esa0JBQUE7RUFDQSw2QkFBQTtFQUNBLG9CQUFBO0VBQUEscUJBQUE7RUFBQSxvQkFBQTtFQUFBLGFBQUE7RUFDQSw4QkFBQTtFQUFBLDZCQUFBO0VBQUEsMkJBQUE7TUFBQSx1QkFBQTtVQUFBLG1CQUFBO0VBQ0EseUJBQUE7RUFBQSwyQkFBQTtNQUFBLHNCQUFBO1VBQUEsbUJBQUE7RUFDQSx5QkFBQTtFQUFBLHNDQUFBO01BQUEsc0JBQUE7VUFBQSw4QkFBQTtFQUNBLDhCQUFBO1VBQUEsc0JBQUE7RUFDQSxZQUFBO0VBQ0EsaUJBQUE7RUFDQSxlQUFBO0FEd0NGO0FDdENFO0VBQ0UsY0hsQ2U7RUdtQ2YseUJIdkNTO0FFK0ViO0FDcENBO0VBQ0UsOEJBQUE7VUFBQSxzQkFBQTtFQUNBLDBCQUFBO1VBQUEsa0JBQUE7RUFDQSw2SEFBQTtVQUFBLHFIQUFBO0FEdUNGO0FDbENBO0VBQ0UsVUFBQTtBRHFDRjtBQ2xDQTtFQUNFLHNFQUFBO0VBQUEsOERBQUE7RUFBQSxzREFBQTtFQUFBLDBHQUFBO0FEcUNGO0FDbENBO0VBQ0UsWUFBQTtBRHFDRjtBQ2xDQTtFQUNFLHNFQUFBO0VBQUEsOERBQUE7RUFBQSxzREFBQTtFQUFBLDBHQUFBO0FEcUNGO0FDbENBO0VBRUU7SUFDRSw0QkFBQTtJQUFBLDZCQUFBO0lBQUEsOEJBQUE7UUFBQSwwQkFBQTtZQUFBLHNCQUFBO0VEb0NGO0VDbENFO0lBQ0UsV0FBQTtJQUNBLGdCQUFBO0VEb0NKO0VDakNFO0lBQ0UsaUJBQUE7SUFDQSxnQkFBQTtJQUNBLGdDQUFBO0VEbUNKO0FBQ0YiLCJmaWxlIjoic3JjL2FwcC9jb250YWluZXJzL3BhZ2VzL3ByaXZhdGUvcG9ydGFsL3dvcmtmbG93L3dvcmtmbG93LmNvbXBvbmVudC5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLyogY29sb3JzICovXHJcbiR3aGl0ZS1jb2xvcjogI2ZmZjtcclxuJGJsYWNrLWNvbG9yOiAjMDAwO1xyXG5cclxuJGVycm9yOiAjZmY3MzczO1xyXG4kY29tcGxldGU6ICM3OWVkNDk7XHJcblxyXG4kcGxhY2Vob2xkZXI6ICNiMGIwYjA7XHJcbiRmb3JtLWl0ZW0tY29sb3I6ICNiMGIwYjA7XHJcblxyXG4kaW5wdXQtdGV4dDogIzg0OTJhZjtcclxuJGlucHV0LWJvcmRlcjogI2Y2ZjZmNjtcclxuJGlucHV0LWJvcmRlci0taG92ZXI6ICNlZWViZWI7XHJcblxyXG4kYm9yZGVyOiAjZDRkOWUzO1xyXG4kYm9yZGVyLWxpZ2h0OiAjY2NjO1xyXG5cclxuJGJhY2tncm91bmQ6ICNmNmY3ZmE7XHJcblxyXG4kdGhlbWUtY29sb3I6ICMwZTFhMzU7XHJcblxyXG4kdGhlbWUtZGFyay1jb2xvcjogIzExMzU5MztcclxuJHRoZW1lLWRhcmstY29sb3ItaXRlbXM6ICM1NTg0ZmY7XHJcbiR0aGVtZS1kYXJrLWNvbG9yLWl0ZW1zLS1ob3ZlcjogIzU1ODRmZjtcclxuXHJcbiR0aGVtZS1saWdodC1jb2xvcjogIzRjNTBjNjtcclxuJHRoZW1lLWxpZ2h0LWNvbG9yLWl0ZW1zOiAjNGYzOWQ3O1xyXG4kdGhlbWUtbGlnaHQtY29sb3ItaXRlbXMtLWhvdmVyOiAjNTU4NGZmO1xyXG5cclxuJG5hdi1pdGVtLWNvbG9yOiAjMTIyMTQzO1xyXG5cclxuJGRlY29yLWl0ZW0tLWhvdmVyOiAjM2I1NmRiO1xyXG4kZGVjb3ItaXRlbS0tYWN0aXZlOiAjNTU4NGZmO1xyXG5cclxuJGJ0bjogIzc5OWVmYjtcclxuJGJ0bi1kZWNvcjogIzRjN2JmNjtcclxuJGJ0bi0tZGlzYWJsZWQ6ICNjY2M7XHJcblxyXG4kdGV4dC1zaGFkb3c6ICNiMWMwZTI7XHJcbiR0ZXh0LWNvbG9yOiAjNzY3YmIwO1xyXG4kc3ViLWhlYWRsaW5lLWNvbG9yOiAjODQ5MmFmO1xyXG5cclxuJGhlYWRsaW5lLWNvbG9yOiAjMmY1MGE4O1xyXG5cclxuXHJcbi8qIHNpZGViYXIgKi9cclxuJHNpZGViYXItd2lkdGgteHM6IDEwMCU7XHJcbiRzaWRlYmFyLXdpZHRoLW1kOiAyNjBweDtcclxuJHNpZGViYXItd2lkdGgtbGc6IDMyMHB4O1xyXG5cclxuJHdyYXBwZXItd2lkdGgteHM6IDEwMCU7XHJcbiR3cmFwcGVyLXdpZHRoLW1kOiBjYWxjKDEwMCUgLSAyNjBweCk7XHJcbiR3cmFwcGVyLXdpZHRoLWxnOiBjYWxjKDEwMCUgLSAzMjBweCk7XHJcblxyXG5cclxuLyogdHJhbnNpdGlvbnMgKi9cclxuJHRyYW5zaXRpb246IC40cztcclxuJHNob3J0LXRyYW5zaXRpb246IC4zcztcclxuJGxvbmctdHJhbnNpdGlvbjogLjZzO1xyXG5cclxuXHJcbi8qIGZvbnRzICovXHJcbiRiYXNlLWZvbnRzOiAnUm9ib3RvJywgJ0hlbHZldGljYScsICdPcGVuIFNhbnMnLCAnc2Fucy1zZXJpZicsICdBcmlhbCc7XHJcblxyXG5cclxuIiwiQGtleWZyYW1lcyB3aWR0aCB7XHJcbiAgMCUge1xyXG4gICAgd2lkdGg6IDA7XHJcbiAgfVxyXG4gIDEwMCUge1xyXG4gICAgd2lkdGg6IDEwMCU7XHJcbiAgfVxyXG59XHJcblxyXG5Aa2V5ZnJhbWVzIGJ1YmJsZSB7XHJcbiAgMCUge1xyXG4gICAgb3BhY2l0eTogLjk7XHJcbiAgICB3aWR0aDogMDtcclxuICAgIGhlaWdodDogMDtcclxuICB9XHJcbiAgMTAwJSB7XHJcbiAgICBvcGFjaXR5OiAwO1xyXG4gICAgd2lkdGg6IDEwMHB4O1xyXG4gICAgaGVpZ2h0OiAxMDBweDtcclxuICB9XHJcbn1cclxuXHJcbkBrZXlmcmFtZXMgcm90YXRlIHtcclxuICAwJSB7XHJcbiAgICB0cmFuc2Zvcm06IHJvdGF0ZSgwKTtcclxuICB9XHJcbiAgMTAwJSB7XHJcbiAgICB0cmFuc2Zvcm06IHJvdGF0ZSgzNjBkZWcpO1xyXG4gIH1cclxufVxyXG5cclxuQGtleWZyYW1lcyBmYWRlSW4ge1xyXG4gIDAlIHtcclxuICAgIG9wYWNpdHk6IDA7XHJcbiAgfVxyXG4gIDEwMCUge1xyXG4gICAgb3BhY2l0eTogMTtcclxuICB9XHJcbn1cclxuIiwiLyogY29sb3JzICovXG4vKiBzaWRlYmFyICovXG4vKiB0cmFuc2l0aW9ucyAqL1xuLyogZm9udHMgKi9cbkBrZXlmcmFtZXMgd2lkdGgge1xuICAwJSB7XG4gICAgd2lkdGg6IDA7XG4gIH1cbiAgMTAwJSB7XG4gICAgd2lkdGg6IDEwMCU7XG4gIH1cbn1cbkBrZXlmcmFtZXMgYnViYmxlIHtcbiAgMCUge1xuICAgIG9wYWNpdHk6IDAuOTtcbiAgICB3aWR0aDogMDtcbiAgICBoZWlnaHQ6IDA7XG4gIH1cbiAgMTAwJSB7XG4gICAgb3BhY2l0eTogMDtcbiAgICB3aWR0aDogMTAwcHg7XG4gICAgaGVpZ2h0OiAxMDBweDtcbiAgfVxufVxuQGtleWZyYW1lcyByb3RhdGUge1xuICAwJSB7XG4gICAgdHJhbnNmb3JtOiByb3RhdGUoMCk7XG4gIH1cbiAgMTAwJSB7XG4gICAgdHJhbnNmb3JtOiByb3RhdGUoMzYwZGVnKTtcbiAgfVxufVxuQGtleWZyYW1lcyBmYWRlSW4ge1xuICAwJSB7XG4gICAgb3BhY2l0eTogMDtcbiAgfVxuICAxMDAlIHtcbiAgICBvcGFjaXR5OiAxO1xuICB9XG59XG4vKiBjb2xvcnMgKi9cbi8qIHNpZGViYXIgKi9cbi8qIHRyYW5zaXRpb25zICovXG4vKiBmb250cyAqL1xuLndvcmtmbG93IHtcbiAgZGlzcGxheTogZmxleDtcbiAganVzdGlmeS1jb250ZW50OiBzcGFjZS1iZXR3ZWVuO1xufVxuLndvcmtmbG93IC53b3JrZmxvdy1jb250YWluZXI6bnRoLWNoaWxkKDIpIHtcbiAgbWFyZ2luLWxlZnQ6IDI1cHg7XG4gIG1hcmdpbi1yaWdodDogMjVweDtcbn1cblxuLndvcmtmbG93LWNvbnRhaW5lciB7XG4gIHdpZHRoOiAzMy4zMzMzMyU7XG4gIG1heC13aWR0aDogMTAwJTtcbiAgbWFyZ2luLWJvdHRvbTogMjVweDtcbiAgZGlzcGxheTogaW5saW5lLWJsb2NrO1xuICB2ZXJ0aWNhbC1hbGlnbjogdG9wO1xufVxuXG4ud29ya2Zsb3ctaWNvbiB7XG4gIGZvbnQtc2l6ZTogMzJweDtcbiAgZm9udC13ZWlnaHQ6IGJvbGQ7XG4gIGNvbG9yOiAjMmY1MGE4O1xufVxuXG4ud29ya2Zsb3ctbGlzdCB7XG4gIGJvcmRlcjogc29saWQgMXB4ICNjY2M7XG4gIG1pbi1oZWlnaHQ6IDYwcHg7XG4gIGJhY2tncm91bmQ6IHdoaXRlO1xuICBib3JkZXItcmFkaXVzOiA0cHg7XG4gIG92ZXJmbG93OiBoaWRkZW47XG4gIGRpc3BsYXk6IGJsb2NrO1xufVxuLndvcmtmbG93LWxpc3QgLndvcmtmbG93LWJveDpsYXN0LWNoaWxkIHtcbiAgYm9yZGVyLWJvdHRvbTogMDtcbn1cblxuLndvcmtmbG93LWJveCB7XG4gIGZvbnQtd2VpZ2h0OiBib2xkO1xuICBjb2xvcjogIzJmNTBhODtcbiAgcGFkZGluZzogMjBweCAxMHB4O1xuICBib3JkZXItYm90dG9tOiBzb2xpZCAxcHggI2NjYztcbiAgZGlzcGxheTogZmxleDtcbiAgZmxleC1kaXJlY3Rpb246IHJvdztcbiAgYWxpZ24taXRlbXM6IGNlbnRlcjtcbiAganVzdGlmeS1jb250ZW50OiBzcGFjZS1iZXR3ZWVuO1xuICBib3gtc2l6aW5nOiBib3JkZXItYm94O1xuICBjdXJzb3I6IG1vdmU7XG4gIGJhY2tncm91bmQ6IHdoaXRlO1xuICBmb250LXNpemU6IDE0cHg7XG59XG4ud29ya2Zsb3ctYm94OmhvdmVyIHtcbiAgY29sb3I6ICMxMTM1OTM7XG4gIGJhY2tncm91bmQtY29sb3I6ICNmNmY3ZmE7XG59XG5cbi5jZGstZHJhZy1wcmV2aWV3IHtcbiAgYm94LXNpemluZzogYm9yZGVyLWJveDtcbiAgYm9yZGVyLXJhZGl1czogNHB4O1xuICBib3gtc2hhZG93OiAwIDVweCA1cHggLTNweCByZ2JhKDAsIDAsIDAsIDAuMiksIDAgOHB4IDEwcHggMXB4IHJnYmEoMCwgMCwgMCwgMC4xNCksIDAgM3B4IDE0cHggMnB4IHJnYmEoMCwgMCwgMCwgMC4xMik7XG59XG5cbi5jZGstZHJhZy1wbGFjZWhvbGRlciB7XG4gIG9wYWNpdHk6IDA7XG59XG5cbi5jZGstZHJhZy1hbmltYXRpbmcge1xuICB0cmFuc2l0aW9uOiB0cmFuc2Zvcm0gMjUwbXMgY3ViaWMtYmV6aWVyKDAsIDAsIDAuMiwgMSk7XG59XG5cbi5leGFtcGxlLWJveDpsYXN0LWNoaWxkIHtcbiAgYm9yZGVyOiBub25lO1xufVxuXG4uZXhhbXBsZS1saXN0LmNkay1kcm9wLWxpc3QtZHJhZ2dpbmcgLmV4YW1wbGUtYm94Om5vdCguY2RrLWRyYWctcGxhY2Vob2xkZXIpIHtcbiAgdHJhbnNpdGlvbjogdHJhbnNmb3JtIDI1MG1zIGN1YmljLWJlemllcigwLCAwLCAwLjIsIDEpO1xufVxuXG5AbWVkaWEgc2NyZWVuIGFuZCAobWF4LXdpZHRoOiA5MjBweCkge1xuICAud29ya2Zsb3cge1xuICAgIGZsZXgtZGlyZWN0aW9uOiBjb2x1bW47XG4gIH1cbiAgLndvcmtmbG93IC53b3JrZmxvdy1jb250YWluZXIsIC53b3JrZmxvdyAud29ya2Zsb3ctY29udGFpbmVyOm50aC1jaGlsZCgyKSB7XG4gICAgd2lkdGg6IDEwMCU7XG4gICAgbWFyZ2luOiAwIDAgNTBweDtcbiAgfVxuICAud29ya2Zsb3cgLndvcmtmbG93LWxpc3Qge1xuICAgIG1heC1oZWlnaHQ6IDI2MHB4O1xuICAgIG92ZXJmbG93LXk6IGF1dG87XG4gICAgYm9yZGVyLWJvdHRvbTogNXB4IHNvbGlkICM0YzUwYzY7XG4gIH1cbn0iLCJAaW1wb3J0ICdtaXhpbnMnO1xyXG5AaW1wb3J0ICd2YXJpYWJsZXMnO1xyXG5cclxuLndvcmtmbG93IHtcclxuICBkaXNwbGF5OiBmbGV4O1xyXG4gIGp1c3RpZnktY29udGVudDogc3BhY2UtYmV0d2VlbjtcclxuXHJcbiAgLndvcmtmbG93LWNvbnRhaW5lcjpudGgtY2hpbGQoMikge1xyXG4gICAgbWFyZ2luLWxlZnQ6IDI1cHg7XHJcbiAgICBtYXJnaW4tcmlnaHQ6IDI1cHg7XHJcbiAgfVxyXG59XHJcblxyXG4ud29ya2Zsb3ctY29udGFpbmVyIHtcclxuICB3aWR0aDogMzMuMzMzMzMlO1xyXG4gIG1heC13aWR0aDogMTAwJTtcclxuICBtYXJnaW4tYm90dG9tOiAyNXB4O1xyXG4gIGRpc3BsYXk6IGlubGluZS1ibG9jaztcclxuICB2ZXJ0aWNhbC1hbGlnbjogdG9wO1xyXG59XHJcblxyXG4ud29ya2Zsb3ctaWNvbiB7XHJcbiAgZm9udC1zaXplOiAzMnB4O1xyXG4gIGZvbnQtd2VpZ2h0OiBib2xkO1xyXG4gIGNvbG9yOiAkaGVhZGxpbmUtY29sb3I7XHJcbn1cclxuXHJcbi53b3JrZmxvdy1saXN0IHtcclxuICBib3JkZXI6IHNvbGlkIDFweCAkYm9yZGVyLWxpZ2h0O1xyXG4gIG1pbi1oZWlnaHQ6IDYwcHg7XHJcbiAgYmFja2dyb3VuZDogd2hpdGU7XHJcbiAgYm9yZGVyLXJhZGl1czogNHB4O1xyXG4gIG92ZXJmbG93OiBoaWRkZW47XHJcbiAgZGlzcGxheTogYmxvY2s7XHJcblxyXG4gIC53b3JrZmxvdy1ib3g6bGFzdC1jaGlsZCB7XHJcbiAgICBib3JkZXItYm90dG9tOiAwO1xyXG4gIH1cclxufVxyXG5cclxuLndvcmtmbG93LWJveCB7XHJcbiAgZm9udC13ZWlnaHQ6IGJvbGQ7XHJcbiAgY29sb3I6ICRoZWFkbGluZS1jb2xvcjtcclxuICBwYWRkaW5nOiAyMHB4IDEwcHg7XHJcbiAgYm9yZGVyLWJvdHRvbTogc29saWQgMXB4ICRib3JkZXItbGlnaHQ7XHJcbiAgZGlzcGxheTogZmxleDtcclxuICBmbGV4LWRpcmVjdGlvbjogcm93O1xyXG4gIGFsaWduLWl0ZW1zOiBjZW50ZXI7XHJcbiAganVzdGlmeS1jb250ZW50OiBzcGFjZS1iZXR3ZWVuO1xyXG4gIGJveC1zaXppbmc6IGJvcmRlci1ib3g7XHJcbiAgY3Vyc29yOiBtb3ZlO1xyXG4gIGJhY2tncm91bmQ6IHdoaXRlO1xyXG4gIGZvbnQtc2l6ZTogMTRweDtcclxuXHJcbiAgJjpob3ZlciB7XHJcbiAgICBjb2xvcjogJHRoZW1lLWRhcmstY29sb3I7XHJcbiAgICBiYWNrZ3JvdW5kLWNvbG9yOiAkYmFja2dyb3VuZDtcclxuICB9XHJcbn1cclxuXHJcbi5jZGstZHJhZy1wcmV2aWV3IHtcclxuICBib3gtc2l6aW5nOiBib3JkZXItYm94O1xyXG4gIGJvcmRlci1yYWRpdXM6IDRweDtcclxuICBib3gtc2hhZG93OiAwIDVweCA1cHggLTNweCByZ2JhKDAsIDAsIDAsIDAuMiksXHJcbiAgMCA4cHggMTBweCAxcHggcmdiYSgwLCAwLCAwLCAwLjE0KSxcclxuICAwIDNweCAxNHB4IDJweCByZ2JhKDAsIDAsIDAsIDAuMTIpO1xyXG59XHJcblxyXG4uY2RrLWRyYWctcGxhY2Vob2xkZXIge1xyXG4gIG9wYWNpdHk6IDA7XHJcbn1cclxuXHJcbi5jZGstZHJhZy1hbmltYXRpbmcge1xyXG4gIHRyYW5zaXRpb246IHRyYW5zZm9ybSAyNTBtcyBjdWJpYy1iZXppZXIoMCwgMCwgMC4yLCAxKTtcclxufVxyXG5cclxuLmV4YW1wbGUtYm94Omxhc3QtY2hpbGQge1xyXG4gIGJvcmRlcjogbm9uZTtcclxufVxyXG5cclxuLmV4YW1wbGUtbGlzdC5jZGstZHJvcC1saXN0LWRyYWdnaW5nIC5leGFtcGxlLWJveDpub3QoLmNkay1kcmFnLXBsYWNlaG9sZGVyKSB7XHJcbiAgdHJhbnNpdGlvbjogdHJhbnNmb3JtIDI1MG1zIGN1YmljLWJlemllcigwLCAwLCAwLjIsIDEpO1xyXG59XHJcblxyXG5AbWVkaWEgc2NyZWVuIGFuZCAobWF4LXdpZHRoOiA5MjBweCkge1xyXG5cclxuICAud29ya2Zsb3cge1xyXG4gICAgZmxleC1kaXJlY3Rpb246IGNvbHVtbjtcclxuXHJcbiAgICAud29ya2Zsb3ctY29udGFpbmVyLCAud29ya2Zsb3ctY29udGFpbmVyOm50aC1jaGlsZCgyKSB7XHJcbiAgICAgIHdpZHRoOiAxMDAlO1xyXG4gICAgICBtYXJnaW46IDAgMCA1MHB4O1xyXG4gICAgfVxyXG5cclxuICAgIC53b3JrZmxvdy1saXN0IHtcclxuICAgICAgbWF4LWhlaWdodDogMjYwcHg7XHJcbiAgICAgIG92ZXJmbG93LXk6IGF1dG87XHJcbiAgICAgIGJvcmRlci1ib3R0b206IDVweCBzb2xpZCAkdGhlbWUtbGlnaHQtY29sb3I7XHJcbiAgICB9XHJcbiAgfVxyXG59XHJcbiJdfQ== */"],
       data: {
         animation: [_modules_shared_animations_move_from_bottom_animation__WEBPACK_IMPORTED_MODULE_7__["moveFromBottomAnimation"]]
       }
