@@ -909,7 +909,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       email: 'test@gmail.com',
       password: '@Test10',
       refreshTokens: [],
-      selectedAnswer: 'Web'
+      selectedCountry: 'CA',
+      registrationDate: Date.now()
     };
     /***/
   },
@@ -1101,7 +1102,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         }
       }, {
         key: "register",
-        value: function register(firstName, lastName, email, password, selectedAnswer) {
+        value: function register(firstName, lastName, email, password, selectedCountry, registrationDate) {
           var _this2 = this;
 
           return this.http.post("".concat(_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].apiUrl, "/users/register"), {
@@ -1109,7 +1110,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
             lastName: lastName,
             email: email,
             password: password,
-            selectedAnswer: selectedAnswer
+            selectedCountry: selectedCountry,
+            registrationDate: registrationDate
           }, {
             withCredentials: true
           }).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["map"])(function (user) {
@@ -1123,7 +1125,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         }
       }, {
         key: "update",
-        value: function update(id, firstName, lastName, email, password, selectedAnswer) {
+        value: function update(id, firstName, lastName, email, password, selectedCountry, registrationDate) {
           var _this3 = this;
 
           return this.http.put("".concat(_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].apiUrl, "/users/update"), {
@@ -1132,7 +1134,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
             lastName: lastName,
             email: email,
             password: password,
-            selectedAnswer: selectedAnswer
+            selectedCountry: selectedCountry,
+            registrationDate: registrationDate
           }, {
             withCredentials: true
           }).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["map"])(function (user) {
@@ -1385,7 +1388,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
               email: user.email,
               password: user.password,
               jwtToken: generateJwtToken(),
-              selectedAnswer: user.selectedAnswer
+              selectedCountry: user.selectedCountry,
+              registrationDate: user.registrationDate
             });
           }
 
@@ -1401,7 +1405,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
               email: body.email,
               password: body.password,
               jwtToken: generateJwtToken(),
-              selectedAnswer: body.selectedAnswer
+              selectedCountry: body.selectedCountry,
+              registrationDate: body.registrationDate
             });
           }
 
@@ -1420,7 +1425,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
               email: user.email,
               password: user.password,
               jwtToken: generateJwtToken(),
-              selectedAnswer: user.selectedAnswer
+              selectedCountry: user.selectedCountry,
+              registrationDate: user.registrationDate
             });
           }
 
@@ -1561,7 +1567,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
               email: user.email,
               password: user.password,
               jwtToken: generateJwtToken(),
-              selectedAnswer: user.selectedAnswer
+              selectedCountry: user.selectedCountry,
+              registrationDate: user.registrationDate
             });
           }
 

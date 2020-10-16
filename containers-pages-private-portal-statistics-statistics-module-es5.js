@@ -130,9 +130,9 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     /* harmony import */
 
 
-    var _services_task_service_task_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
-    /*! @services/task-service/task.service */
-    "./src/app/modules/services/task-service/task.service.ts");
+    var _services_task_rest_service_task_rest_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+    /*! @services/task-rest-service/task-rest.service */
+    "./src/app/modules/services/task-rest-service/task-rest.service.ts");
     /* harmony import */
 
 
@@ -209,7 +209,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     }();
 
     StatisticsComponent.ɵfac = function StatisticsComponent_Factory(t) {
-      return new (t || StatisticsComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services_task_service_task_service__WEBPACK_IMPORTED_MODULE_3__["TaskService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services_compose_chart_service_compose_chart_data_service__WEBPACK_IMPORTED_MODULE_4__["ComposeChartDataService"]));
+      return new (t || StatisticsComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services_task_rest_service_task_rest_service__WEBPACK_IMPORTED_MODULE_3__["TaskRestService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services_compose_chart_service_compose_chart_data_service__WEBPACK_IMPORTED_MODULE_4__["ComposeChartDataService"]));
     };
 
     StatisticsComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({
@@ -298,7 +298,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         }]
       }], function () {
         return [{
-          type: _services_task_service_task_service__WEBPACK_IMPORTED_MODULE_3__["TaskService"]
+          type: _services_task_rest_service_task_rest_service__WEBPACK_IMPORTED_MODULE_3__["TaskRestService"]
         }, {
           type: _services_compose_chart_service_compose_chart_data_service__WEBPACK_IMPORTED_MODULE_4__["ComposeChartDataService"]
         }];

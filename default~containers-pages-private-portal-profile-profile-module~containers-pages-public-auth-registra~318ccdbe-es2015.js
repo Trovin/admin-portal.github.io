@@ -45,7 +45,7 @@ function SelectComponent_mat_form_field_0_Template(rf, ctx) { if (rf & 1) {
 } if (rf & 2) {
     const ctx_r5 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](2);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate"](ctx_r5.label);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate"](ctx_r5.viewLabel);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("value", ctx_r5.selectedValue);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
@@ -56,18 +56,19 @@ class SelectComponent {
         this.selectedChange = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["EventEmitter"]();
     }
     ngOnChanges() {
-        if (this.selectedItem) {
+        this.viewLabel = this.loading ? 'loading...' : this.label;
+        if (this.selectedItem && this.items.length) {
             this.selectedValue = this.items.find(item => item.value === this.selectedItem).value;
             this.selectedChange.emit(this.selectedValue);
         }
     }
 }
 SelectComponent.ɵfac = function SelectComponent_Factory(t) { return new (t || SelectComponent)(); };
-SelectComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({ type: SelectComponent, selectors: [["app-select"]], inputs: { label: "label", items: "items", selectedItem: "selectedItem" }, outputs: { selectedChange: "selectedChange" }, features: [_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵNgOnChangesFeature"]], decls: 1, vars: 1, consts: [["class", "select-wrapper", "appearance", "fill", "floatLabel", "never", 4, "ngIf"], ["appearance", "fill", "floatLabel", "never", 1, "select-wrapper"], [3, "value", "valueChange"], [3, "value", 4, "ngFor", "ngForOf"], [3, "value"]], template: function SelectComponent_Template(rf, ctx) { if (rf & 1) {
+SelectComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({ type: SelectComponent, selectors: [["app-select"]], inputs: { label: "label", items: "items", loading: "loading", selectedItem: "selectedItem" }, outputs: { selectedChange: "selectedChange" }, features: [_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵNgOnChangesFeature"]], decls: 1, vars: 1, consts: [["class", "select-wrapper", "appearance", "fill", "floatLabel", "never", 4, "ngIf"], ["appearance", "fill", "floatLabel", "never", 1, "select-wrapper"], [3, "value", "valueChange"], [3, "value", 4, "ngFor", "ngForOf"], [3, "value"]], template: function SelectComponent_Template(rf, ctx) { if (rf & 1) {
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](0, SelectComponent_mat_form_field_0_Template, 5, 3, "mat-form-field", 0);
     } if (rf & 2) {
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", ctx.items);
-    } }, directives: [_angular_common__WEBPACK_IMPORTED_MODULE_1__["NgIf"], _angular_material_form_field__WEBPACK_IMPORTED_MODULE_2__["MatFormField"], _angular_material_form_field__WEBPACK_IMPORTED_MODULE_2__["MatLabel"], _angular_material_select__WEBPACK_IMPORTED_MODULE_3__["MatSelect"], _angular_common__WEBPACK_IMPORTED_MODULE_1__["NgForOf"], _angular_material_core__WEBPACK_IMPORTED_MODULE_4__["MatOption"]], styles: ["[_nghost-%COMP%] {\n  width: 100%;\n  display: block;\n}\n\n.select-wrapper[_ngcontent-%COMP%] {\n  width: 100%;\n  margin-bottom: 20px;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29tcG9uZW50cy9zZWxlY3QvQzpcXFVzZXJzXFx3ZWJ0clxcRGVza3RvcFxcYW5ndWxhciBwcm9qZWN0c1xcTVZQX05cXG1lcmt1cnkvc3JjXFxhcHBcXGNvbXBvbmVudHNcXHNlbGVjdFxcc2VsZWN0LmNvbXBvbmVudC5zY3NzIiwic3JjL2FwcC9jb21wb25lbnRzL3NlbGVjdC9zZWxlY3QuY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDRSxXQUFBO0VBQ0EsY0FBQTtBQ0NGOztBREVBO0VBQ0UsV0FBQTtFQUNBLG1CQUFBO0FDQ0YiLCJmaWxlIjoic3JjL2FwcC9jb21wb25lbnRzL3NlbGVjdC9zZWxlY3QuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyI6aG9zdCB7XHJcbiAgd2lkdGg6IDEwMCU7XHJcbiAgZGlzcGxheTogYmxvY2s7XHJcbn1cclxuXHJcbi5zZWxlY3Qtd3JhcHBlciB7XHJcbiAgd2lkdGg6IDEwMCU7XHJcbiAgbWFyZ2luLWJvdHRvbTogMjBweDtcclxufVxyXG4iLCI6aG9zdCB7XG4gIHdpZHRoOiAxMDAlO1xuICBkaXNwbGF5OiBibG9jaztcbn1cblxuLnNlbGVjdC13cmFwcGVyIHtcbiAgd2lkdGg6IDEwMCU7XG4gIG1hcmdpbi1ib3R0b206IDIwcHg7XG59Il19 */"] });
+    } }, directives: [_angular_common__WEBPACK_IMPORTED_MODULE_1__["NgIf"], _angular_material_form_field__WEBPACK_IMPORTED_MODULE_2__["MatFormField"], _angular_material_form_field__WEBPACK_IMPORTED_MODULE_2__["MatLabel"], _angular_material_select__WEBPACK_IMPORTED_MODULE_3__["MatSelect"], _angular_common__WEBPACK_IMPORTED_MODULE_1__["NgForOf"], _angular_material_core__WEBPACK_IMPORTED_MODULE_4__["MatOption"]], styles: ["[_nghost-%COMP%] {\n  width: 100%;\n  display: block;\n}\n\n.select-wrapper[_ngcontent-%COMP%] {\n  width: 100%;\n  margin-bottom: 20px;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29tcG9uZW50cy9zZWxlY3QvQzpcXFVzZXJzXFx3ZWJ0clxcRGVza3RvcFxcYW5ndWxhciBwcm9qZWN0c1xcTVZQX05cXG1lcmt1cnkvc3JjXFxhcHBcXGNvbXBvbmVudHNcXHNlbGVjdFxcc2VsZWN0LmNvbXBvbmVudC5zY3NzIiwic3JjL2FwcC9jb21wb25lbnRzL3NlbGVjdC9zZWxlY3QuY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDRSxXQUFBO0VBQ0EsY0FBQTtBQ0NGOztBREVBO0VBQ0UsV0FBQTtFQUNBLG1CQUFBO0FDQ0YiLCJmaWxlIjoic3JjL2FwcC9jb21wb25lbnRzL3NlbGVjdC9zZWxlY3QuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyI6aG9zdCB7XHJcbiAgd2lkdGg6IDEwMCU7XHJcbiAgZGlzcGxheTogYmxvY2s7XHJcbn1cclxuXHJcbi5zZWxlY3Qtd3JhcHBlciB7XHJcbiAgd2lkdGg6IDEwMCU7XHJcbiAgbWFyZ2luLWJvdHRvbTogMjBweDtcclxufVxyXG5cclxuIiwiOmhvc3Qge1xuICB3aWR0aDogMTAwJTtcbiAgZGlzcGxheTogYmxvY2s7XG59XG5cbi5zZWxlY3Qtd3JhcHBlciB7XG4gIHdpZHRoOiAxMDAlO1xuICBtYXJnaW4tYm90dG9tOiAyMHB4O1xufSJdfQ== */"] });
 /*@__PURE__*/ (function () { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](SelectComponent, [{
         type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"],
         args: [{
@@ -80,6 +81,8 @@ SelectComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineCo
         }], label: [{
             type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"]
         }], items: [{
+            type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"]
+        }], loading: [{
             type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"]
         }], selectedItem: [{
             type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"]
@@ -100,9 +103,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SelectModule", function() { return SelectModule; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/__ivy_ngcc__/fesm2015/core.js");
 /* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/__ivy_ngcc__/fesm2015/common.js");
-/* harmony import */ var _angular_material_select__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/material/select */ "./node_modules/@angular/material/__ivy_ngcc__/fesm2015/select.js");
-/* harmony import */ var _angular_material_form_field__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/material/form-field */ "./node_modules/@angular/material/__ivy_ngcc__/fesm2015/form-field.js");
-/* harmony import */ var _components_select_select_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @components/select/select.component */ "./src/app/components/select/select.component.ts");
+/* harmony import */ var _angular_material_progress_spinner__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/material/progress-spinner */ "./node_modules/@angular/material/__ivy_ngcc__/fesm2015/progress-spinner.js");
+/* harmony import */ var _angular_material_select__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/material/select */ "./node_modules/@angular/material/__ivy_ngcc__/fesm2015/select.js");
+/* harmony import */ var _angular_material_form_field__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/material/form-field */ "./node_modules/@angular/material/__ivy_ngcc__/fesm2015/form-field.js");
+/* harmony import */ var _components_select_select_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @components/select/select.component */ "./src/app/components/select/select.component.ts");
+
 
 
 
@@ -114,22 +119,25 @@ class SelectModule {
 SelectModule.ɵmod = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineNgModule"]({ type: SelectModule });
 SelectModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjector"]({ factory: function SelectModule_Factory(t) { return new (t || SelectModule)(); }, imports: [[
             _angular_common__WEBPACK_IMPORTED_MODULE_1__["CommonModule"],
-            _angular_material_select__WEBPACK_IMPORTED_MODULE_2__["MatSelectModule"],
-            _angular_material_form_field__WEBPACK_IMPORTED_MODULE_3__["MatFormFieldModule"],
+            _angular_material_select__WEBPACK_IMPORTED_MODULE_3__["MatSelectModule"],
+            _angular_material_form_field__WEBPACK_IMPORTED_MODULE_4__["MatFormFieldModule"],
+            _angular_material_progress_spinner__WEBPACK_IMPORTED_MODULE_2__["MatProgressSpinnerModule"],
         ]] });
-(function () { (typeof ngJitMode === "undefined" || ngJitMode) && _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵsetNgModuleScope"](SelectModule, { declarations: [_components_select_select_component__WEBPACK_IMPORTED_MODULE_4__["SelectComponent"]], imports: [_angular_common__WEBPACK_IMPORTED_MODULE_1__["CommonModule"],
-        _angular_material_select__WEBPACK_IMPORTED_MODULE_2__["MatSelectModule"],
-        _angular_material_form_field__WEBPACK_IMPORTED_MODULE_3__["MatFormFieldModule"]], exports: [_components_select_select_component__WEBPACK_IMPORTED_MODULE_4__["SelectComponent"]] }); })();
+(function () { (typeof ngJitMode === "undefined" || ngJitMode) && _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵsetNgModuleScope"](SelectModule, { declarations: [_components_select_select_component__WEBPACK_IMPORTED_MODULE_5__["SelectComponent"]], imports: [_angular_common__WEBPACK_IMPORTED_MODULE_1__["CommonModule"],
+        _angular_material_select__WEBPACK_IMPORTED_MODULE_3__["MatSelectModule"],
+        _angular_material_form_field__WEBPACK_IMPORTED_MODULE_4__["MatFormFieldModule"],
+        _angular_material_progress_spinner__WEBPACK_IMPORTED_MODULE_2__["MatProgressSpinnerModule"]], exports: [_components_select_select_component__WEBPACK_IMPORTED_MODULE_5__["SelectComponent"]] }); })();
 /*@__PURE__*/ (function () { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](SelectModule, [{
         type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["NgModule"],
         args: [{
-                declarations: [_components_select_select_component__WEBPACK_IMPORTED_MODULE_4__["SelectComponent"]],
+                declarations: [_components_select_select_component__WEBPACK_IMPORTED_MODULE_5__["SelectComponent"]],
                 imports: [
                     _angular_common__WEBPACK_IMPORTED_MODULE_1__["CommonModule"],
-                    _angular_material_select__WEBPACK_IMPORTED_MODULE_2__["MatSelectModule"],
-                    _angular_material_form_field__WEBPACK_IMPORTED_MODULE_3__["MatFormFieldModule"],
+                    _angular_material_select__WEBPACK_IMPORTED_MODULE_3__["MatSelectModule"],
+                    _angular_material_form_field__WEBPACK_IMPORTED_MODULE_4__["MatFormFieldModule"],
+                    _angular_material_progress_spinner__WEBPACK_IMPORTED_MODULE_2__["MatProgressSpinnerModule"],
                 ],
-                exports: [_components_select_select_component__WEBPACK_IMPORTED_MODULE_4__["SelectComponent"]]
+                exports: [_components_select_select_component__WEBPACK_IMPORTED_MODULE_5__["SelectComponent"]]
             }]
     }], null, null); })();
 
@@ -151,7 +159,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _modules_shared_validations_must_match_validator__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @modules/shared/validations/must-match.validator */ "./src/app/modules/shared/validations/must-match.validator.ts");
 /* harmony import */ var _modules_shared_validations_update_form_values_validator__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @modules/shared/validations/update-form-values.validator */ "./src/app/modules/shared/validations/update-form-values.validator.ts");
 /* harmony import */ var _enums_icon_class_enum__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @enums/icon-class.enum */ "./src/app/enums/icon-class.enum.ts");
-/* harmony import */ var _mocks_register_form_select_items__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @mocks/register-form-select-items */ "./src/app/mocks/register-form-select-items.ts");
+/* harmony import */ var _services_countries_rest_service_countries_rest_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @services/countries-rest-service/countries-rest.service */ "./src/app/modules/services/countries-rest-service/countries-rest.service.ts");
 /* harmony import */ var _components_form_field_form_field_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @components/form-field/form-field.component */ "./src/app/components/form-field/form-field.component.ts");
 /* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/__ivy_ngcc__/fesm2015/common.js");
 /* harmony import */ var _components_validation_message_validation_message_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @components/validation-message/validation-message.component */ "./src/app/components/validation-message/validation-message.component.ts");
@@ -172,18 +180,20 @@ __webpack_require__.r(__webpack_exports__);
 
 const _c0 = ["formElement"];
 class RegistrationFormComponent {
-    constructor(formBuilder) {
+    constructor(formBuilder, countriesService) {
         this.formBuilder = formBuilder;
+        this.countriesService = countriesService;
         this.registerFormSubmit = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["EventEmitter"]();
         this.email = '';
         this.password = '';
         this.lastName = '';
         this.firstName = '';
-        this.selectedItemValue = '';
+        this.selectedCountry = '';
         this.btnContext = 'Register';
         this.isUpdateForm = false;
         this.faIcon = _enums_icon_class_enum__WEBPACK_IMPORTED_MODULE_4__["iconClass"];
-        this.selectAnswers = _mocks_register_form_select_items__WEBPACK_IMPORTED_MODULE_5__["REGISTER_FORM_SELECT_ITEMS"];
+        this.countries = [];
+        this.isLoading = true;
         this.isFocusForm = false;
     }
     onGlobalClick(event) {
@@ -191,6 +201,10 @@ class RegistrationFormComponent {
     }
     ngOnInit() {
         this.initForm();
+        this.getCountries();
+    }
+    ngOnDestroy() {
+        this.stream.unsubscribe();
     }
     get showUpdateValidationError() {
         return this.isFocusForm && this.isUpdateForm;
@@ -204,7 +218,8 @@ class RegistrationFormComponent {
             firstName: this.registerForm.value.firstName,
             lastName: this.registerForm.value.lastName,
             password: this.registerForm.value.password,
-            selectedAnswer: this.registerForm.value.selectedAnswer
+            selectedCountry: this.registerForm.value.selectedCountry,
+            registrationDate: new Date()
         });
         this.isFocusForm = true;
         this.registerForm.controls.isUpdateFormValuesValidator.setErrors({ mustContainUpdateValues: true });
@@ -236,17 +251,24 @@ class RegistrationFormComponent {
                 ]
             ],
             confirmPassword: [this.password],
-            selectedAnswer: [this.selectedItemValue],
+            selectedCountry: [this.selectedCountry],
             isUpdateFormValuesValidator: [],
         }, {
             validator: [
                 Object(_modules_shared_validations_must_match_validator__WEBPACK_IMPORTED_MODULE_2__["MatchValuesValidator"])('password', 'confirmPassword'),
-                Object(_modules_shared_validations_update_form_values_validator__WEBPACK_IMPORTED_MODULE_3__["UpdateFormValuesValidator"])([this.firstName, this.lastName, this.email, this.password, this.selectedItemValue], ['firstName', 'lastName', 'email', 'password', 'selectedAnswer'])
+                Object(_modules_shared_validations_update_form_values_validator__WEBPACK_IMPORTED_MODULE_3__["UpdateFormValuesValidator"])([this.firstName, this.lastName, this.email, this.password, this.selectedCountry], ['firstName', 'lastName', 'email', 'password', 'selectedCountry'])
             ]
         });
     }
+    getCountries() {
+        this.stream = this.countriesService.getCountries()
+            .subscribe(countries => {
+            this.isLoading = false;
+            this.countries = countries;
+        });
+    }
 }
-RegistrationFormComponent.ɵfac = function RegistrationFormComponent_Factory(t) { return new (t || RegistrationFormComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormBuilder"])); };
+RegistrationFormComponent.ɵfac = function RegistrationFormComponent_Factory(t) { return new (t || RegistrationFormComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormBuilder"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services_countries_rest_service_countries_rest_service__WEBPACK_IMPORTED_MODULE_5__["CountriesRestService"])); };
 RegistrationFormComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({ type: RegistrationFormComponent, selectors: [["app-registration-form"]], viewQuery: function RegistrationFormComponent_Query(rf, ctx) { if (rf & 1) {
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵviewQuery"](_c0, true);
     } if (rf & 2) {
@@ -254,7 +276,7 @@ RegistrationFormComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵ
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵqueryRefresh"](_t = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵloadQuery"]()) && (ctx.formRef = _t.first);
     } }, hostBindings: function RegistrationFormComponent_HostBindings(rf, ctx) { if (rf & 1) {
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("mousedown", function RegistrationFormComponent_mousedown_HostBindingHandler($event) { return ctx.onGlobalClick($event); }, false, _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵresolveDocument"]);
-    } }, inputs: { email: "email", password: "password", lastName: "lastName", firstName: "firstName", selectedItemValue: "selectedItemValue", btnContext: "btnContext", isUpdateForm: "isUpdateForm" }, outputs: { registerFormSubmit: "registerFormSubmit" }, decls: 41, vars: 16, consts: [["novalidate", "", 1, "form", 3, "formGroup", "ngSubmit"], ["formElement", ""], ["type", "text", "name", "user", "placeholder", "First name", "autocomplete", "on", "formControlName", "firstName", 1, "form-control"], ["formInput", ""], ["slot", "icon", "aria-hidden", "true", 3, "ngClass"], ["formIcon", ""], [3, "invalid"], ["type", "text", "name", "user", "placeholder", "Last name", "autocomplete", "on", "formControlName", "lastName", 1, "form-control"], ["type", "text", "name", "email", "placeholder", "Email", "autocomplete", "on", "formControlName", "email", 1, "form-control"], ["type", "password", "name", "password", "placeholder", "Password", "autocomplete", "on", "formControlName", "password", 1, "form-control"], ["type", "password", "name", "password", "placeholder", "Confirm password", "autocomplete", "on", "formControlName", "confirmPassword", 1, "form-control"], ["label", "How did you hear about us ?", 3, "items", "selectedItem", "selectedChange"], ["className", "btn_submit", 3, "context", "state"]], template: function RegistrationFormComponent_Template(rf, ctx) { if (rf & 1) {
+    } }, inputs: { email: "email", password: "password", lastName: "lastName", firstName: "firstName", selectedCountry: "selectedCountry", btnContext: "btnContext", isUpdateForm: "isUpdateForm" }, outputs: { registerFormSubmit: "registerFormSubmit" }, decls: 41, vars: 17, consts: [["novalidate", "", 1, "form", 3, "formGroup", "ngSubmit"], ["formElement", ""], ["type", "text", "name", "user", "placeholder", "First name", "autocomplete", "on", "formControlName", "firstName", 1, "form-control"], ["formInput", ""], ["slot", "icon", "aria-hidden", "true", 3, "ngClass"], ["formIcon", ""], [3, "invalid"], ["type", "text", "name", "user", "placeholder", "Last name", "autocomplete", "on", "formControlName", "lastName", 1, "form-control"], ["type", "text", "name", "email", "placeholder", "Email", "autocomplete", "on", "formControlName", "email", 1, "form-control"], ["type", "password", "name", "password", "placeholder", "Password", "autocomplete", "on", "formControlName", "password", 1, "form-control"], ["type", "password", "name", "password", "placeholder", "Confirm password", "autocomplete", "on", "formControlName", "confirmPassword", 1, "form-control"], ["label", "What is your country ?", 3, "items", "loading", "selectedItem", "selectedChange"], ["className", "btn_submit", 3, "context", "state"]], template: function RegistrationFormComponent_Template(rf, ctx) { if (rf & 1) {
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "form", 0, 1);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("ngSubmit", function RegistrationFormComponent_Template_form_ngSubmit_0_listener() { return ctx.onSubmit(); });
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](2, "app-form-field");
@@ -293,7 +315,7 @@ RegistrationFormComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵ
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](36, " * Passwords must match ");
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](37, "app-select", 11);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("selectedChange", function RegistrationFormComponent_Template_app_select_selectedChange_37_listener($event) { return ctx.form["selectedAnswer"].setValue($event); });
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("selectedChange", function RegistrationFormComponent_Template_app_select_selectedChange_37_listener($event) { return ctx.form["selectedCountry"].setValue($event); });
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](38, "app-validation-message", 6);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](39, " * Values on form must updates ");
@@ -323,7 +345,7 @@ RegistrationFormComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵ
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](2);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("invalid", ctx.form["confirmPassword"].invalid && ctx.form["confirmPassword"].touched);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](2);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("items", ctx.selectAnswers)("selectedItem", ctx.selectedItemValue);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("items", ctx.countries)("loading", ctx.isLoading)("selectedItem", ctx.selectedCountry);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("invalid", ctx.showUpdateValidationError && ctx.form["isUpdateFormValuesValidator"].invalid);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](2);
@@ -335,7 +357,7 @@ RegistrationFormComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵ
                 selector: 'app-registration-form',
                 templateUrl: './registration-form.component.html'
             }]
-    }], function () { return [{ type: _angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormBuilder"] }]; }, { formRef: [{
+    }], function () { return [{ type: _angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormBuilder"] }, { type: _services_countries_rest_service_countries_rest_service__WEBPACK_IMPORTED_MODULE_5__["CountriesRestService"] }]; }, { formRef: [{
             type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewChild"],
             args: ['formElement']
         }], registerFormSubmit: [{
@@ -348,7 +370,7 @@ RegistrationFormComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵ
             type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"]
         }], firstName: [{
             type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"]
-        }], selectedItemValue: [{
+        }], selectedCountry: [{
             type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"]
         }], btnContext: [{
             type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"]
@@ -425,30 +447,64 @@ RegistrationFormModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵd
 
 /***/ }),
 
-/***/ "./src/app/mocks/register-form-select-items.ts":
-/*!*****************************************************!*\
-  !*** ./src/app/mocks/register-form-select-items.ts ***!
-  \*****************************************************/
-/*! exports provided: REGISTER_FORM_SELECT_ITEMS */
+/***/ "./src/app/models/countries/countries.dto.ts":
+/*!***************************************************!*\
+  !*** ./src/app/models/countries/countries.dto.ts ***!
+  \***************************************************/
+/*! exports provided: Country */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "REGISTER_FORM_SELECT_ITEMS", function() { return REGISTER_FORM_SELECT_ITEMS; });
-const REGISTER_FORM_SELECT_ITEMS = [
-    {
-        value: 'Web',
-        viewValue: 'From web source'
-    },
-    {
-        value: 'Social',
-        viewValue: 'From friends or social'
-    },
-    {
-        value: 'Randomly',
-        viewValue: 'Actually, found randomly'
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Country", function() { return Country; });
+class Country {
+    constructor(data) {
+        if (data) {
+            this.value = data.value;
+            this.viewValue = data.viewValue;
+        }
     }
-];
+}
+
+
+/***/ }),
+
+/***/ "./src/app/modules/services/countries-rest-service/countries-rest.service.ts":
+/*!***********************************************************************************!*\
+  !*** ./src/app/modules/services/countries-rest-service/countries-rest.service.ts ***!
+  \***********************************************************************************/
+/*! exports provided: CountriesRestService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CountriesRestService", function() { return CountriesRestService; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/__ivy_ngcc__/fesm2015/core.js");
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm2015/operators/index.js");
+/* harmony import */ var _models_countries_countries_dto__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @models/countries/countries.dto */ "./src/app/models/countries/countries.dto.ts");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/__ivy_ngcc__/fesm2015/http.js");
+
+
+
+
+
+class CountriesRestService {
+    constructor(http) {
+        this.http = http;
+    }
+    getCountries() {
+        return this.http.get('https://restcountries.eu/rest/v2/all')
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["map"])(data => data.map(item => new _models_countries_countries_dto__WEBPACK_IMPORTED_MODULE_2__["Country"]({ value: item.alpha2Code, viewValue: item.name }))));
+    }
+}
+CountriesRestService.ɵfac = function CountriesRestService_Factory(t) { return new (t || CountriesRestService)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpClient"])); };
+CountriesRestService.ɵprov = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjectable"]({ token: CountriesRestService, factory: CountriesRestService.ɵfac, providedIn: 'root' });
+/*@__PURE__*/ (function () { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](CountriesRestService, [{
+        type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"],
+        args: [{
+                providedIn: 'root'
+            }]
+    }], function () { return [{ type: _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpClient"] }]; }, null); })();
 
 
 /***/ }),

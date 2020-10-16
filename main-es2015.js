@@ -690,7 +690,8 @@ const testUser = {
     email: 'test@gmail.com',
     password: '@Test10',
     refreshTokens: [],
-    selectedAnswer: 'Web'
+    selectedCountry: 'CA',
+    registrationDate: Date.now()
 };
 
 
@@ -784,18 +785,16 @@ class AuthService {
             return user;
         }));
     }
-    register(firstName, lastName, email, password, selectedAnswer) {
-        return this.http.post(`${_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].apiUrl}/users/register`, { firstName, lastName, email, password, selectedAnswer }, { withCredentials: true })
-            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["map"])(user => {
+    register(firstName, lastName, email, password, selectedCountry, registrationDate) {
+        return this.http.post(`${_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].apiUrl}/users/register`, { firstName, lastName, email, password, selectedCountry, registrationDate }, { withCredentials: true }).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["map"])(user => {
             this.userSubject.next(user);
             this.startRefreshTokenTimer();
             localStorage.setItem('jwt-refresh-token-users', JSON.stringify(user));
             return user;
         }));
     }
-    update(id, firstName, lastName, email, password, selectedAnswer) {
-        return this.http.put(`${_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].apiUrl}/users/update`, { id, firstName, lastName, email, password, selectedAnswer }, { withCredentials: true })
-            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["map"])(user => {
+    update(id, firstName, lastName, email, password, selectedCountry, registrationDate) {
+        return this.http.put(`${_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].apiUrl}/users/update`, { id, firstName, lastName, email, password, selectedCountry, registrationDate }, { withCredentials: true }).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["map"])(user => {
             this.userSubject.next(user);
             this.startRefreshTokenTimer();
             localStorage.setItem('jwt-refresh-token-users', JSON.stringify(user));
@@ -931,7 +930,8 @@ class FakeBackendInterceptor {
                 email: user.email,
                 password: user.password,
                 jwtToken: generateJwtToken(),
-                selectedAnswer: user.selectedAnswer
+                selectedCountry: user.selectedCountry,
+                registrationDate: user.registrationDate
             });
         }
         function register() {
@@ -946,7 +946,8 @@ class FakeBackendInterceptor {
                 email: body.email,
                 password: body.password,
                 jwtToken: generateJwtToken(),
-                selectedAnswer: body.selectedAnswer
+                selectedCountry: body.selectedCountry,
+                registrationDate: body.registrationDate
             });
         }
         function updateUser() {
@@ -962,7 +963,8 @@ class FakeBackendInterceptor {
                 email: user.email,
                 password: user.password,
                 jwtToken: generateJwtToken(),
-                selectedAnswer: user.selectedAnswer
+                selectedCountry: user.selectedCountry,
+                registrationDate: user.registrationDate
             });
         }
         function createTasks() {
@@ -1067,7 +1069,8 @@ class FakeBackendInterceptor {
                 email: user.email,
                 password: user.password,
                 jwtToken: generateJwtToken(),
-                selectedAnswer: user.selectedAnswer
+                selectedCountry: user.selectedCountry,
+                registrationDate: user.registrationDate,
             });
         }
         function getLastIndex(list) {

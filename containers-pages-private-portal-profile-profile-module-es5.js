@@ -154,7 +154,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         value: function update(data) {
           var _this = this;
 
-          this.authService.update(this.user.id, data.firstName, data.lastName, data.email, data.password, data.selectedAnswer).subscribe(function (user) {
+          this.authService.update(this.user.id, data.firstName, data.lastName, data.email, data.password, data.selectedCountry, data.registrationDate).subscribe(function (user) {
             return _this.user = user;
           });
         }
@@ -172,7 +172,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       selectors: [["app-settings"]],
       decls: 4,
       vars: 6,
-      consts: [[1, "profile"], [1, "headline"], ["btnContext", "Update", 1, "form", 3, "email", "password", "lastName", "firstName", "isUpdateForm", "selectedItemValue", "registerFormSubmit"]],
+      consts: [[1, "profile"], [1, "headline"], ["btnContext", "Update", 1, "form", 3, "email", "password", "lastName", "firstName", "isUpdateForm", "selectedCountry", "registerFormSubmit"]],
       template: function ProfileComponent_Template(rf, ctx) {
         if (rf & 1) {
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "section", 0);
@@ -197,7 +197,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         if (rf & 2) {
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](3);
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("email", ctx.user.email)("password", ctx.user.password)("lastName", ctx.user.lastName)("firstName", ctx.user.firstName)("isUpdateForm", true)("selectedItemValue", ctx.user.selectedAnswer);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("email", ctx.user.email)("password", ctx.user.password)("lastName", ctx.user.lastName)("firstName", ctx.user.firstName)("isUpdateForm", true)("selectedCountry", ctx.user.selectedCountry);
         }
       },
       directives: [_containers_common_layers_forms_registration_form_registration_form_component__WEBPACK_IMPORTED_MODULE_3__["RegistrationFormComponent"]],

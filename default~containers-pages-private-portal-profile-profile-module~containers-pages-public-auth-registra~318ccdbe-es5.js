@@ -109,7 +109,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](2);
 
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate"](ctx_r5.label);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate"](ctx_r5.viewLabel);
 
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
 
@@ -135,7 +135,9 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
         value: function ngOnChanges() {
           var _this = this;
 
-          if (this.selectedItem) {
+          this.viewLabel = this.loading ? 'loading...' : this.label;
+
+          if (this.selectedItem && this.items.length) {
             this.selectedValue = this.items.find(function (item) {
               return item.value === _this.selectedItem;
             }).value;
@@ -157,6 +159,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       inputs: {
         label: "label",
         items: "items",
+        loading: "loading",
         selectedItem: "selectedItem"
       },
       outputs: {
@@ -176,7 +179,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
         }
       },
       directives: [_angular_common__WEBPACK_IMPORTED_MODULE_1__["NgIf"], _angular_material_form_field__WEBPACK_IMPORTED_MODULE_2__["MatFormField"], _angular_material_form_field__WEBPACK_IMPORTED_MODULE_2__["MatLabel"], _angular_material_select__WEBPACK_IMPORTED_MODULE_3__["MatSelect"], _angular_common__WEBPACK_IMPORTED_MODULE_1__["NgForOf"], _angular_material_core__WEBPACK_IMPORTED_MODULE_4__["MatOption"]],
-      styles: ["[_nghost-%COMP%] {\n  width: 100%;\n  display: block;\n}\n\n.select-wrapper[_ngcontent-%COMP%] {\n  width: 100%;\n  margin-bottom: 20px;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29tcG9uZW50cy9zZWxlY3QvQzpcXFVzZXJzXFx3ZWJ0clxcRGVza3RvcFxcYW5ndWxhciBwcm9qZWN0c1xcTVZQX05cXG1lcmt1cnkvc3JjXFxhcHBcXGNvbXBvbmVudHNcXHNlbGVjdFxcc2VsZWN0LmNvbXBvbmVudC5zY3NzIiwic3JjL2FwcC9jb21wb25lbnRzL3NlbGVjdC9zZWxlY3QuY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDRSxXQUFBO0VBQ0EsY0FBQTtBQ0NGOztBREVBO0VBQ0UsV0FBQTtFQUNBLG1CQUFBO0FDQ0YiLCJmaWxlIjoic3JjL2FwcC9jb21wb25lbnRzL3NlbGVjdC9zZWxlY3QuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyI6aG9zdCB7XHJcbiAgd2lkdGg6IDEwMCU7XHJcbiAgZGlzcGxheTogYmxvY2s7XHJcbn1cclxuXHJcbi5zZWxlY3Qtd3JhcHBlciB7XHJcbiAgd2lkdGg6IDEwMCU7XHJcbiAgbWFyZ2luLWJvdHRvbTogMjBweDtcclxufVxyXG4iLCI6aG9zdCB7XG4gIHdpZHRoOiAxMDAlO1xuICBkaXNwbGF5OiBibG9jaztcbn1cblxuLnNlbGVjdC13cmFwcGVyIHtcbiAgd2lkdGg6IDEwMCU7XG4gIG1hcmdpbi1ib3R0b206IDIwcHg7XG59Il19 */"]
+      styles: ["[_nghost-%COMP%] {\n  width: 100%;\n  display: block;\n}\n\n.select-wrapper[_ngcontent-%COMP%] {\n  width: 100%;\n  margin-bottom: 20px;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29tcG9uZW50cy9zZWxlY3QvQzpcXFVzZXJzXFx3ZWJ0clxcRGVza3RvcFxcYW5ndWxhciBwcm9qZWN0c1xcTVZQX05cXG1lcmt1cnkvc3JjXFxhcHBcXGNvbXBvbmVudHNcXHNlbGVjdFxcc2VsZWN0LmNvbXBvbmVudC5zY3NzIiwic3JjL2FwcC9jb21wb25lbnRzL3NlbGVjdC9zZWxlY3QuY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDRSxXQUFBO0VBQ0EsY0FBQTtBQ0NGOztBREVBO0VBQ0UsV0FBQTtFQUNBLG1CQUFBO0FDQ0YiLCJmaWxlIjoic3JjL2FwcC9jb21wb25lbnRzL3NlbGVjdC9zZWxlY3QuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyI6aG9zdCB7XHJcbiAgd2lkdGg6IDEwMCU7XHJcbiAgZGlzcGxheTogYmxvY2s7XHJcbn1cclxuXHJcbi5zZWxlY3Qtd3JhcHBlciB7XHJcbiAgd2lkdGg6IDEwMCU7XHJcbiAgbWFyZ2luLWJvdHRvbTogMjBweDtcclxufVxyXG5cclxuIiwiOmhvc3Qge1xuICB3aWR0aDogMTAwJTtcbiAgZGlzcGxheTogYmxvY2s7XG59XG5cbi5zZWxlY3Qtd3JhcHBlciB7XG4gIHdpZHRoOiAxMDAlO1xuICBtYXJnaW4tYm90dG9tOiAyMHB4O1xufSJdfQ== */"]
     });
     /*@__PURE__*/
 
@@ -196,6 +199,9 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"]
         }],
         items: [{
+          type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"]
+        }],
+        loading: [{
           type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"]
         }],
         selectedItem: [{
@@ -241,19 +247,25 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     /* harmony import */
 
 
-    var _angular_material_select__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+    var _angular_material_progress_spinner__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+    /*! @angular/material/progress-spinner */
+    "./node_modules/@angular/material/__ivy_ngcc__/fesm2015/progress-spinner.js");
+    /* harmony import */
+
+
+    var _angular_material_select__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
     /*! @angular/material/select */
     "./node_modules/@angular/material/__ivy_ngcc__/fesm2015/select.js");
     /* harmony import */
 
 
-    var _angular_material_form_field__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+    var _angular_material_form_field__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
     /*! @angular/material/form-field */
     "./node_modules/@angular/material/__ivy_ngcc__/fesm2015/form-field.js");
     /* harmony import */
 
 
-    var _components_select_select_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
+    var _components_select_select_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
     /*! @components/select/select.component */
     "./src/app/components/select/select.component.ts");
 
@@ -268,14 +280,14 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       factory: function SelectModule_Factory(t) {
         return new (t || SelectModule)();
       },
-      imports: [[_angular_common__WEBPACK_IMPORTED_MODULE_1__["CommonModule"], _angular_material_select__WEBPACK_IMPORTED_MODULE_2__["MatSelectModule"], _angular_material_form_field__WEBPACK_IMPORTED_MODULE_3__["MatFormFieldModule"]]]
+      imports: [[_angular_common__WEBPACK_IMPORTED_MODULE_1__["CommonModule"], _angular_material_select__WEBPACK_IMPORTED_MODULE_3__["MatSelectModule"], _angular_material_form_field__WEBPACK_IMPORTED_MODULE_4__["MatFormFieldModule"], _angular_material_progress_spinner__WEBPACK_IMPORTED_MODULE_2__["MatProgressSpinnerModule"]]]
     });
 
     (function () {
       (typeof ngJitMode === "undefined" || ngJitMode) && _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵsetNgModuleScope"](SelectModule, {
-        declarations: [_components_select_select_component__WEBPACK_IMPORTED_MODULE_4__["SelectComponent"]],
-        imports: [_angular_common__WEBPACK_IMPORTED_MODULE_1__["CommonModule"], _angular_material_select__WEBPACK_IMPORTED_MODULE_2__["MatSelectModule"], _angular_material_form_field__WEBPACK_IMPORTED_MODULE_3__["MatFormFieldModule"]],
-        exports: [_components_select_select_component__WEBPACK_IMPORTED_MODULE_4__["SelectComponent"]]
+        declarations: [_components_select_select_component__WEBPACK_IMPORTED_MODULE_5__["SelectComponent"]],
+        imports: [_angular_common__WEBPACK_IMPORTED_MODULE_1__["CommonModule"], _angular_material_select__WEBPACK_IMPORTED_MODULE_3__["MatSelectModule"], _angular_material_form_field__WEBPACK_IMPORTED_MODULE_4__["MatFormFieldModule"], _angular_material_progress_spinner__WEBPACK_IMPORTED_MODULE_2__["MatProgressSpinnerModule"]],
+        exports: [_components_select_select_component__WEBPACK_IMPORTED_MODULE_5__["SelectComponent"]]
       });
     })();
     /*@__PURE__*/
@@ -285,9 +297,9 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](SelectModule, [{
         type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["NgModule"],
         args: [{
-          declarations: [_components_select_select_component__WEBPACK_IMPORTED_MODULE_4__["SelectComponent"]],
-          imports: [_angular_common__WEBPACK_IMPORTED_MODULE_1__["CommonModule"], _angular_material_select__WEBPACK_IMPORTED_MODULE_2__["MatSelectModule"], _angular_material_form_field__WEBPACK_IMPORTED_MODULE_3__["MatFormFieldModule"]],
-          exports: [_components_select_select_component__WEBPACK_IMPORTED_MODULE_4__["SelectComponent"]]
+          declarations: [_components_select_select_component__WEBPACK_IMPORTED_MODULE_5__["SelectComponent"]],
+          imports: [_angular_common__WEBPACK_IMPORTED_MODULE_1__["CommonModule"], _angular_material_select__WEBPACK_IMPORTED_MODULE_3__["MatSelectModule"], _angular_material_form_field__WEBPACK_IMPORTED_MODULE_4__["MatFormFieldModule"], _angular_material_progress_spinner__WEBPACK_IMPORTED_MODULE_2__["MatProgressSpinnerModule"]],
+          exports: [_components_select_select_component__WEBPACK_IMPORTED_MODULE_5__["SelectComponent"]]
         }]
       }], null, null);
     })();
@@ -347,9 +359,9 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     /* harmony import */
 
 
-    var _mocks_register_form_select_items__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
-    /*! @mocks/register-form-select-items */
-    "./src/app/mocks/register-form-select-items.ts");
+    var _services_countries_rest_service_countries_rest_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
+    /*! @services/countries-rest-service/countries-rest.service */
+    "./src/app/modules/services/countries-rest-service/countries-rest.service.ts");
     /* harmony import */
 
 
@@ -386,20 +398,22 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     var RegistrationFormComponent =
     /*#__PURE__*/
     function () {
-      function RegistrationFormComponent(formBuilder) {
+      function RegistrationFormComponent(formBuilder, countriesService) {
         _classCallCheck(this, RegistrationFormComponent);
 
         this.formBuilder = formBuilder;
+        this.countriesService = countriesService;
         this.registerFormSubmit = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["EventEmitter"]();
         this.email = '';
         this.password = '';
         this.lastName = '';
         this.firstName = '';
-        this.selectedItemValue = '';
+        this.selectedCountry = '';
         this.btnContext = 'Register';
         this.isUpdateForm = false;
         this.faIcon = _enums_icon_class_enum__WEBPACK_IMPORTED_MODULE_4__["iconClass"];
-        this.selectAnswers = _mocks_register_form_select_items__WEBPACK_IMPORTED_MODULE_5__["REGISTER_FORM_SELECT_ITEMS"];
+        this.countries = [];
+        this.isLoading = true;
         this.isFocusForm = false;
       }
 
@@ -412,6 +426,12 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
         key: "ngOnInit",
         value: function ngOnInit() {
           this.initForm();
+          this.getCountries();
+        }
+      }, {
+        key: "ngOnDestroy",
+        value: function ngOnDestroy() {
+          this.stream.unsubscribe();
         }
       }, {
         key: "onSubmit",
@@ -421,7 +441,8 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
             firstName: this.registerForm.value.firstName,
             lastName: this.registerForm.value.lastName,
             password: this.registerForm.value.password,
-            selectedAnswer: this.registerForm.value.selectedAnswer
+            selectedCountry: this.registerForm.value.selectedCountry,
+            registrationDate: new Date()
           });
           this.isFocusForm = true;
           this.registerForm.controls.isUpdateFormValuesValidator.setErrors({
@@ -437,10 +458,20 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
             email: [this.email, [_angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].required, _angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]],
             password: [this.password, [_angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].required, _angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{6,24}')]],
             confirmPassword: [this.password],
-            selectedAnswer: [this.selectedItemValue],
+            selectedCountry: [this.selectedCountry],
             isUpdateFormValuesValidator: []
           }, {
-            validator: [Object(_modules_shared_validations_must_match_validator__WEBPACK_IMPORTED_MODULE_2__["MatchValuesValidator"])('password', 'confirmPassword'), Object(_modules_shared_validations_update_form_values_validator__WEBPACK_IMPORTED_MODULE_3__["UpdateFormValuesValidator"])([this.firstName, this.lastName, this.email, this.password, this.selectedItemValue], ['firstName', 'lastName', 'email', 'password', 'selectedAnswer'])]
+            validator: [Object(_modules_shared_validations_must_match_validator__WEBPACK_IMPORTED_MODULE_2__["MatchValuesValidator"])('password', 'confirmPassword'), Object(_modules_shared_validations_update_form_values_validator__WEBPACK_IMPORTED_MODULE_3__["UpdateFormValuesValidator"])([this.firstName, this.lastName, this.email, this.password, this.selectedCountry], ['firstName', 'lastName', 'email', 'password', 'selectedCountry'])]
+          });
+        }
+      }, {
+        key: "getCountries",
+        value: function getCountries() {
+          var _this2 = this;
+
+          this.stream = this.countriesService.getCountries().subscribe(function (countries) {
+            _this2.isLoading = false;
+            _this2.countries = countries;
           });
         }
       }, {
@@ -459,7 +490,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     }();
 
     RegistrationFormComponent.ɵfac = function RegistrationFormComponent_Factory(t) {
-      return new (t || RegistrationFormComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormBuilder"]));
+      return new (t || RegistrationFormComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormBuilder"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services_countries_rest_service_countries_rest_service__WEBPACK_IMPORTED_MODULE_5__["CountriesRestService"]));
     };
 
     RegistrationFormComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({
@@ -488,7 +519,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
         password: "password",
         lastName: "lastName",
         firstName: "firstName",
-        selectedItemValue: "selectedItemValue",
+        selectedCountry: "selectedCountry",
         btnContext: "btnContext",
         isUpdateForm: "isUpdateForm"
       },
@@ -496,8 +527,8 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
         registerFormSubmit: "registerFormSubmit"
       },
       decls: 41,
-      vars: 16,
-      consts: [["novalidate", "", 1, "form", 3, "formGroup", "ngSubmit"], ["formElement", ""], ["type", "text", "name", "user", "placeholder", "First name", "autocomplete", "on", "formControlName", "firstName", 1, "form-control"], ["formInput", ""], ["slot", "icon", "aria-hidden", "true", 3, "ngClass"], ["formIcon", ""], [3, "invalid"], ["type", "text", "name", "user", "placeholder", "Last name", "autocomplete", "on", "formControlName", "lastName", 1, "form-control"], ["type", "text", "name", "email", "placeholder", "Email", "autocomplete", "on", "formControlName", "email", 1, "form-control"], ["type", "password", "name", "password", "placeholder", "Password", "autocomplete", "on", "formControlName", "password", 1, "form-control"], ["type", "password", "name", "password", "placeholder", "Confirm password", "autocomplete", "on", "formControlName", "confirmPassword", 1, "form-control"], ["label", "How did you hear about us ?", 3, "items", "selectedItem", "selectedChange"], ["className", "btn_submit", 3, "context", "state"]],
+      vars: 17,
+      consts: [["novalidate", "", 1, "form", 3, "formGroup", "ngSubmit"], ["formElement", ""], ["type", "text", "name", "user", "placeholder", "First name", "autocomplete", "on", "formControlName", "firstName", 1, "form-control"], ["formInput", ""], ["slot", "icon", "aria-hidden", "true", 3, "ngClass"], ["formIcon", ""], [3, "invalid"], ["type", "text", "name", "user", "placeholder", "Last name", "autocomplete", "on", "formControlName", "lastName", 1, "form-control"], ["type", "text", "name", "email", "placeholder", "Email", "autocomplete", "on", "formControlName", "email", 1, "form-control"], ["type", "password", "name", "password", "placeholder", "Password", "autocomplete", "on", "formControlName", "password", 1, "form-control"], ["type", "password", "name", "password", "placeholder", "Confirm password", "autocomplete", "on", "formControlName", "confirmPassword", 1, "form-control"], ["label", "What is your country ?", 3, "items", "loading", "selectedItem", "selectedChange"], ["className", "btn_submit", 3, "context", "state"]],
       template: function RegistrationFormComponent_Template(rf, ctx) {
         if (rf & 1) {
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "form", 0, 1);
@@ -579,7 +610,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](37, "app-select", 11);
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("selectedChange", function RegistrationFormComponent_Template_app_select_selectedChange_37_listener($event) {
-            return ctx.form["selectedAnswer"].setValue($event);
+            return ctx.form["selectedCountry"].setValue($event);
           });
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
@@ -640,7 +671,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](2);
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("items", ctx.selectAnswers)("selectedItem", ctx.selectedItemValue);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("items", ctx.countries)("loading", ctx.isLoading)("selectedItem", ctx.selectedCountry);
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
 
@@ -666,6 +697,8 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }], function () {
         return [{
           type: _angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormBuilder"]
+        }, {
+          type: _services_countries_rest_service_countries_rest_service__WEBPACK_IMPORTED_MODULE_5__["CountriesRestService"]
         }];
       }, {
         formRef: [{
@@ -687,7 +720,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
         firstName: [{
           type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"]
         }],
-        selectedItemValue: [{
+        selectedCountry: [{
           type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"]
         }],
         btnContext: [{
@@ -813,36 +846,132 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
   },
 
   /***/
-  "./src/app/mocks/register-form-select-items.ts":
-  /*!*****************************************************!*\
-    !*** ./src/app/mocks/register-form-select-items.ts ***!
-    \*****************************************************/
+  "./src/app/models/countries/countries.dto.ts":
+  /*!***************************************************!*\
+    !*** ./src/app/models/countries/countries.dto.ts ***!
+    \***************************************************/
 
-  /*! exports provided: REGISTER_FORM_SELECT_ITEMS */
+  /*! exports provided: Country */
 
   /***/
-  function srcAppMocksRegisterFormSelectItemsTs(module, __webpack_exports__, __webpack_require__) {
+  function srcAppModelsCountriesCountriesDtoTs(module, __webpack_exports__, __webpack_require__) {
     "use strict";
 
     __webpack_require__.r(__webpack_exports__);
     /* harmony export (binding) */
 
 
-    __webpack_require__.d(__webpack_exports__, "REGISTER_FORM_SELECT_ITEMS", function () {
-      return REGISTER_FORM_SELECT_ITEMS;
+    __webpack_require__.d(__webpack_exports__, "Country", function () {
+      return Country;
     });
 
-    var REGISTER_FORM_SELECT_ITEMS = [{
-      value: 'Web',
-      viewValue: 'From web source'
-    }, {
-      value: 'Social',
-      viewValue: 'From friends or social'
-    }, {
-      value: 'Randomly',
-      viewValue: 'Actually, found randomly'
-    }];
+    var Country = function Country(data) {
+      _classCallCheck(this, Country);
+
+      if (data) {
+        this.value = data.value;
+        this.viewValue = data.viewValue;
+      }
+    };
     /***/
+
+  },
+
+  /***/
+  "./src/app/modules/services/countries-rest-service/countries-rest.service.ts":
+  /*!***********************************************************************************!*\
+    !*** ./src/app/modules/services/countries-rest-service/countries-rest.service.ts ***!
+    \***********************************************************************************/
+
+  /*! exports provided: CountriesRestService */
+
+  /***/
+  function srcAppModulesServicesCountriesRestServiceCountriesRestServiceTs(module, __webpack_exports__, __webpack_require__) {
+    "use strict";
+
+    __webpack_require__.r(__webpack_exports__);
+    /* harmony export (binding) */
+
+
+    __webpack_require__.d(__webpack_exports__, "CountriesRestService", function () {
+      return CountriesRestService;
+    });
+    /* harmony import */
+
+
+    var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
+    /*! @angular/core */
+    "./node_modules/@angular/core/__ivy_ngcc__/fesm2015/core.js");
+    /* harmony import */
+
+
+    var rxjs_operators__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+    /*! rxjs/operators */
+    "./node_modules/rxjs/_esm2015/operators/index.js");
+    /* harmony import */
+
+
+    var _models_countries_countries_dto__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+    /*! @models/countries/countries.dto */
+    "./src/app/models/countries/countries.dto.ts");
+    /* harmony import */
+
+
+    var _angular_common_http__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+    /*! @angular/common/http */
+    "./node_modules/@angular/common/__ivy_ngcc__/fesm2015/http.js");
+
+    var CountriesRestService =
+    /*#__PURE__*/
+    function () {
+      function CountriesRestService(http) {
+        _classCallCheck(this, CountriesRestService);
+
+        this.http = http;
+      }
+
+      _createClass(CountriesRestService, [{
+        key: "getCountries",
+        value: function getCountries() {
+          return this.http.get('https://restcountries.eu/rest/v2/all').pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["map"])(function (data) {
+            return data.map(function (item) {
+              return new _models_countries_countries_dto__WEBPACK_IMPORTED_MODULE_2__["Country"]({
+                value: item.alpha2Code,
+                viewValue: item.name
+              });
+            });
+          }));
+        }
+      }]);
+
+      return CountriesRestService;
+    }();
+
+    CountriesRestService.ɵfac = function CountriesRestService_Factory(t) {
+      return new (t || CountriesRestService)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpClient"]));
+    };
+
+    CountriesRestService.ɵprov = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjectable"]({
+      token: CountriesRestService,
+      factory: CountriesRestService.ɵfac,
+      providedIn: 'root'
+    });
+    /*@__PURE__*/
+
+    (function () {
+      _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](CountriesRestService, [{
+        type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"],
+        args: [{
+          providedIn: 'root'
+        }]
+      }], function () {
+        return [{
+          type: _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpClient"]
+        }];
+      }, null);
+    })();
+    /***/
+
   },
 
   /***/

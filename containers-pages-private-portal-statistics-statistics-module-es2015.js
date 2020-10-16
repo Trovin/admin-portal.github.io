@@ -55,7 +55,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/__ivy_ngcc__/fesm2015/core.js");
 /* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm2015/index.js");
 /* harmony import */ var _enums_safe_chart_type_enum__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @enums/safe-chart-type.enum */ "./src/app/enums/safe-chart-type.enum.ts");
-/* harmony import */ var _services_task_service_task_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @services/task-service/task.service */ "./src/app/modules/services/task-service/task.service.ts");
+/* harmony import */ var _services_task_rest_service_task_rest_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @services/task-rest-service/task-rest.service */ "./src/app/modules/services/task-rest-service/task-rest.service.ts");
 /* harmony import */ var _services_compose_chart_service_compose_chart_data_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @services/compose-chart-service/compose-chart-data.service */ "./src/app/modules/services/compose-chart-service/compose-chart-data.service.ts");
 /* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/__ivy_ngcc__/fesm2015/common.js");
 /* harmony import */ var _components_chart_chart_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../../../components/chart/chart.component */ "./src/app/components/chart/chart.component.ts");
@@ -100,7 +100,7 @@ class StatisticsComponent {
         this.stream.unsubscribe();
     }
 }
-StatisticsComponent.ɵfac = function StatisticsComponent_Factory(t) { return new (t || StatisticsComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services_task_service_task_service__WEBPACK_IMPORTED_MODULE_3__["TaskService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services_compose_chart_service_compose_chart_data_service__WEBPACK_IMPORTED_MODULE_4__["ComposeChartDataService"])); };
+StatisticsComponent.ɵfac = function StatisticsComponent_Factory(t) { return new (t || StatisticsComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services_task_rest_service_task_rest_service__WEBPACK_IMPORTED_MODULE_3__["TaskRestService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services_compose_chart_service_compose_chart_data_service__WEBPACK_IMPORTED_MODULE_4__["ComposeChartDataService"])); };
 StatisticsComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({ type: StatisticsComponent, selectors: [["app-statistics"]], decls: 13, vars: 21, consts: [[1, "headline"], ["class", "spinner-icon", 3, "diameter", 4, "ngIf"], [1, "grid-container"], [1, "item-card"], ["idKey", "1", 3, "type", "text", "values", "labels", "colors"], ["idKey", "2", 3, "type", "text", "values", "labels", "colors"], ["idKey", "3", 3, "type", "text", "values", "labels", "colors"], ["idKey", "4", 3, "type", "text", "values", "labels", "colors"], [1, "spinner-icon", 3, "diameter"]], template: function StatisticsComponent_Template(rf, ctx) { if (rf & 1) {
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 0);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](1, " Common statistics ");
@@ -141,7 +141,7 @@ StatisticsComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefi
                 templateUrl: './statistics.component.html',
                 styleUrls: ['./statistics.component.scss']
             }]
-    }], function () { return [{ type: _services_task_service_task_service__WEBPACK_IMPORTED_MODULE_3__["TaskService"] }, { type: _services_compose_chart_service_compose_chart_data_service__WEBPACK_IMPORTED_MODULE_4__["ComposeChartDataService"] }]; }, null); })();
+    }], function () { return [{ type: _services_task_rest_service_task_rest_service__WEBPACK_IMPORTED_MODULE_3__["TaskRestService"] }, { type: _services_compose_chart_service_compose_chart_data_service__WEBPACK_IMPORTED_MODULE_4__["ComposeChartDataService"] }]; }, null); })();
 
 
 /***/ }),

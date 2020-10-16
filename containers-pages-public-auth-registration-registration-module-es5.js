@@ -163,7 +163,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         value: function register(data) {
           var _this = this;
 
-          this.stream = this.authService.register(data.firstName, data.lastName, data.email, data.password, data.selectedAnswer).subscribe(function () {
+          this.stream = this.authService.register(data.firstName, data.lastName, data.email, data.password, data.selectedCountry, data.registrationDate).subscribe(function () {
             return _this.router.navigate(['portal/home']);
           });
         }

@@ -18,7 +18,7 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-(window["webpackJsonp"] = window["webpackJsonp"] || []).push([["default~containers-pages-private-portal-home-home-module~containers-pages-private-portal-statistics-~e8376ccd"], {
+(window["webpackJsonp"] = window["webpackJsonp"] || []).push([["default~containers-pages-private-portal-home-home-module~containers-pages-private-portal-profile-pro~39ac6a36"], {
   /***/
   "./node_modules/@angular/material/__ivy_ngcc__/fesm2015/progress-spinner.js":
   /*!**********************************************************************************!*\
@@ -918,120 +918,6 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
     /***/
 
-  },
-
-  /***/
-  "./src/app/modules/services/task-service/task.service.ts":
-  /*!***************************************************************!*\
-    !*** ./src/app/modules/services/task-service/task.service.ts ***!
-    \***************************************************************/
-
-  /*! exports provided: TaskService */
-
-  /***/
-  function srcAppModulesServicesTaskServiceTaskServiceTs(module, __webpack_exports__, __webpack_require__) {
-    "use strict";
-
-    __webpack_require__.r(__webpack_exports__);
-    /* harmony export (binding) */
-
-
-    __webpack_require__.d(__webpack_exports__, "TaskService", function () {
-      return TaskService;
-    });
-    /* harmony import */
-
-
-    var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
-    /*! @angular/core */
-    "./node_modules/@angular/core/__ivy_ngcc__/fesm2015/core.js");
-    /* harmony import */
-
-
-    var _environments_environment__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
-    /*! @environments/environment */
-    "./src/environments/environment.ts");
-    /* harmony import */
-
-
-    var _angular_common_http__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
-    /*! @angular/common/http */
-    "./node_modules/@angular/common/__ivy_ngcc__/fesm2015/http.js");
-
-    var TaskService =
-    /*#__PURE__*/
-    function () {
-      function TaskService(http) {
-        _classCallCheck(this, TaskService);
-
-        this.http = http;
-      }
-
-      _createClass(TaskService, [{
-        key: "createTask",
-        value: function createTask(newTask) {
-          return this.http.post("".concat(_environments_environment__WEBPACK_IMPORTED_MODULE_1__["environment"].apiUrl, "/tasks/create"), newTask);
-        }
-      }, {
-        key: "getTasks",
-        value: function getTasks() {
-          return this.http.get("".concat(_environments_environment__WEBPACK_IMPORTED_MODULE_1__["environment"].apiUrl, "/tasks"));
-        }
-      }, {
-        key: "getTasksByLists",
-        value: function getTasksByLists() {
-          return this.http.get("".concat(_environments_environment__WEBPACK_IMPORTED_MODULE_1__["environment"].apiUrl, "/tasks/list"));
-        }
-      }, {
-        key: "getPriorityTasks",
-        value: function getPriorityTasks() {
-          return this.http.get("".concat(_environments_environment__WEBPACK_IMPORTED_MODULE_1__["environment"].apiUrl, "/tasks/?isPriority=true"));
-        }
-      }, {
-        key: "updateTaskById",
-        value: function updateTaskById(id, task) {
-          return this.http.put("".concat(_environments_environment__WEBPACK_IMPORTED_MODULE_1__["environment"].apiUrl, "/tasks/update/").concat(id), task);
-        }
-      }, {
-        key: "updateTasksLists",
-        value: function updateTasksLists(data) {
-          return this.http.put("".concat(_environments_environment__WEBPACK_IMPORTED_MODULE_1__["environment"].apiUrl, "/tasks/lists"), data);
-        }
-      }, {
-        key: "deleteTaskById",
-        value: function deleteTaskById(id) {
-          return this.http["delete"]("".concat(_environments_environment__WEBPACK_IMPORTED_MODULE_1__["environment"].apiUrl, "/tasks/delete/").concat(id));
-        }
-      }]);
-
-      return TaskService;
-    }();
-
-    TaskService.ɵfac = function TaskService_Factory(t) {
-      return new (t || TaskService)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClient"]));
-    };
-
-    TaskService.ɵprov = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjectable"]({
-      token: TaskService,
-      factory: TaskService.ɵfac,
-      providedIn: 'root'
-    });
-    /*@__PURE__*/
-
-    (function () {
-      _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](TaskService, [{
-        type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"],
-        args: [{
-          providedIn: 'root'
-        }]
-      }], function () {
-        return [{
-          type: _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClient"]
-        }];
-      }, null);
-    })();
-    /***/
-
   }
 }]);
-//# sourceMappingURL=default~containers-pages-private-portal-home-home-module~containers-pages-private-portal-statistics-~e8376ccd-es5.js.map
+//# sourceMappingURL=default~containers-pages-private-portal-home-home-module~containers-pages-private-portal-profile-pro~39ac6a36-es5.js.map

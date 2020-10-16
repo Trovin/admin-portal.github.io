@@ -1,4 +1,4 @@
-(window["webpackJsonp"] = window["webpackJsonp"] || []).push([["default~containers-pages-private-portal-home-home-module~containers-pages-private-portal-statistics-~e8376ccd"],{
+(window["webpackJsonp"] = window["webpackJsonp"] || []).push([["default~containers-pages-private-portal-home-home-module~containers-pages-private-portal-profile-pro~39ac6a36"],{
 
 /***/ "./node_modules/@angular/material/__ivy_ngcc__/fesm2015/progress-spinner.js":
 /*!**********************************************************************************!*\
@@ -539,62 +539,7 @@ MatProgressSpinnerModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵ�
 
 //# sourceMappingURL=progress-spinner.js.map
 
-/***/ }),
-
-/***/ "./src/app/modules/services/task-service/task.service.ts":
-/*!***************************************************************!*\
-  !*** ./src/app/modules/services/task-service/task.service.ts ***!
-  \***************************************************************/
-/*! exports provided: TaskService */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TaskService", function() { return TaskService; });
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/__ivy_ngcc__/fesm2015/core.js");
-/* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @environments/environment */ "./src/environments/environment.ts");
-/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/__ivy_ngcc__/fesm2015/http.js");
-
-
-
-
-class TaskService {
-    constructor(http) {
-        this.http = http;
-    }
-    createTask(newTask) {
-        return this.http.post(`${_environments_environment__WEBPACK_IMPORTED_MODULE_1__["environment"].apiUrl}/tasks/create`, newTask);
-    }
-    getTasks() {
-        return this.http.get(`${_environments_environment__WEBPACK_IMPORTED_MODULE_1__["environment"].apiUrl}/tasks`);
-    }
-    getTasksByLists() {
-        return this.http.get(`${_environments_environment__WEBPACK_IMPORTED_MODULE_1__["environment"].apiUrl}/tasks/list`);
-    }
-    getPriorityTasks() {
-        return this.http.get(`${_environments_environment__WEBPACK_IMPORTED_MODULE_1__["environment"].apiUrl}/tasks/?isPriority=true`);
-    }
-    updateTaskById(id, task) {
-        return this.http.put(`${_environments_environment__WEBPACK_IMPORTED_MODULE_1__["environment"].apiUrl}/tasks/update/${id}`, task);
-    }
-    updateTasksLists(data) {
-        return this.http.put(`${_environments_environment__WEBPACK_IMPORTED_MODULE_1__["environment"].apiUrl}/tasks/lists`, data);
-    }
-    deleteTaskById(id) {
-        return this.http.delete(`${_environments_environment__WEBPACK_IMPORTED_MODULE_1__["environment"].apiUrl}/tasks/delete/${id}`);
-    }
-}
-TaskService.ɵfac = function TaskService_Factory(t) { return new (t || TaskService)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClient"])); };
-TaskService.ɵprov = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjectable"]({ token: TaskService, factory: TaskService.ɵfac, providedIn: 'root' });
-/*@__PURE__*/ (function () { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](TaskService, [{
-        type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"],
-        args: [{
-                providedIn: 'root'
-            }]
-    }], function () { return [{ type: _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClient"] }]; }, null); })();
-
-
 /***/ })
 
 }]);
-//# sourceMappingURL=default~containers-pages-private-portal-home-home-module~containers-pages-private-portal-statistics-~e8376ccd-es2015.js.map
+//# sourceMappingURL=default~containers-pages-private-portal-home-home-module~containers-pages-private-portal-profile-pro~39ac6a36-es2015.js.map
