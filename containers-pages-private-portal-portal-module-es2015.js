@@ -3160,11 +3160,11 @@ const portalRoutes = [
             },
             {
                 path: 'workflow',
-                loadChildren: () => Promise.all(/*! import() | containers-pages-private-portal-workflow-workflow-module */[__webpack_require__.e("default~containers-pages-private-portal-profile-profile-module~containers-pages-private-portal-users~29c95446"), __webpack_require__.e("default~containers-pages-private-portal-home-home-module~containers-pages-private-portal-profile-pro~39ac6a36"), __webpack_require__.e("default~containers-pages-private-portal-profile-profile-module~containers-pages-private-portal-users~f2c93c97"), __webpack_require__.e("default~containers-pages-private-portal-profile-profile-module~containers-pages-private-portal-workf~03791db4"), __webpack_require__.e("default~containers-pages-private-portal-users-users-module~containers-pages-private-portal-workflow-~aaa4252a"), __webpack_require__.e("default~containers-pages-private-portal-users-users-module~containers-pages-private-portal-workflow-~5c093ccb"), __webpack_require__.e("default~containers-pages-private-portal-workflow-workflow-module~containers-pages-public-auth-login-~a2715d51"), __webpack_require__.e("containers-pages-private-portal-workflow-workflow-module")]).then(__webpack_require__.bind(null, /*! @containers/pages/private/portal/workflow/workflow.module */ "./src/app/containers/pages/private/portal/workflow/workflow.module.ts")).then(m => m.WorkflowModule)
+                loadChildren: () => Promise.all(/*! import() | containers-pages-private-portal-workflow-workflow-module */[__webpack_require__.e("default~containers-pages-private-portal-profile-profile-module~containers-pages-private-portal-users~29c95446"), __webpack_require__.e("default~containers-pages-private-portal-home-home-module~containers-pages-private-portal-profile-pro~39ac6a36"), __webpack_require__.e("default~containers-pages-private-portal-profile-profile-module~containers-pages-private-portal-users~f2c93c97"), __webpack_require__.e("default~containers-pages-private-portal-profile-profile-module~containers-pages-private-portal-workf~03791db4"), __webpack_require__.e("default~containers-pages-private-portal-users-users-module~containers-pages-private-portal-workflow-~5c093ccb"), __webpack_require__.e("default~containers-pages-private-portal-workflow-workflow-module~containers-pages-public-auth-login-~a2715d51"), __webpack_require__.e("containers-pages-private-portal-workflow-workflow-module")]).then(__webpack_require__.bind(null, /*! @containers/pages/private/portal/workflow/workflow.module */ "./src/app/containers/pages/private/portal/workflow/workflow.module.ts")).then(m => m.WorkflowModule)
             },
             {
                 path: 'users',
-                loadChildren: () => Promise.all(/*! import() | containers-pages-private-portal-users-users-module */[__webpack_require__.e("default~containers-pages-private-portal-profile-profile-module~containers-pages-private-portal-users~29c95446"), __webpack_require__.e("default~containers-pages-private-portal-profile-profile-module~containers-pages-private-portal-users~f2c93c97"), __webpack_require__.e("default~containers-pages-private-portal-users-users-module~containers-pages-private-portal-workflow-~aaa4252a"), __webpack_require__.e("default~containers-pages-private-portal-users-users-module~containers-pages-private-portal-workflow-~5c093ccb"), __webpack_require__.e("common"), __webpack_require__.e("containers-pages-private-portal-users-users-module")]).then(__webpack_require__.bind(null, /*! @containers/pages/private/portal/users/users.module */ "./src/app/containers/pages/private/portal/users/users.module.ts")).then(m => m.UsersModule)
+                loadChildren: () => Promise.all(/*! import() | containers-pages-private-portal-users-users-module */[__webpack_require__.e("default~containers-pages-private-portal-profile-profile-module~containers-pages-private-portal-users~29c95446"), __webpack_require__.e("default~containers-pages-private-portal-profile-profile-module~containers-pages-private-portal-users~f2c93c97"), __webpack_require__.e("default~containers-pages-private-portal-users-users-module~containers-pages-private-portal-workflow-~5c093ccb"), __webpack_require__.e("common"), __webpack_require__.e("containers-pages-private-portal-users-users-module")]).then(__webpack_require__.bind(null, /*! @containers/pages/private/portal/users/users.module */ "./src/app/containers/pages/private/portal/users/users.module.ts")).then(m => m.UsersModule)
             },
             {
                 path: 'statistics',
@@ -3288,10 +3288,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PortalModule", function() { return PortalModule; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/__ivy_ngcc__/fesm2015/core.js");
 /* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/__ivy_ngcc__/fesm2015/common.js");
-/* harmony import */ var _containers_page_layers_header_header_module__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @containers/page-layers/header/header.module */ "./src/app/containers/page-layers/header/header.module.ts");
-/* harmony import */ var _containers_page_layers_sidebar_sidebar_module__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @containers/page-layers/sidebar/sidebar.module */ "./src/app/containers/page-layers/sidebar/sidebar.module.ts");
-/* harmony import */ var _containers_pages_private_portal_portal_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @containers/pages/private/portal/portal.component */ "./src/app/containers/pages/private/portal/portal.component.ts");
-/* harmony import */ var _containers_pages_private_portal_portal_routing_module__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @containers/pages/private/portal/portal-routing.module */ "./src/app/containers/pages/private/portal/portal-routing.module.ts");
+/* harmony import */ var _angular_material_snack_bar__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/material/snack-bar */ "./node_modules/@angular/material/__ivy_ngcc__/fesm2015/snack-bar.js");
+/* harmony import */ var _containers_page_layers_header_header_module__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @containers/page-layers/header/header.module */ "./src/app/containers/page-layers/header/header.module.ts");
+/* harmony import */ var _containers_page_layers_sidebar_sidebar_module__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @containers/page-layers/sidebar/sidebar.module */ "./src/app/containers/page-layers/sidebar/sidebar.module.ts");
+/* harmony import */ var _containers_pages_private_portal_portal_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @containers/pages/private/portal/portal.component */ "./src/app/containers/pages/private/portal/portal.component.ts");
+/* harmony import */ var _containers_pages_private_portal_portal_routing_module__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @containers/pages/private/portal/portal-routing.module */ "./src/app/containers/pages/private/portal/portal-routing.module.ts");
+
 
 
 
@@ -3304,25 +3306,28 @@ class PortalModule {
 PortalModule.ɵmod = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineNgModule"]({ type: PortalModule });
 PortalModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjector"]({ factory: function PortalModule_Factory(t) { return new (t || PortalModule)(); }, imports: [[
             _angular_common__WEBPACK_IMPORTED_MODULE_1__["CommonModule"],
-            _containers_page_layers_header_header_module__WEBPACK_IMPORTED_MODULE_2__["HeaderModule"],
-            _containers_page_layers_sidebar_sidebar_module__WEBPACK_IMPORTED_MODULE_3__["SidebarModule"],
-            _containers_pages_private_portal_portal_routing_module__WEBPACK_IMPORTED_MODULE_5__["PortalRoutingModule"]
+            _containers_page_layers_header_header_module__WEBPACK_IMPORTED_MODULE_3__["HeaderModule"],
+            _containers_page_layers_sidebar_sidebar_module__WEBPACK_IMPORTED_MODULE_4__["SidebarModule"],
+            _angular_material_snack_bar__WEBPACK_IMPORTED_MODULE_2__["MatSnackBarModule"],
+            _containers_pages_private_portal_portal_routing_module__WEBPACK_IMPORTED_MODULE_6__["PortalRoutingModule"]
         ]] });
-(function () { (typeof ngJitMode === "undefined" || ngJitMode) && _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵsetNgModuleScope"](PortalModule, { declarations: [_containers_pages_private_portal_portal_component__WEBPACK_IMPORTED_MODULE_4__["PortalComponent"]], imports: [_angular_common__WEBPACK_IMPORTED_MODULE_1__["CommonModule"],
-        _containers_page_layers_header_header_module__WEBPACK_IMPORTED_MODULE_2__["HeaderModule"],
-        _containers_page_layers_sidebar_sidebar_module__WEBPACK_IMPORTED_MODULE_3__["SidebarModule"],
-        _containers_pages_private_portal_portal_routing_module__WEBPACK_IMPORTED_MODULE_5__["PortalRoutingModule"]], exports: [_containers_pages_private_portal_portal_component__WEBPACK_IMPORTED_MODULE_4__["PortalComponent"]] }); })();
+(function () { (typeof ngJitMode === "undefined" || ngJitMode) && _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵsetNgModuleScope"](PortalModule, { declarations: [_containers_pages_private_portal_portal_component__WEBPACK_IMPORTED_MODULE_5__["PortalComponent"]], imports: [_angular_common__WEBPACK_IMPORTED_MODULE_1__["CommonModule"],
+        _containers_page_layers_header_header_module__WEBPACK_IMPORTED_MODULE_3__["HeaderModule"],
+        _containers_page_layers_sidebar_sidebar_module__WEBPACK_IMPORTED_MODULE_4__["SidebarModule"],
+        _angular_material_snack_bar__WEBPACK_IMPORTED_MODULE_2__["MatSnackBarModule"],
+        _containers_pages_private_portal_portal_routing_module__WEBPACK_IMPORTED_MODULE_6__["PortalRoutingModule"]], exports: [_containers_pages_private_portal_portal_component__WEBPACK_IMPORTED_MODULE_5__["PortalComponent"]] }); })();
 /*@__PURE__*/ (function () { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](PortalModule, [{
         type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["NgModule"],
         args: [{
-                declarations: [_containers_pages_private_portal_portal_component__WEBPACK_IMPORTED_MODULE_4__["PortalComponent"]],
+                declarations: [_containers_pages_private_portal_portal_component__WEBPACK_IMPORTED_MODULE_5__["PortalComponent"]],
                 imports: [
                     _angular_common__WEBPACK_IMPORTED_MODULE_1__["CommonModule"],
-                    _containers_page_layers_header_header_module__WEBPACK_IMPORTED_MODULE_2__["HeaderModule"],
-                    _containers_page_layers_sidebar_sidebar_module__WEBPACK_IMPORTED_MODULE_3__["SidebarModule"],
-                    _containers_pages_private_portal_portal_routing_module__WEBPACK_IMPORTED_MODULE_5__["PortalRoutingModule"]
+                    _containers_page_layers_header_header_module__WEBPACK_IMPORTED_MODULE_3__["HeaderModule"],
+                    _containers_page_layers_sidebar_sidebar_module__WEBPACK_IMPORTED_MODULE_4__["SidebarModule"],
+                    _angular_material_snack_bar__WEBPACK_IMPORTED_MODULE_2__["MatSnackBarModule"],
+                    _containers_pages_private_portal_portal_routing_module__WEBPACK_IMPORTED_MODULE_6__["PortalRoutingModule"]
                 ],
-                exports: [_containers_pages_private_portal_portal_component__WEBPACK_IMPORTED_MODULE_4__["PortalComponent"]]
+                exports: [_containers_pages_private_portal_portal_component__WEBPACK_IMPORTED_MODULE_5__["PortalComponent"]]
             }]
     }], null, null); })();
 

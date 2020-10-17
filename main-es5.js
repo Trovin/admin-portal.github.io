@@ -410,7 +410,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       loadChildren: function loadChildren() {
         return Promise.all(
         /*! import() | containers-pages-private-portal-portal-module */
-        [__webpack_require__.e("default~containers-pages-private-portal-portal-module~containers-pages-public-auth-login-login-modul~01abc2a8"), __webpack_require__.e("default~containers-pages-private-portal-portal-module~containers-pages-public-auth-auth-module"), __webpack_require__.e("containers-pages-private-portal-portal-module")]).then(__webpack_require__.bind(null,
+        [__webpack_require__.e("default~containers-pages-private-portal-portal-module~containers-pages-public-auth-login-login-modul~01abc2a8"), __webpack_require__.e("default~containers-pages-private-portal-portal-module~containers-pages-public-auth-login-login-module"), __webpack_require__.e("default~containers-pages-private-portal-portal-module~containers-pages-public-auth-auth-module"), __webpack_require__.e("containers-pages-private-portal-portal-module")]).then(__webpack_require__.bind(null,
         /*! @containers/pages/private/portal/portal.module */
         "./src/app/containers/pages/private/portal/portal.module.ts")).then(function (m) {
           return m.PortalModule;

@@ -352,7 +352,7 @@ const appRoutes = [
     },
     {
         path: 'portal',
-        loadChildren: () => Promise.all(/*! import() | containers-pages-private-portal-portal-module */[__webpack_require__.e("default~containers-pages-private-portal-portal-module~containers-pages-public-auth-login-login-modul~01abc2a8"), __webpack_require__.e("default~containers-pages-private-portal-portal-module~containers-pages-public-auth-auth-module"), __webpack_require__.e("containers-pages-private-portal-portal-module")]).then(__webpack_require__.bind(null, /*! @containers/pages/private/portal/portal.module */ "./src/app/containers/pages/private/portal/portal.module.ts")).then(m => m.PortalModule),
+        loadChildren: () => Promise.all(/*! import() | containers-pages-private-portal-portal-module */[__webpack_require__.e("default~containers-pages-private-portal-portal-module~containers-pages-public-auth-login-login-modul~01abc2a8"), __webpack_require__.e("default~containers-pages-private-portal-portal-module~containers-pages-public-auth-login-login-module"), __webpack_require__.e("default~containers-pages-private-portal-portal-module~containers-pages-public-auth-auth-module"), __webpack_require__.e("containers-pages-private-portal-portal-module")]).then(__webpack_require__.bind(null, /*! @containers/pages/private/portal/portal.module */ "./src/app/containers/pages/private/portal/portal.module.ts")).then(m => m.PortalModule),
         canActivate: [_core_access_guard_access_guard__WEBPACK_IMPORTED_MODULE_2__["AccessGuard"]]
     },
     {
