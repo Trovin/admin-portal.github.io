@@ -199,6 +199,9 @@ class RegistrationFormComponent {
     onGlobalClick(event) {
         this.isFocusForm = this.formRef.nativeElement.contains(event.target);
     }
+    ngOnChanges() {
+        this.initForm();
+    }
     ngOnInit() {
         this.initForm();
         this.getCountries();
@@ -221,8 +224,7 @@ class RegistrationFormComponent {
             selectedCountry: this.registerForm.value.selectedCountry,
             registrationDate: new Date()
         });
-        this.isFocusForm = true;
-        this.registerForm.controls.isUpdateFormValuesValidator.setErrors({ mustContainUpdateValues: true });
+        this.isFocusForm = false;
     }
     initForm() {
         this.registerForm = this.formBuilder.group({
@@ -276,7 +278,7 @@ RegistrationFormComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵ
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵqueryRefresh"](_t = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵloadQuery"]()) && (ctx.formRef = _t.first);
     } }, hostBindings: function RegistrationFormComponent_HostBindings(rf, ctx) { if (rf & 1) {
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("mousedown", function RegistrationFormComponent_mousedown_HostBindingHandler($event) { return ctx.onGlobalClick($event); }, false, _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵresolveDocument"]);
-    } }, inputs: { email: "email", password: "password", lastName: "lastName", firstName: "firstName", selectedCountry: "selectedCountry", btnContext: "btnContext", isUpdateForm: "isUpdateForm" }, outputs: { registerFormSubmit: "registerFormSubmit" }, decls: 41, vars: 17, consts: [["novalidate", "", 1, "form", 3, "formGroup", "ngSubmit"], ["formElement", ""], ["type", "text", "name", "user", "placeholder", "First name", "autocomplete", "on", "formControlName", "firstName", 1, "form-control"], ["formInput", ""], ["slot", "icon", "aria-hidden", "true", 3, "ngClass"], ["formIcon", ""], [3, "invalid"], ["type", "text", "name", "user", "placeholder", "Last name", "autocomplete", "on", "formControlName", "lastName", 1, "form-control"], ["type", "text", "name", "email", "placeholder", "Email", "autocomplete", "on", "formControlName", "email", 1, "form-control"], ["type", "password", "name", "password", "placeholder", "Password", "autocomplete", "on", "formControlName", "password", 1, "form-control"], ["type", "password", "name", "password", "placeholder", "Confirm password", "autocomplete", "on", "formControlName", "confirmPassword", 1, "form-control"], ["label", "What is your country ?", 3, "items", "loading", "selectedItem", "selectedChange"], ["className", "btn_submit", 3, "context", "state"]], template: function RegistrationFormComponent_Template(rf, ctx) { if (rf & 1) {
+    } }, inputs: { email: "email", password: "password", lastName: "lastName", firstName: "firstName", selectedCountry: "selectedCountry", btnContext: "btnContext", isUpdateForm: "isUpdateForm" }, outputs: { registerFormSubmit: "registerFormSubmit" }, features: [_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵNgOnChangesFeature"]], decls: 41, vars: 17, consts: [["novalidate", "", 1, "form", 3, "formGroup", "ngSubmit"], ["formElement", ""], ["type", "text", "name", "user", "placeholder", "First name", "autocomplete", "on", "formControlName", "firstName", 1, "form-control"], ["formInput", ""], ["slot", "icon", "aria-hidden", "true", 3, "ngClass"], ["formIcon", ""], [3, "invalid"], ["type", "text", "name", "user", "placeholder", "Last name", "autocomplete", "on", "formControlName", "lastName", 1, "form-control"], ["type", "text", "name", "email", "placeholder", "Email", "autocomplete", "on", "formControlName", "email", 1, "form-control"], ["type", "password", "name", "password", "placeholder", "Password", "autocomplete", "on", "formControlName", "password", 1, "form-control"], ["type", "password", "name", "password", "placeholder", "Confirm password", "autocomplete", "on", "formControlName", "confirmPassword", 1, "form-control"], ["label", "What is your country ?", 3, "items", "loading", "selectedItem", "selectedChange"], ["className", "btn_submit", 3, "context", "state"]], template: function RegistrationFormComponent_Template(rf, ctx) { if (rf & 1) {
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "form", 0, 1);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("ngSubmit", function RegistrationFormComponent_Template_form_ngSubmit_0_listener() { return ctx.onSubmit(); });
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](2, "app-form-field");
@@ -556,6 +558,7 @@ function UpdateFormValuesValidator(defaultValues, controls) {
             }
         });
         isUpdate ? matchingControl.setErrors(null) : matchingControl.setErrors({ mustContainUpdateValues: true });
+        isUpdate = false;
     };
 }
 

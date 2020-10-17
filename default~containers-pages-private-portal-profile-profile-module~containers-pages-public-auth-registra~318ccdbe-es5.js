@@ -423,6 +423,11 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           this.isFocusForm = this.formRef.nativeElement.contains(event.target);
         }
       }, {
+        key: "ngOnChanges",
+        value: function ngOnChanges() {
+          this.initForm();
+        }
+      }, {
         key: "ngOnInit",
         value: function ngOnInit() {
           this.initForm();
@@ -444,10 +449,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
             selectedCountry: this.registerForm.value.selectedCountry,
             registrationDate: new Date()
           });
-          this.isFocusForm = true;
-          this.registerForm.controls.isUpdateFormValuesValidator.setErrors({
-            mustContainUpdateValues: true
-          });
+          this.isFocusForm = false;
         }
       }, {
         key: "initForm",
@@ -526,6 +528,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       outputs: {
         registerFormSubmit: "registerFormSubmit"
       },
+      features: [_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵNgOnChangesFeature"]],
       decls: 41,
       vars: 17,
       consts: [["novalidate", "", 1, "form", 3, "formGroup", "ngSubmit"], ["formElement", ""], ["type", "text", "name", "user", "placeholder", "First name", "autocomplete", "on", "formControlName", "firstName", 1, "form-control"], ["formInput", ""], ["slot", "icon", "aria-hidden", "true", 3, "ngClass"], ["formIcon", ""], [3, "invalid"], ["type", "text", "name", "user", "placeholder", "Last name", "autocomplete", "on", "formControlName", "lastName", 1, "form-control"], ["type", "text", "name", "email", "placeholder", "Email", "autocomplete", "on", "formControlName", "email", 1, "form-control"], ["type", "password", "name", "password", "placeholder", "Password", "autocomplete", "on", "formControlName", "password", 1, "form-control"], ["type", "password", "name", "password", "placeholder", "Confirm password", "autocomplete", "on", "formControlName", "confirmPassword", 1, "form-control"], ["label", "What is your country ?", 3, "items", "loading", "selectedItem", "selectedChange"], ["className", "btn_submit", 3, "context", "state"]],
@@ -1046,6 +1049,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
         isUpdate ? matchingControl.setErrors(null) : matchingControl.setErrors({
           mustContainUpdateValues: true
         });
+        isUpdate = false;
       };
     }
     /***/
